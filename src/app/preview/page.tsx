@@ -28,7 +28,6 @@ export default async function Home({ searchParams }: TypesParams) {
       return redirect(`/preview?error=Required fields are missing.`);
     }
 
-    const supabase = supabaseServerClient();
     const user = await getUserDetails();
 
     if (user == null) {
