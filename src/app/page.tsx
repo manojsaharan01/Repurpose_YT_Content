@@ -1,15 +1,19 @@
-import Link from 'next/link';
+import Features from '@/components/landingPage/Features';
+import Footer from '@/components/landingPage/Footer';
+import FrequentlyAskedQuestions from '@/components/landingPage/FrequentlyAskedQuestions';
+import Hero from '@/components/landingPage/Hero';
+import Pricing from '@/components/landingPage/Pricing';
+import WorkFlow from '@/components/landingPage/WorkFlow';
 
 export default async function Home() {
   return (
-    <div>
-      <h1 className='text-lg font-medium text-center mb-6'>AI Content Creator Landing Page</h1>
-
-      <div className='flex justify-center text-sm'>
-        <Link href='/preview' className='underline'>
-          Preview
-        </Link>
-      </div>
+    <div className='space-y-[200px]'>
+      <Hero />
+      {/* <Features /> */}
+      <WorkFlow />
+      <Pricing />
+      <FrequentlyAskedQuestions />
+      <Footer />
     </div>
   );
 }
