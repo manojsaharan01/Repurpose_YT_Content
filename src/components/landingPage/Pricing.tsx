@@ -5,6 +5,7 @@ import { Button } from '../ui/button';
 import { FaFire } from 'react-icons/fa';
 import CheckedIcon from '@/assets/icons/CheckedIcon';
 import { CiGift } from 'react-icons/ci';
+import { cn } from '@/utils/utils';
 
 const ProfessionalPlanFeatures = [
   'Single user license',
@@ -29,6 +30,33 @@ const EnterprisePlanFeatures = [
   'Unlimited projects',
 ];
 
+const plans = [
+  {
+    badge: 'Professional',
+    price: '$56',
+    features: ProfessionalPlanFeatures,
+    background: '#DFFFF2',
+    isTop: false,
+    textColor: 'text-[#2AA875]',
+  },
+  {
+    badge: 'Team',
+    price: '$112',
+    features: TeamPlanFeatures,
+    background: '#26AB75',
+    isTop: true,
+    textColor: 'text-white',
+  },
+  {
+    badge: 'Enterprise',
+    price: '$224',
+    features: EnterprisePlanFeatures,
+    background: '#DFFFF2',
+    isTop: false,
+    textColor: 'text-[#2AA875]',
+  },
+];
+
 const ListItem = ({ text }: { text: string }) => (
   <li className='flex items-center gap-3 text-black text-lg not-italic font-normal leading-7'>
     <CheckedIcon /> {text}
@@ -48,86 +76,53 @@ const Pricing = () => {
         </p>
       </div>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 space-y-10 md:space-y-0'>
-        <Card className='w-full h-fit'>
-          <CardContent className='m-8 p-0'>
-            <Badge className='text-sm not-italic font-medium leading-5 mb-8'>Professional</Badge>
-            <div className='flex gap-1'>
-              <p className='text-black text-3xl not-italic font-normal'>$</p>
-              <p className='text-black text-5xl not-italic font-bold'>56</p>
-            </div>
-            <p className='text-black text-lg not-italic font-normal leading-7'>
-              For freelancers, indie developers or solopreneurs.
-            </p>
-            <Button className='rounded-full w-full bg-[#DFFFF2] border border-[#E7E7E7] py-6 font-bold text-[#2AA875] mt-6 mb-12 gap-2'>
-              <FaFire className='h-5 w-5' />
-              Buy Now
-            </Button>
-            <ul className='space-y-3'>
-              {ProfessionalPlanFeatures.map((text, index) => (
-                <ListItem key={index} text={text} />
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
-        <Card className='w-full h-fit border-4 relative border-[#26AB75]'>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            className='absolute -top-[34px] left-1/2 transform -translate-x-1/2'
-            width='207'
-            height='34'
-            viewBox='0 0 207 34'
-            fill='none'>
-            <path
-              d='M32.6055 14C32.6055 6.26801 38.8735 0 46.6055 0H156.605C164.337 0 170.605 6.26801 170.605 14V16.1931C170.605 23.8493 176.756 30.0854 184.411 30.1917L206.605 30.5C206.605 32.433 205.038 34 203.105 34H2.60547C1.5009 34 0.605469 33.1046 0.605469 32C0.605469 30.8954 1.5009 30 2.60547 30H18.6055C26.3375 30 32.6055 23.732 32.6055 16V14Z'
-              fill='#26AB75'
-            />
-          </svg>
-          <p className='text-lg not-italic font-semibold leading-7 text-white absolute -top-[32px] left-1/2 transform -translate-x-1/2'>
-            Best Value
-          </p>
-          <CardContent className='m-8 p-0'>
-            <Badge className='text-sm not-italic font-medium leading-5 mb-8'>Team</Badge>
-            <div className='flex gap-1'>
-              <p className='text-black text-3xl not-italic font-normal'>$</p>
-              <p className='text-black text-5xl not-italic font-bold'>112</p>
-            </div>
-            <p className='text-black text-lg not-italic font-normal leading-7'>
-              For freelancers, indie developers or solopreneurs.
-            </p>
-            <Button
-              variant='default'
-              className='rounded-full w-full border border-[#E7E7E7] py-6 font-bold mt-6 mb-12 gap-2'>
-              <FaFire className='h-5 w-5' />
-              Buy Now
-            </Button>
-            <ul className='space-y-3'>
-              {TeamPlanFeatures.map((text, index) => (
-                <ListItem key={index} text={text} />
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
-        <Card className='w-full'>
-          <CardContent className='m-8 p-0'>
-            <Badge className='text-sm not-italic font-medium leading-5 mb-8'>Enterprise</Badge>
-            <div className='flex gap-1'>
-              <p className='text-black text-3xl not-italic font-normal'>$</p>
-              <p className='text-black text-5xl not-italic font-bold'>224</p>
-            </div>
-            <p className='text-black text-lg not-italic font-normal leading-7'>
-              For freelancers, indie developers or solopreneurs.
-            </p>
-            <Button className='rounded-full w-full bg-[#DFFFF2] border border-[#E7E7E7] py-6 font-bold text-[#2AA875] mt-6 mb-12 gap-2'>
-              <FaFire className='h-5 w-5' />
-              Buy Now
-            </Button>
-            <ul className='space-y-3'>
-              {EnterprisePlanFeatures.map((text, index) => (
-                <ListItem key={index} text={text} />
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
+        {plans.map((plan, index) => (
+          <Card key={index} className={`w-full h-fit ${plan.isTop ? 'border-4 border-[#26AB75]' : ''}`}>
+            <CardContent className='m-8 p-0'>
+              {plan.isTop && (
+                <div className='relative'>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    className='absolute -top-[66px] left-1/2 transform -translate-x-1/2'
+                    width='207'
+                    height='34'
+                    viewBox='0 0 207 34'
+                    fill='none'>
+                    <path
+                      d='M32.6055 14C32.6055 6.26801 38.8735 0 46.6055 0H156.605C164.337 0 170.605 6.26801 170.605 14V16.1931C170.605 23.8493 176.756 30.0854 184.411 30.1917L206.605 30.5C206.605 32.433 205.038 34 203.105 34H2.60547C1.5009 34 0.605469 33.1046 0.605469 32C0.605469 30.8954 1.5009 30 2.60547 30H18.6055C26.3375 30 32.6055 23.732 32.6055 16V14Z'
+                      fill='#26AB75'
+                    />
+                  </svg>
+                  <p className='text-lg not-italic font-semibold leading-7 text-white absolute -top-[63px] left-1/2 transform -translate-x-1/2'>
+                    Best Now
+                  </p>
+                </div>
+              )}
+              <Badge className='text-sm not-italic font-medium leading-5 mb-8'>{plan.badge}</Badge>
+              <div className='flex gap-1'>
+                <p className='text-black text-3xl not-italic font-normal'>$</p>
+                <p className='text-black text-5xl not-italic font-bold'>{plan.price}</p>
+              </div>
+              <p className='text-black text-lg not-italic font-normal leading-7'>
+                For freelancers, indie developers or solopreneurs.
+              </p>
+              <Button
+                className={cn(
+                  'rounded-full w-full border border-[#E7E7E7] py-6 font-bold mt-6 mb-12 gap-2',
+                  plan.background && `bg-[${plan.background}]`,
+                  plan.textColor
+                )}>
+                <FaFire className='h-5 w-5' />
+                Buy Now
+              </Button>
+              <ul className='space-y-3'>
+                {plan.features.map((text, index) => (
+                  <ListItem key={index} text={text} />
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+        ))}
       </div>
       <div className='mt-5 mb-24 flex justify-center items-center'>
         <Button
