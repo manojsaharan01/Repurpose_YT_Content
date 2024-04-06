@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import Script from 'next/script';
 import Navbar from '@/components/Navbar';
+import Navbar2 from '@/components/Navbar2';
 
 const font = Inter({ subsets: ['latin'] });
 
@@ -47,7 +48,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <html lang='en'>
         <body className={font.className}>
           <main className='bg-[#031614]'>
-            <Navbar />
+            {/* <Navbar /> */}
+            <Navbar2 />
             <div className='max-w-6xl  mx-auto mt-10'>{children}</div>
           </main>
         </body>

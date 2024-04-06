@@ -1,3 +1,4 @@
+import ChangeMyName from '@/components/landingPage/ChangeMyName';
 import Features from '@/components/landingPage/Features';
 import Footer from '@/components/landingPage/Footer';
 import FrequentlyAskedQuestions from '@/components/landingPage/FrequentlyAskedQuestions';
@@ -9,7 +10,8 @@ export default async function Home() {
   return (
     <div className='space-y-[200px]'>
       <Hero />
-      {/* <Features /> */}
+      <Features />
+      <ChangeMyName />
       <WorkFlow />
       <Pricing />
       <FrequentlyAskedQuestions />

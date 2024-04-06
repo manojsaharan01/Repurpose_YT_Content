@@ -4,6 +4,15 @@ import { CiTwitter } from 'react-icons/ci';
 import { FaDribbble, FaInstagram } from 'react-icons/fa';
 import { MdOutlineEmail } from 'react-icons/md';
 
+const footerItems = ['Home', 'Pricing', 'FAQ', 'Changelog', 'License', 'Terms', 'Contact'];
+
+const socialMediaIcons = [
+  { icon: <CiTwitter className='h-5 w-5 text-white' />, name: 'Twitter' },
+  { icon: <FaInstagram className='h-5 w-5 text-white' />, name: 'Instagram' },
+  { icon: <FaDribbble className='h-5 w-5 text-white' />, name: 'Dribbble' },
+  { icon: <MdOutlineEmail className='h-5 w-5 text-white' />, name: 'Email' },
+];
+
 const Footer = () => {
   return (
     <div className='space-y-[154px]'>
@@ -15,33 +24,26 @@ const Footer = () => {
             data
           </p>
           <div className='mt-8 flex justify-center'>
-            <Button className=''>Get Started</Button>
+            <Button className='rounded-lg border border-[#51DCA3] green-btn-gradient'>Get Started</Button>
           </div>
           <div className='flex gap-10 justify-center'>
-            <div className='flex w-12 h-12 justify-center items-center border rounded-full  social-background'>
-              <CiTwitter className='h-5 w-5 text-white' />
-            </div>
-            <div className='flex w-12 h-12 justify-center items-center border rounded-full  social-background'>
-              <FaInstagram className='h-5 w-5 text-white' />
-            </div>
-            <div className='flex w-12 h-12 justify-center items-center border rounded-full  social-background'>
-              <FaDribbble className='h-5 w-5 text-white' />
-            </div>
-            <div className='flex w-12 h-12 justify-center items-center border rounded-full  social-background'>
-              <MdOutlineEmail className='h-5 w-5 text-white' />
-            </div>
+            {socialMediaIcons.map((socialMedia, index) => (
+              <div
+                key={index}
+                className='flex w-12 h-12 justify-center items-center border rounded-full social-background cursor-pointer'>
+                {socialMedia.icon}
+              </div>
+            ))}
           </div>
         </div>
       </div>
       <div className='border-t border-white/10 space-y-12 py-16'>
         <ul className='flex gap-5 justify-center text-[#A5ABB6]'>
-          <li>Home</li>
-          <li>Pricing</li>
-          <li>FAQ</li>
-          <li>Changlog</li>
-          <li>Licence</li>
-          <li>Terms</li>
-          <li>Contact</li>
+          {footerItems.map((item, index) => (
+            <li key={index} className='text-[#A5ABB6] text-base font-normal'>
+              {item}
+            </li>
+          ))}
         </ul>
         <div className='text-[#676D79] font-normal flex justify-center'>
           © 2020 – 2022 GenAI. All rights reserved.
