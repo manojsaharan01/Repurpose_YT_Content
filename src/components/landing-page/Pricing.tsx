@@ -7,53 +7,38 @@ import CheckedIcon from '@/assets/icons/CheckedIcon';
 import { CiGift } from 'react-icons/ci';
 import { cn } from '@/utils/utils';
 
-const ProfessionalPlanFeatures = [
-  'Single user license',
-  'Lifetime updates',
-  '5,000+ icons',
-  '6 unique styles',
-];
-const TeamPlanFeatures = [
-  'Single user license',
-  'Lifetime updates',
-  '5,000+ icons',
-  '6 unique styles',
-  'Live stroke & corners',
-];
-const EnterprisePlanFeatures = [
-  'Single user license',
-  'Lifetime updates',
-  '5,000+ icons',
-  '6 unique styles',
-  'Powered by variants',
-  'IconJar & SVG library',
-  'Unlimited projects',
-];
-
 const plans = [
   {
     badge: 'Professional',
     price: '$56',
-    features: ProfessionalPlanFeatures,
-    background: '#DFFFF2',
-    isTop: false,
-    textColor: 'text-[#2AA875]',
+    features: ['Single user license', 'Lifetime updates', '5,000+ icons', '6 unique styles'],
+    isHiglighted: false,
   },
   {
     badge: 'Team',
     price: '$112',
-    features: TeamPlanFeatures,
-    background: '#26AB75',
-    isTop: true,
-    textColor: 'text-white',
+    features: [
+      'Single user license',
+      'Lifetime updates',
+      '5,000+ icons',
+      '6 unique styles',
+      'Live stroke & corners',
+    ],
+    isHiglighted: true,
   },
   {
     badge: 'Enterprise',
     price: '$224',
-    features: EnterprisePlanFeatures,
-    background: '#DFFFF2',
-    isTop: false,
-    textColor: 'text-[#2AA875]',
+    features: [
+      'Single user license',
+      'Lifetime updates',
+      '5,000+ icons',
+      '6 unique styles',
+      'Powered by variants',
+      'IconJar & SVG library',
+      'Unlimited projects',
+    ],
+    isHiglighted: false,
   },
 ];
 
@@ -65,9 +50,9 @@ const ListItem = ({ text }: { text: string }) => (
 
 const Pricing = () => {
   return (
-    <div className='space-y-[120px] mx-8'>
+    <div className='space-y-[120px] px-6'>
       <div className='space-y-5'>
-        <h1 className='text-center text-[56px] font-medium leading-[56px] pricing-header '>
+        <h1 className='text-center text-5xl md:text-[56px] font-medium leading-[56px] pricing-header '>
           Pay once, use forever, upgrade for free
         </h1>
         <p className='text-[#C8C8C8] text-center text-xl not-italic font-normal leading-8 max-w-3xl mx-auto'>
@@ -77,13 +62,15 @@ const Pricing = () => {
       </div>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 space-y-10 md:space-y-0'>
         {plans.map((plan, index) => (
-          <Card key={index} className={`w-full h-fit ${plan.isTop ? 'border-4 border-[#26AB75]' : ''}`}>
+          <Card
+            key={index}
+            className={`w-full h-fit ${plan.isHiglighted ? 'border-4 border-[#26AB75]' : ''}`}>
             <CardContent className='m-8 p-0'>
-              {plan.isTop && (
+              {plan.isHiglighted && (
                 <div className='relative'>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
-                    className='absolute -top-[66px] left-1/2 transform -translate-x-1/2'
+                    className='absolute top-[-66px] left-1/2 -translate-x-1/2'
                     width='207'
                     height='34'
                     viewBox='0 0 207 34'
@@ -93,7 +80,7 @@ const Pricing = () => {
                       fill='#26AB75'
                     />
                   </svg>
-                  <p className='text-lg not-italic font-semibold leading-7 text-white absolute -top-[63px] left-1/2 transform -translate-x-1/2'>
+                  <p className='text-lg not-italic font-semibold leading-7 text-white absolute top-[-63px] left-1/2 -translate-x-1/2'>
                     Best Now
                   </p>
                 </div>
@@ -109,10 +96,9 @@ const Pricing = () => {
               <Button
                 className={cn(
                   'rounded-full w-full border border-[#E7E7E7] py-6 font-bold mt-6 mb-12 gap-2',
-                  plan.background && `bg-[${plan.background}]`,
-                  plan.textColor
+                  plan.isHiglighted ? 'text-white bg-[#26AB75]' : 'text-[#2AA875] bg-[#DFFFF2]'
                 )}>
-                <FaFire className='h-5 w-5' />
+                <FaFire className='size-5' />
                 Buy Now
               </Button>
               <ul className='space-y-3'>
@@ -129,7 +115,7 @@ const Pricing = () => {
           variant='outline'
           className='rounded-full text-green-600 text-center text-base not-italic font-medium leading-6 gap-3 py-6 hover:text-green-600'>
           {' '}
-          <CiGift className='h-6 w-6' />
+          <CiGift className='size-6' />
           Try free demo
         </Button>
       </div>

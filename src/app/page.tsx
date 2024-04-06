@@ -1,20 +1,20 @@
-import ChangeMyName from '@/components/landingPage/ChangeMyName';
-import Features from '@/components/landingPage/Features';
-import Footer from '@/components/landingPage/Footer';
-import FrequentlyAskedQuestions from '@/components/landingPage/FrequentlyAskedQuestions';
-import Hero from '@/components/landingPage/Hero';
-import Pricing from '@/components/landingPage/Pricing';
-import WorkFlow from '@/components/landingPage/WorkFlow';
+import Features from '@/components/landing-page/Features';
+import FeaturedOn from '@/components/landing-page/FeaturedOn';
+import Footer from '@/components/landing-page/Footer';
+import FAQs from '@/components/landing-page/FAQs';
+import Hero from '@/components/landing-page/Hero';
+import Pricing from '@/components/landing-page/Pricing';
+import WorkFlow from '@/components/landing-page/WorkFlow';
 
 export default async function Home() {
   return (
     <div className='space-y-[200px]'>
       <Hero />
+      <FeaturedOn />
       <Features />
-      <ChangeMyName />
       <WorkFlow />
       <Pricing />
-      <FrequentlyAskedQuestions />
+      <FAQs />
       <Footer />
     </div>
   );
