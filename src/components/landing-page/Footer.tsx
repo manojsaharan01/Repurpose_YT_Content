@@ -15,7 +15,7 @@ const socialMediaIcons = [
 
 const Footer = () => {
   return (
-    <div className='space-y-[154px]'>
+    <div className='space-y-[154px] mt-44'>
       <div className='space-y-10 max-w-[676px] mx-auto px-4'>
         <h1 className='text-[#ABABB0] text-5xl md:text-[56px] text-center font-medium'>
           Unleash the power of AI

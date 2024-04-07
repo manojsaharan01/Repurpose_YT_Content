@@ -22,10 +22,10 @@ const accordionData = [
 
 const FAQs = () => {
   return (
-    <div id='faq' className='space-y-16'>
+    <div id='faq' className='space-y-16 mt-44'>
       <div className='space-y-5 px-4'>
         <h1 className='text-center text-5xl md:text-[56px] font-medium leading-[56px] pricing-header '>
-          Need help?{' '}
+          Need help?
         </h1>
         <p className='text-[#C8C8C8] text-center text-lg md:text-xl not-italic font-normal leading-8 max-w-3xl mx-auto'>
           Don't worry, we got you. Here are some answers for your questions.

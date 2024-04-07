@@ -4,7 +4,7 @@ import card from '@/assets/images/card.png';
 
 const WorkFlow = () => {
   return (
-    <div className='space-y-[96px] p-6'>
+    <div className='space-y-[96px] p-6 mt-44'>
       <div className='space-y-5 max-w-[676px] mx-auto'>
         <h1 className='text-[#ABABB0] text-5xl md:text-[56px] text-center font-medium'>
           Unleash the power of AI

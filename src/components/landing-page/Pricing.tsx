@@ -50,7 +50,7 @@ const ListItem = ({ text }: { text: string }) => (
 
 const Pricing = () => {
   return (
-    <div className='space-y-[120px] px-6'>
+    <div className='space-y-[120px] px-6 mt-44'>
       <div className='space-y-5'>
         <h1 className='text-center text-5xl md:text-[56px] font-medium leading-[56px] pricing-header '>
           Pay once, use forever, upgrade for free
