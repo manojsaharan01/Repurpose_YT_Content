@@ -28,6 +28,7 @@ const EmailAuth: FC<EmailAuthProps> = () => {
 
     if (error) {
       toast({ description: error, variant: 'destructive' });
+      return;
     }
 
     router.push('/generate');
