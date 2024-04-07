@@ -27,12 +27,12 @@ const InputWrapper: FC<InputWrapperProps> = ({
   className,
 }) => {
   return (
-    <div className={cn('w-full relative', className)}>
+    <div className={cn('w-full relative text-[#27262B]', className)}>
       <div className='mb-2'>
         <label htmlFor={id} className='flex items-end gap-1 mb-1'>
           {extraOption && <div className='w-4'>{extraOption}</div>}
           <div className='flex items-end gap-1 w-full'>
-            {label && <p className={cn('text-sm leading-none')}>{label}</p>}
+            {label && <p className={cn('font-medium leading-none')}>{label}</p>}
             {comment && <p className='text-xs font-light text-gray-500'>({comment})</p>}
             {infoPopover && <div className='ml-auto h-4'>{infoPopover}</div>}
           </div>

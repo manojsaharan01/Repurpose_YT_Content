@@ -1,10 +1,12 @@
 import { cn } from '@/utils/utils';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { HiBars3 } from 'react-icons/hi2';
-import ButtonCta from './landing-page/ButtonCta';
+import { getUserDetails } from '@/utils/supabase/server';
+import ButtonCta from '../landing-page/ButtonCta';
+import SignOutButton from './SignOutButton';
 
 const NavbarRoutes = [
   { label: 'Features', url: '/#features' },
@@ -14,8 +16,10 @@ const NavbarRoutes = [
 ];
 
 export default async function Navbar() {
+  const user = await getUserDetails();
+
   return (
-    <div className='w-full  text-white'>
+    <div className='w-full  text-white bg-[#031614]'>
       <div className={cn('max-w-6xl mx-auto flex justify-between p-4')}>
         <Link href='/'>
           <div className='flex items-center gap-1'>
@@ -31,7 +35,8 @@ export default async function Navbar() {
           ))}
         </ul>
 
-        <ButtonCta label='Sign Up' className='hidden md:flex' />
+        {user ? <SignOutButton /> : <ButtonCta label='Sign In' />}
+
         <Sheet>
           <SheetTrigger className='block md:hidden'>
             <HiBars3 />

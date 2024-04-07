@@ -28,7 +28,7 @@ const EmailAuth: FC<EmailAuthProps> = ({ searchParams }) => {
       return redirect(`/login?error=${error}`);
     }
 
-    return redirect('/preview');
+    return redirect('/generate');
   };
 
   const signUp = async (formData: FormData) => {
@@ -51,7 +51,7 @@ const EmailAuth: FC<EmailAuthProps> = ({ searchParams }) => {
       return redirect(`/login?error=${error}`);
     }
 
-    return redirect('/preview');
+    return redirect('/generate');
   };
 
   return (

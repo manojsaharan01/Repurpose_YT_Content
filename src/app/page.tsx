@@ -9,13 +9,15 @@ import WorkFlow from '@/components/landing-page/WorkFlow';
 export default async function Home() {
   return (
     <div className='space-y-[200px] bg-[#031614]'>
-      <Hero />
-      <FeaturedOn />
-      <Features />
-      <WorkFlow />
-      <Pricing />
-      <FAQs />
-      <Footer />
+      <div className='max-w-6xl mx-auto pt-10'>
+        <Hero />
+        <FeaturedOn />
+        <Features />
+        <WorkFlow />
+        <Pricing />
+        <FAQs />
+        <Footer />
+      </div>
     </div>
   );
 }
