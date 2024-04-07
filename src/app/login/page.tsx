@@ -28,7 +28,7 @@ export default function Login() {
         <div>
           <p className='text-xl text-center text-white'>Kiya hector</p>
           <p className='text-sm text-center italic font-light text-white/80 mt-4'>
-            Founder & CEO <span className='font-normal text-white/90'>@Shipfast</span>
+            Founder & CEO <span className='font-normal text-white/90'>@AIBoilerplate</span>
           </p>
         </div>
       </div>
