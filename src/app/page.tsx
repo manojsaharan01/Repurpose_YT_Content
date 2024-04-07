@@ -8,7 +8,7 @@ import WorkFlow from '@/components/landing-page/WorkFlow';
 
 export default async function Home() {
   return (
-    <div className='space-y-[200px]'>
+    <div className='space-y-[200px] bg-[#031614]'>
       <Hero />
       <FeaturedOn />
       <Features />

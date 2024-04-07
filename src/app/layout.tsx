@@ -46,7 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
       <html lang='en'>
         <body className={font.className}>
-          <main className='bg-[#031614]'>
+          <main className=''>
             <Navbar />
             <div className='max-w-6xl mx-auto mt-10'>{children}</div>
           </main>
