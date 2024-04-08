@@ -5,8 +5,6 @@ import { getUserDetails, supabaseServerClient } from '@/utils/supabase/server';
 import { revalidatePath } from 'next/cache';
 
 export async function generateContentFn(formData: FormData) {
-  'use server';
-
   try {
     const user = await getUserDetails();
 
@@ -37,7 +35,9 @@ export async function generateContentFn(formData: FormData) {
     }
 
     revalidatePath('/preview');
+    
+    return response;
   } catch (error) {
-    return `${error}`;
+    throw new Error(`${error}`);
   }
 }

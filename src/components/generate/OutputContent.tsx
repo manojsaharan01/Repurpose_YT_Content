@@ -10,9 +10,17 @@ type OutputContentProps = {
   data: TypeContent[];
   contents?: TypeContent;
   onSelectContent: (value: TypeContent) => void;
+  setTopic: React.Dispatch<React.SetStateAction<string | undefined>>;
+  setStyle: React.Dispatch<React.SetStateAction<string | undefined>>;
 };
 
-const OutputContent: FC<OutputContentProps> = ({ data, contents, onSelectContent }: OutputContentProps) => {
+const OutputContent: FC<OutputContentProps> = ({
+  data,
+  contents,
+  onSelectContent,
+  setTopic,
+  setStyle,
+}: OutputContentProps) => {
   const [currentTab, setCurrentTab] = React.useState('output');
 
   return (
@@ -31,19 +39,27 @@ const OutputContent: FC<OutputContentProps> = ({ data, contents, onSelectContent
 
         <TabsContent value='output'>
           <ScrollArea className='h-[380px] bg-[#9f9f9f]/5 rounded-lg border border-black/5 px-5 py-4'>
-            {Array.isArray(contents?.results) && contents.results.length > 0 ? (
-              contents.results.map((item: any, index: any) => (
-                <div key={index} className='text-sm'>
-                  <p className='font-semibold mb-2'>{item.title}</p>
-                  <p className='text-justify'>{item?.content}</p>
-                  {Array.isArray(contents?.results) && index !== contents.results.length - 1 && (
-                    <Separator className='my-5' />
-                  )}
-                </div>
-              ))
-            ) : (
+            {(contents && Array.isArray(contents)
+              ? contents
+              : contents && Array.isArray(contents.results)
+                ? contents.results
+                : []
+            ).map((item: any, index: any) => (
+              <div key={index} className='text-sm'>
+                <p className='font-semibold mb-2'>{item.title}</p>
+                <p className='text-justify'>{item?.content}</p>
+                {index !==
+                  (contents && Array.isArray(contents.results) ? contents.results.length - 1 : -1) && (
+                  <Separator className='my-5' />
+                )}
+              </div>
+            ))}
+
+            {!contents ||
+            (Array.isArray(contents) && contents.length === 0) ||
+            (contents && Array.isArray(contents.results) && contents.results.length === 0) ? (
               <p className='text-sm text-[#B9B9B9]'>See the output here...</p>
-            )}
+            ) : null}
           </ScrollArea>
         </TabsContent>
 
@@ -56,6 +72,8 @@ const OutputContent: FC<OutputContentProps> = ({ data, contents, onSelectContent
                 onClick={() => {
                   setCurrentTab('output');
                   onSelectContent(item);
+                  setTopic(item.topic);
+                  setStyle(item.style);
                 }}>
                 <div className='text-[#B9B9B9] text-sm font-semibold'>{index + 1}.</div>
                 <div className='space-y-1'>

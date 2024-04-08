@@ -4,11 +4,11 @@ import { FC, useState } from 'react';
 import { Input } from '../ui/input';
 import { SubmitButton } from '../SubmitButton';
 import { Button } from '../ui/button';
-import { signIn, signUp } from '@/app/login/actions';
+import { signIn, signUp } from '@/app/(login)/login/actions';
 import { toast } from '../ui/use-toast';
 import { useRouter } from 'next/navigation';
 
-interface EmailAuthProps {}
+interface EmailAuthProps { }
 
 const EmailAuth: FC<EmailAuthProps> = () => {
   const [isLogin, setIsLogin] = useState<boolean>(true);
