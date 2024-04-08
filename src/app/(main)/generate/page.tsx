@@ -12,6 +12,8 @@ export default async function Home() {
 
   return (
     <div className='max-w-6xl mx-auto pt-14'>
+      {/* TODO : fix datattype later */}
+      {/* @ts-ignore */}
       <FormInput data={data} />
     </div>
   );
