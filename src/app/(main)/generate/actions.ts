@@ -34,7 +34,7 @@ export async function generateContentFn(formData: FormData) {
       throw new Error(error.message);
     }
 
-    revalidatePath('/preview');
+    revalidatePath('/generate');
 
     return response;
   } catch (error) {
