@@ -4,7 +4,7 @@ async function openaiCreateContent(topic: string, style: string) {
   const openai = new OpenAI();
 
   const prompt = `
-  Generate 5 social media contents on the topic: ${topic}.
+  Generate 3 social media contents on the topic: ${topic}.
   Make sure the style of the content is around ${style}.
 
   The content should be at least 500 characters in length.
