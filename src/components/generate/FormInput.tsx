@@ -46,6 +46,7 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
                   autoFocus
                   value={topic}
                   onChange={(e) => setTopic(e.target.value)}
+                  // defaultValue={contents?.topic}
                 />
               </InputWrapper>
 
@@ -56,6 +57,7 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
                   placeholder='Educational, Facts, Entertainment'
                   value={style}
                   onChange={(e) => setStyle(e.target.value)}
+                  // defaultValue={contents?.style}
                 />
               </InputWrapper>
             </div>
