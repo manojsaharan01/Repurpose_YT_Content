@@ -59,7 +59,7 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
                 />
               </InputWrapper>
             </div>
-            <div className='mt-5 md:mt-24'>
+            <div className='mt-5 md:mt-[11rem]'>
               <SubmitButton className='w-full ' formAction={handleGeneration}>
                 Generate
               </SubmitButton>

@@ -38,7 +38,7 @@ const OutputContent: FC<OutputContentProps> = ({
         </div>
 
         <TabsContent value='output'>
-          <ScrollArea className='h-64 md:h-[20.3rem]  bg-[#9f9f9f]/5 rounded-lg border border-black/5 px-5 py-4'>
+          <ScrollArea className='h-64 md:h-[25rem]  bg-[#9f9f9f]/5 rounded-lg border border-black/5 px-5 py-4'>
             {(contents && Array.isArray(contents)
               ? contents
               : contents && Array.isArray(contents.results)
@@ -64,7 +64,7 @@ const OutputContent: FC<OutputContentProps> = ({
         </TabsContent>
 
         <TabsContent value='history'>
-          <ScrollArea className='h-64 md:h-[20.3rem] bg-[#9f9f9f]/5 rounded-lg border border-black/5 px-5 py-4 space-y-2'>
+          <ScrollArea className='h-64 md:h-[25rem] bg-[#9f9f9f]/5 rounded-lg border border-black/5 px-5 py-4 space-y-2'>
             {data?.map((item, index) => (
               <div
                 key={index}
