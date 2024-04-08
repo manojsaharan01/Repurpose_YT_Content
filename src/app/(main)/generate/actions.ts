@@ -23,12 +23,16 @@ export async function generateContentFn(formData: FormData) {
 
     const response = await openaiCreateContent(topic, style);
 
-    const { error } = await supabase.from('content_creations').insert({
-      user_id: user.id,
-      topic,
-      style,
-      results: response.outputs,
-    });
+    const { data, error } = await supabase
+      .from('content_creations')
+      .insert({
+        user_id: user.id,
+        topic,
+        style,
+        results: response.outputs,
+      })
+      .select()
+      .single();
 
     if (error) {
       throw new Error(error.message);
@@ -36,7 +40,7 @@ export async function generateContentFn(formData: FormData) {
 
     revalidatePath('/generate');
 
-    return response;
+    return data;
   } catch (error) {
     throw new Error(`${error}`);
   }

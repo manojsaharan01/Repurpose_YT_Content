@@ -1,6 +1,6 @@
 'use client';
 
-import React, { FC } from 'react';
+import { FC, useState } from 'react';
 import InputWrapper from '../InputWrapper';
 import { SubmitButton } from '../SubmitButton';
 import { Input } from '../ui/input';
@@ -13,21 +13,24 @@ type FormInputProps = {
   data: TypeContent[];
 };
 
+export type FormFields = {
+  topic: string;
+  style: string;
+};
+
 const FormInput: FC<FormInputProps> = ({ data }) => {
-  const [contents, setContents] = React.useState<TypeContent | undefined>();
-  const [topic, setTopic] = React.useState(contents?.topic);
-  const [style, setStyle] = React.useState(contents?.style);
+  const [contents, setContents] = useState<TypeContent | undefined>();
+  const [formData, setFormData] = useState<FormFields>({ topic: '', style: '' });
 
   const handleGeneration = async (formData: FormData) => {
     try {
       const response = await generateContentFn(formData);
-      setContents(response.outputs);
+      setContents(response);
     } catch (error) {
       console.log(error);
       toast({ description: (error as Error).toString(), variant: 'destructive' });
     }
   };
-
   return (
     <div className='p-5 xl:p-0 h-auto md:h-auto '>
       <div className='block md:flex items-start space-y-10 md:space-y-0'>
@@ -44,9 +47,8 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
                   name='topic'
                   placeholder="What's new in AI?"
                   autoFocus
-                  value={topic}
-                  onChange={(e) => setTopic(e.target.value)}
-                  // defaultValue={contents?.topic}
+                  value={formData.topic}
+                  onChange={(e) => setFormData({ ...formData, topic: e.target.value })}
                 />
               </InputWrapper>
 
@@ -55,9 +57,8 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
                   id='style'
                   name='style'
                   placeholder='Educational, Facts, Entertainment'
-                  value={style}
-                  onChange={(e) => setStyle(e.target.value)}
-                  // defaultValue={contents?.style}
+                  value={formData.style}
+                  onChange={(e) => setFormData({ ...formData, style: e.target.value })}
                 />
               </InputWrapper>
             </div>
@@ -73,8 +74,7 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
           data={data}
           contents={contents}
           onSelectContent={(value) => setContents(value)}
-          setStyle={setStyle}
-          setTopic={setTopic}
+          setFormData={setFormData}
         />
       </div>
     </div>

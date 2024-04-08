@@ -1,25 +1,23 @@
 'use client';
 
-import React, { FC } from 'react';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import React, { Dispatch, FC, SetStateAction } from 'react';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { TypeContent } from '../../../types/utils';
+import { FormFields } from './FormInput';
 
 type OutputContentProps = {
   data: TypeContent[];
   contents?: TypeContent;
   onSelectContent: (value: TypeContent) => void;
-  setTopic: React.Dispatch<React.SetStateAction<string | undefined>>;
-  setStyle: React.Dispatch<React.SetStateAction<string | undefined>>;
+  setFormData: Dispatch<SetStateAction<FormFields>>;
 };
 
 const OutputContent: FC<OutputContentProps> = ({
   data,
   contents,
   onSelectContent,
-  setTopic,
-  setStyle,
+  setFormData,
 }: OutputContentProps) => {
   const [currentTab, setCurrentTab] = React.useState('output');
 
@@ -39,27 +37,17 @@ const OutputContent: FC<OutputContentProps> = ({
 
         <TabsContent value='output'>
           <div className='h-64 md:h-[25rem]  bg-[#9f9f9f]/5 rounded-lg border border-black/5 px-5 py-4 overflow-auto'>
-            {(contents && Array.isArray(contents)
-              ? contents
-              : contents && Array.isArray(contents.results)
-                ? contents.results
-                : []
-            ).map((item: any, index: any) => (
-              <div key={index} className='text-sm'>
-                <p className='font-semibold mb-2'>{item.title}</p>
-                <p className='text-justify'>{item?.content}</p>
-                {index !==
-                  (contents && Array.isArray(contents.results) ? contents.results.length - 1 : -1) && (
-                  <Separator className='my-5' />
-                )}
-              </div>
-            ))}
-
-            {!contents ||
-            (Array.isArray(contents) && contents.length === 0) ||
-            (contents && Array.isArray(contents.results) && contents.results.length === 0) ? (
+            {contents ? (
+              (contents as any)?.results?.map((item: any, index: any) => (
+                <div key={index} className='text-sm'>
+                  <p className='font-semibold mb-2'>{item.title}</p>
+                  <p className='text-justify'>{item?.content}</p>
+                  {index !== (contents as any)?.results?.length - 1 && <Separator className='my-5' />}
+                </div>
+              ))
+            ) : (
               <p className='text-sm text-[#B9B9B9]'>See the output here...</p>
-            ) : null}
+            )}
           </div>
         </TabsContent>
 
@@ -72,8 +60,7 @@ const OutputContent: FC<OutputContentProps> = ({
                 onClick={() => {
                   setCurrentTab('output');
                   onSelectContent(item);
-                  setTopic(item.topic);
-                  setStyle(item.style);
+                  setFormData({ topic: item.topic, style: item.style });
                 }}>
                 <div className='text-[#B9B9B9] text-sm font-semibold'>{index + 1}.</div>
                 <div className='space-y-1'>
