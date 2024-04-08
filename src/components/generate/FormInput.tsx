@@ -8,6 +8,7 @@ import OutputContent from './OutputContent';
 import { TypeContent } from '../../../types/utils';
 import { generateContentFn } from '@/app/(main)/generate/actions';
 import { toast } from '../ui/use-toast';
+import { useRouter } from 'next/navigation';
 
 type FormInputProps = {
   data: TypeContent[];
@@ -21,6 +22,8 @@ type FormFields = {
 const FormInput: FC<FormInputProps> = ({ data }) => {
   const [contents, setContents] = useState<TypeContent | undefined>();
   const [formData, setFormData] = useState<FormFields>({ topic: '', style: '' });
+
+  const router = useRouter();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -36,6 +39,7 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
       toast({ description: response, variant: 'destructive' });
     } else {
       setContents(response);
+      router.refresh();
     }
   };
 

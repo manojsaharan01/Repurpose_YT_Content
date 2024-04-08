@@ -46,22 +46,26 @@ const OutputContent: FC<OutputContentProps> = ({ data, contents, onSelectContent
 
         <TabsContent value='history' className='h-full bg-[#9f9f9f]/5'>
           <div className='h-full rounded-lg border border-black/5 px-5 py-4 space-y-2 overflow-auto'>
-            {data?.map((item, index) => (
-              <div
-                key={index}
-                className='p-2 gap-4 flex items-center rounded-lg bg-[#ECECEC]/60 hover:bg-[#ECECEC] cursor-pointer mb-2'
-                onClick={() => {
-                  setCurrentTab('output');
-                  onSelectContent(item);
-                }}>
-                <div className='text-[#B9B9B9] text-sm font-semibold'>{index + 1}.</div>
-                <div className='space-y-1'>
-                  <p className='text-[#3E3E3E] text-sm font-semibold leading-5'>
-                    {item.topic.charAt(0).toUpperCase() + item.topic.slice(1).toLowerCase()}
-                  </p>
+            {data?.length > 0 ? (
+              data.map((item, index) => (
+                <div
+                  key={index}
+                  className='p-2 gap-4 flex items-center rounded-lg bg-[#ECECEC]/60 hover:bg-[#ECECEC] cursor-pointer mb-2'
+                  onClick={() => {
+                    setCurrentTab('output');
+                    onSelectContent(item);
+                  }}>
+                  <div className='text-[#B9B9B9] text-sm font-semibold'>{index + 1}.</div>
+                  <div className='space-y-1'>
+                    <p className='text-[#3E3E3E] text-sm font-semibold leading-5'>
+                      {item.topic.charAt(0).toUpperCase() + item.topic.slice(1).toLowerCase()}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <div className='text-[#B9B9B9] text-sm font-light'>No data found!</div>
+            )}
           </div>
         </TabsContent>
       </Tabs>
