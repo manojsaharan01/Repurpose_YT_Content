@@ -29,14 +29,14 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
   };
 
   return (
-    <div className='p-5 xl:p-0 h-auto md:h-[70vh]'>
-      <div className='block md:flex items-start space-y-10 md:space-y-0 h-full'>
-        <div className='w-full md:w-1/2 md:border-r pr-0 md:pr-10 h-full'>
+    <div className='p-5 xl:p-0 h-auto md:h-auto '>
+      <div className='block md:flex items-start space-y-10 md:space-y-0'>
+        <div className='w-full md:w-1/2 md:border-r pr-0 md:pr-10'>
           <div className='mb-6'>
             <p className='text-[#27262B] text-xl font-bold leading-10'>AI Content Creator</p>
           </div>
 
-          <form className='h-full'>
+          <form className='h-full flex flex-col'>
             <div className='mb-5'>
               <InputWrapper id='topic' label='Topic' className='mb-6'>
                 <Input
@@ -59,7 +59,7 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
                 />
               </InputWrapper>
             </div>
-            <div className='mt-auto'>
+            <div className='mt-5 md:mt-24'>
               <SubmitButton className='w-full ' formAction={handleGeneration}>
                 Generate
               </SubmitButton>
