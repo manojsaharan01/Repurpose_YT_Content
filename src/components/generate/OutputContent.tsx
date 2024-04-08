@@ -1,24 +1,17 @@
 'use client';
 
-import React, { Dispatch, FC, SetStateAction } from 'react';
+import React, { FC } from 'react';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { TypeContent } from '../../../types/utils';
-import { FormFields } from './FormInput';
 
 type OutputContentProps = {
   data: TypeContent[];
   contents?: TypeContent;
   onSelectContent: (value: TypeContent) => void;
-  setFormData: Dispatch<SetStateAction<FormFields>>;
 };
 
-const OutputContent: FC<OutputContentProps> = ({
-  data,
-  contents,
-  onSelectContent,
-  setFormData,
-}: OutputContentProps) => {
+const OutputContent: FC<OutputContentProps> = ({ data, contents, onSelectContent }: OutputContentProps) => {
   const [currentTab, setCurrentTab] = React.useState('output');
 
   return (
@@ -60,7 +53,6 @@ const OutputContent: FC<OutputContentProps> = ({
                 onClick={() => {
                   setCurrentTab('output');
                   onSelectContent(item);
-                  setFormData({ topic: item.topic, style: item.style });
                 }}>
                 <div className='text-[#B9B9B9] text-sm font-semibold'>{index + 1}.</div>
                 <div className='space-y-1'>

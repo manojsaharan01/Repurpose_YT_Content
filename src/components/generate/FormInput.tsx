@@ -13,7 +13,7 @@ type FormInputProps = {
   data: TypeContent[];
 };
 
-export type FormFields = {
+type FormFields = {
   topic: string;
   style: string;
 };
@@ -22,12 +22,19 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
   const [contents, setContents] = useState<TypeContent | undefined>();
   const [formData, setFormData] = useState<FormFields>({ topic: '', style: '' });
 
-  const handleGeneration = async (formData: FormData) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleGeneration = async (data: FormData) => {
     try {
-      const response = await generateContentFn(formData);
+      const response = await generateContentFn(data);
       setContents(response);
     } catch (error) {
-      console.log(error);
       toast({ description: (error as Error).toString(), variant: 'destructive' });
     }
   };
@@ -48,7 +55,7 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
                   placeholder="What's new in AI?"
                   autoFocus
                   value={formData.topic}
-                  onChange={(e) => setFormData({ ...formData, topic: e.target.value })}
+                  onChange={handleInputChange}
                 />
               </InputWrapper>
 
@@ -58,7 +65,7 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
                   name='style'
                   placeholder='Educational, Facts, Entertainment'
                   value={formData.style}
-                  onChange={(e) => setFormData({ ...formData, style: e.target.value })}
+                  onChange={handleInputChange}
                 />
               </InputWrapper>
             </div>
@@ -72,8 +79,13 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
         <OutputContent
           data={data}
           contents={contents}
-          onSelectContent={(value) => setContents(value)}
-          setFormData={setFormData}
+          onSelectContent={(value) => {
+            setContents(value);
+            setFormData({
+              topic: value.topic,
+              style: value.style,
+            });
+          }}
         />
       </div>
     </div>
