@@ -23,20 +23,20 @@ const OutputContent: FC<OutputContentProps> = ({
 
   return (
     <div className='w-full md:w-1/2 ml-0 md:ml-10'>
-      <Tabs defaultValue='output' value={currentTab} className='w-full'>
+      <Tabs defaultValue='output' value={currentTab} className='w-full h-[460px]'>
         <div className='flex justify-center mb-6'>
           <TabsList className='rounded-full p-1'>
             <TabsTrigger onClick={() => setCurrentTab('output')} className='rounded-full' value='output'>
               Output
             </TabsTrigger>
             <TabsTrigger onClick={() => setCurrentTab('history')} className='rounded-full' value='history'>
-              History
+              Contents
             </TabsTrigger>
           </TabsList>
         </div>
 
-        <TabsContent value='output'>
-          <div className='h-64 md:h-[25rem]  bg-[#9f9f9f]/5 rounded-lg border border-black/5 px-5 py-4 overflow-auto'>
+        <TabsContent value='output' className='h-full bg-[#9f9f9f]/5'>
+          <div className='h-full rounded-lg border border-black/5 px-5 py-4 overflow-auto'>
             {contents ? (
               (contents as any)?.results?.map((item: any, index: any) => (
                 <div key={index} className='text-sm'>
@@ -51,8 +51,8 @@ const OutputContent: FC<OutputContentProps> = ({
           </div>
         </TabsContent>
 
-        <TabsContent value='history'>
-          <div className='h-64 md:h-[25rem] bg-[#9f9f9f]/5 rounded-lg border border-black/5 px-5 py-4 space-y-2 overflow-auto'>
+        <TabsContent value='history' className='h-full bg-[#9f9f9f]/5'>
+          <div className='h-full rounded-lg border border-black/5 px-5 py-4 space-y-2 overflow-auto'>
             {data?.map((item, index) => (
               <div
                 key={index}
