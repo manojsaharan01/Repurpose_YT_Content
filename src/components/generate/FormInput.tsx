@@ -31,13 +31,14 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
   };
 
   const handleGeneration = async (data: FormData) => {
-    try {
-      const response = await generateContentFn(data);
+    const response = await generateContentFn(data);
+    if (typeof response == 'string') {
+      toast({ description: response, variant: 'destructive' });
+    } else {
       setContents(response);
-    } catch (error) {
-      toast({ description: (error as Error).toString(), variant: 'destructive' });
     }
   };
+
   return (
     <div className='p-5 xl:p-0 h-auto md:h-auto '>
       <div className='block md:flex items-start space-y-10 md:space-y-0'>
