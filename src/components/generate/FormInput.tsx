@@ -6,7 +6,7 @@ import { SubmitButton } from '../SubmitButton';
 import { Input } from '../ui/input';
 import OutputContent from './OutputContent';
 import { TypeContent } from '../../../types/utils';
-import { generateContentFn } from '@/app/(landingPage)/generate/actions';
+import { generateContentFn } from '@/app/(main)/generate/actions';
 import { toast } from '../ui/use-toast';
 
 type FormInputProps = {
