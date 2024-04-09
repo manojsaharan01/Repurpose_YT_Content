@@ -1,12 +1,13 @@
 'use server';
 
-import openaiCreateContent from '@/utils/openai';
 import { getUserDetails, supabaseServerClient } from '@/utils/supabase/server';
 import { revalidatePath } from 'next/cache';
 
-export async function generateContentFn(formData: FormData) {
+export async function generateContentFn(formData: FormData, response: string) {
   try {
     const user = await getUserDetails();
+
+    console.log(response);
 
     if (user == null) {
       throw new Error('Please login to create contents.');
@@ -21,18 +22,18 @@ export async function generateContentFn(formData: FormData) {
 
     const supabase = supabaseServerClient();
 
-    const response = await openaiCreateContent(topic, style);
-
     const { data, error } = await supabase
       .from('content_creations')
       .insert({
         user_id: user.id,
         topic,
         style,
-        results: response.outputs,
+        results: response,
       })
       .select()
       .single();
+
+    console.log(data);
 
     if (error) {
       throw new Error(error.message);

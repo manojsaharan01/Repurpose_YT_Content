@@ -6,8 +6,9 @@ import { SubmitButton } from '../SubmitButton';
 import { Input } from '../ui/input';
 import OutputContent from './OutputContent';
 import { TypeContent } from '../../../types/utils';
+import { useAtom } from 'jotai';
+import { responseAtom } from '@/utils/store';
 import { generateContentFn } from '@/app/(main)/generate/actions';
-import { toast } from '../ui/use-toast';
 
 type FormInputProps = {
   data: TypeContent[];
@@ -22,15 +23,45 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
   const [contents, setContents] = useState<TypeContent | undefined>();
   const [formData, setFormData] = useState<FormFields>({ topic: '', style: '' });
 
-  const handleGeneration = async (formData: FormData) => {
-    try {
-      const response = await generateContentFn(formData);
-      setContents(response);
-    } catch (error) {
-      console.log(error);
-      toast({ description: (error as Error).toString(), variant: 'destructive' });
+  const [response, setResponse] = useAtom(responseAtom);
+
+  const handleSubmit = async (formData: FormData) => {
+    // e.preventDefault();
+    setResponse('');
+
+    const res = await fetch('/api/response', {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (!res.ok) throw new Error(res.statusText);
+
+    const data = res.body;
+    if (!data) return;
+
+    const reader = data.getReader();
+    const decoder = new TextDecoder();
+    let done = false;
+
+    while (!done) {
+      const { value, done: doneReading } = await reader.read();
+      done = doneReading;
+      const chunkValue = decoder.decode(value);
+      setResponse((prev) => prev + chunkValue);
+    }
+    if (done) {
+      console.log(response, 'done');
+
+      generateContentFn(formData, response)
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   };
+
   return (
     <div className='p-5 xl:p-0 h-auto md:h-auto '>
       <div className='block md:flex items-start space-y-10 md:space-y-0'>
@@ -63,7 +94,7 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
               </InputWrapper>
             </div>
             <div className='mt-5 md:mt-[11rem]'>
-              <SubmitButton className='w-full ' formAction={handleGeneration}>
+              <SubmitButton className='w-full ' formAction={handleSubmit}>
                 Generate
               </SubmitButton>
             </div>
