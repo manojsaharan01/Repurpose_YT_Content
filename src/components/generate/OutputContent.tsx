@@ -4,6 +4,7 @@ import React, { Dispatch, FC, SetStateAction } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { TypeContent } from '../../../types/utils';
 import { FormFields } from './FormInput';
+
 type OutputContentProps = {
   data: TypeContent[];
   contents?: TypeContent;
@@ -50,7 +51,8 @@ const OutputContent: FC<OutputContentProps> = ({
                 className=''
                 dangerouslySetInnerHTML={{
                   __html: (contents?.results as string).replace(/^```html\s*|\s*```$/g, ''),
-                }}></p>
+                }}
+              />
             ) : (
               <p className='text-sm text-[#B9B9B9]'>See the output here...</p>
             )}

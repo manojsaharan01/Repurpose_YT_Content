@@ -1,7 +1,12 @@
 import { OpenAIStream, OpenAIStreamPayload } from '@/utils/open-ai-stream';
+import { getUserDetails } from '@/utils/supabase/server';
 
 export const POST = async (req: Request) => {
-  if (!process.env.OPENAI_API_KEY) throw new Error('Missing OpenAI API Key');
+  const user = await getUserDetails();
+
+  if (user == null) {
+    throw 'Please login to create contents.';
+  }
 
   const data = await req.formData();
 

@@ -22,12 +22,12 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
   const [formData, setFormData] = useState<FormFields>({ topic: '', style: '' });
   const [response, setResponse] = useState('');
 
-  const handleSubmit = async (formData: FormData) => {
+  const handleSubmit = async (inputData: FormData) => {
     setResponse('');
 
     const res = await fetch('/api/response', {
       method: 'POST',
-      body: formData,
+      body: inputData,
     });
 
     if (!res.ok) throw new Error(res.statusText);
@@ -50,7 +50,7 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
       streamDta += chunkValue;
     }
     if (done) {
-      await generateContentFn(formData, streamDta)
+      await generateContentFn(inputData, streamDta)
         .then((data) => {
           console.log(data);
         })
