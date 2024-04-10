@@ -6,8 +6,6 @@ import { SubmitButton } from '../SubmitButton';
 import { Input } from '../ui/input';
 import OutputContent from './OutputContent';
 import { TypeContent } from '../../../types/utils';
-import { useAtom } from 'jotai';
-import { responseAtom } from '@/utils/store';
 import { generateContentFn } from '@/app/(main)/generate/actions';
 
 type FormInputProps = {
@@ -22,11 +20,9 @@ export type FormFields = {
 const FormInput: FC<FormInputProps> = ({ data }) => {
   const [contents, setContents] = useState<TypeContent | undefined>();
   const [formData, setFormData] = useState<FormFields>({ topic: '', style: '' });
-
-  const [response, setResponse] = useAtom(responseAtom);
+  const [response, setResponse] = useState('');
 
   const handleSubmit = async (formData: FormData) => {
-    // e.preventDefault();
     setResponse('');
 
     const res = await fetch('/api/response', {
@@ -43,16 +39,18 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
     const decoder = new TextDecoder();
     let done = false;
 
+    // Here intialized string to store the response data because we dont get data from response state
+    let streamDta = '';
+
     while (!done) {
       const { value, done: doneReading } = await reader.read();
       done = doneReading;
       const chunkValue = decoder.decode(value);
       setResponse((prev) => prev + chunkValue);
+      streamDta += chunkValue;
     }
     if (done) {
-      console.log(response, 'done');
-
-      generateContentFn(formData, response)
+      await generateContentFn(formData, streamDta)
         .then((data) => {
           console.log(data);
         })
@@ -106,6 +104,8 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
           contents={contents}
           onSelectContent={(value) => setContents(value)}
           setFormData={setFormData}
+          response={response}
+          setResponse={setResponse}
         />
       </div>
     </div>

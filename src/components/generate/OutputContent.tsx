@@ -4,15 +4,13 @@ import React, { Dispatch, FC, SetStateAction } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { TypeContent } from '../../../types/utils';
 import { FormFields } from './FormInput';
-import { useAtom } from 'jotai';
-import { responseAtom } from '@/utils/store';
-import { Separator } from '../ui/separator';
-
 type OutputContentProps = {
   data: TypeContent[];
   contents?: TypeContent;
   onSelectContent: (value: TypeContent) => void;
   setFormData: Dispatch<SetStateAction<FormFields>>;
+  response?: string;
+  setResponse?: Dispatch<SetStateAction<string>>;
 };
 
 const OutputContent: FC<OutputContentProps> = ({
@@ -20,10 +18,12 @@ const OutputContent: FC<OutputContentProps> = ({
   contents,
   onSelectContent,
   setFormData,
+  response,
+  setResponse,
 }: OutputContentProps) => {
   const [currentTab, setCurrentTab] = React.useState('output');
 
-  const [response] = useAtom(responseAtom);
+  console.log(contents?.results);
 
   return (
     <div className='w-full md:w-1/2 ml-0 md:ml-10'>
@@ -41,20 +41,19 @@ const OutputContent: FC<OutputContentProps> = ({
 
         <TabsContent value='output'>
           <div className='h-64 md:h-[25rem]  bg-[#9f9f9f]/5 rounded-lg border border-black/5 px-5 py-4 overflow-auto'>
-            {contents ? (
-              (contents as any)?.results?.map((item: any, index: any) => (
-                <div key={index} className='text-sm'>
-                  <p className='font-semibold mb-2'>{item.title}</p>
-                  <p className='text-justify'>{item?.content}</p>
-                  {index !== (contents as any)?.results?.length - 1 && <Separator className='my-5' />}
-                </div>
-              ))
+            {response ? (
+              <div
+                className=''
+                dangerouslySetInnerHTML={{ __html: response.replace(/^```html\s*|\s*```$/g, '') }}></div>
+            ) : contents ? (
+              <p
+                className=''
+                dangerouslySetInnerHTML={{
+                  __html: (contents?.results as string).replace(/^```html\s*|\s*```$/g, ''),
+                }}></p>
             ) : (
               <p className='text-sm text-[#B9B9B9]'>See the output here...</p>
             )}
-            <div
-              className=''
-              dangerouslySetInnerHTML={{ __html: response.replace(/^```html\s*|\s*```$/g, '') }}></div>
           </div>
         </TabsContent>
 
@@ -69,6 +68,7 @@ const OutputContent: FC<OutputContentProps> = ({
                     setCurrentTab('output');
                     onSelectContent(item);
                     setFormData({ topic: item.topic, style: item.style });
+                    setResponse && setResponse('');
                   }}>
                   <div className='text-[#B9B9B9] text-sm font-semibold'>{index + 1}.</div>
                   <div className='space-y-1'>

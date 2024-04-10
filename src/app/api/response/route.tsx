@@ -12,7 +12,7 @@ export const POST = async (req: Request) => {
   Make sure the style of the content is around ${style}.
   
   The content should be at least 500 characters in length.
-  Please format the result in a simple HTML format as follows:
+  Please format the result in a simple HTML format as follows and strictly follow the structure below:
   
   <section>
     <h2 style="font-weight: 600; margin-bottom: 0.5rem;">TITLE</h2>
