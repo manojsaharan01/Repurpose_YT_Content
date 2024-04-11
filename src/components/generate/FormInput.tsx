@@ -6,8 +6,8 @@ import { SubmitButton } from '../SubmitButton';
 import { Input } from '../ui/input';
 import OutputContent from './OutputContent';
 import { TypeContent } from '../../../types/utils';
-import { updateContent } from '@/app/(main)/generate/actions';
 import { toast } from '../ui/use-toast';
+import { updateContent } from '@/app/generate/actions';
 
 type FormInputProps = {
   data: TypeContent[];
