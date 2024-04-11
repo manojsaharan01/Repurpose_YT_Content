@@ -19,7 +19,7 @@ export type FormFields = {
 };
 
 const FormInput: FC<FormInputProps> = ({ data }) => {
-  const [contents, setContents] = useState<TypeContent | undefined>();
+  const [contentData, setContentData] = useState<string>();
   const [formData, setFormData] = useState<FormFields>({ topic: '', style: '' });
 
   const handleStream = async (data: ReadableStream) => {
@@ -32,12 +32,8 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
       const { value, done: doneReading } = await reader.read();
       done = doneReading;
       const chunkValue = decoder.decode(value);
-      //Todo fix this ts error temporary i used ts-expect-error
-      //@ts-expect-error
-      setContents({
-        results: (streamData += chunkValue),
-      });
       streamData += chunkValue;
+      setContentData(streamData.replace(/^```html\s*|\s*```$/g, ''));
     }
 
     return streamData;
@@ -55,7 +51,7 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
       return;
     }
 
-    const res = await fetch('/api/response', {
+    const res = await fetch('/api/generate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -67,6 +63,7 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
     if (!data) {
       toast({
         description: 'Something went wrong, please try again',
+        variant: 'destructive',
       });
       return;
     }
@@ -74,9 +71,7 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
     const streamData = await handleStream(data);
 
     await updateContent(topic, style, streamData).catch((error) => {
-      toast({
-        description: error,
-      });
+      toast({ description: error, variant: 'destructive' });
     });
   };
 
@@ -121,9 +116,11 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
 
         <OutputContent
           data={data}
-          contents={contents}
-          onSelectContent={(value) => setContents(value)}
-          onSetFormData={(value) => setFormData(value)}
+          content={contentData}
+          onSelectContent={(value) => {
+            setContentData(value.results!);
+            setFormData({ topic: value.topic, style: value.style });
+          }}
         />
       </div>
     </div>

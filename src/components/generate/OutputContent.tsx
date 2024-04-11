@@ -1,24 +1,17 @@
 'use client';
 
-import React, { Dispatch, FC, SetStateAction } from 'react';
+import { FC, useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { TypeContent } from '../../../types/utils';
-import { FormFields } from './FormInput';
 
 type OutputContentProps = {
   data: TypeContent[];
-  contents?: TypeContent;
+  content?: string;
   onSelectContent: (value: TypeContent) => void;
-  onSetFormData: (value: FormFields) => void;
 };
 
-const OutputContent: FC<OutputContentProps> = ({
-  data,
-  contents,
-  onSelectContent,
-  onSetFormData,
-}: OutputContentProps) => {
-  const [currentTab, setCurrentTab] = React.useState('output');
+const OutputContent: FC<OutputContentProps> = ({ data, content, onSelectContent }: OutputContentProps) => {
+  const [currentTab, setCurrentTab] = useState('output');
 
   return (
     <div className='w-full md:w-1/2 ml-0 md:ml-10'>
@@ -36,13 +29,8 @@ const OutputContent: FC<OutputContentProps> = ({
 
         <TabsContent value='output'>
           <div className='h-64 md:h-[25rem]  bg-[#9f9f9f]/5 rounded-lg border border-black/5 px-5 py-4 overflow-auto'>
-            {contents ? (
-              <p
-                className=''
-                dangerouslySetInnerHTML={{
-                  __html: (contents?.results as string).replace(/^```html\s*|\s*```$/g, ''),
-                }}
-              />
+            {content ? (
+              <p dangerouslySetInnerHTML={{ __html: content }} />
             ) : (
               <p className='text-sm text-[#B9B9B9]'>See the output here...</p>
             )}
@@ -59,11 +47,10 @@ const OutputContent: FC<OutputContentProps> = ({
                   onClick={() => {
                     setCurrentTab('output');
                     onSelectContent(item);
-                    onSetFormData({ topic: item.topic, style: item.style });
                   }}>
                   <div className='text-[#B9B9B9] text-sm font-semibold'>{index + 1}.</div>
-                  <p className='text-[#3E3E3E] text-sm font-semibold leading-5 truncate capitalize'>
-                    {item.topic}
+                  <p className='text-[#3E3E3E] text-sm font-semibold leading-5 truncate'>
+                    {item.topic.charAt(0).toUpperCase() + item.topic.slice(1).toLowerCase()}
                   </p>
                 </div>
               ))
