@@ -6,7 +6,8 @@ import { SubmitButton } from '../SubmitButton';
 import { Input } from '../ui/input';
 import OutputContent from './OutputContent';
 import { TypeContent } from '../../../types/utils';
-import { generateContentFn } from '@/app/(main)/generate/actions';
+import { updateContent } from '@/app/(main)/generate/actions';
+import { toast } from '../ui/use-toast';
 
 type FormInputProps = {
   data: TypeContent[];
@@ -20,44 +21,63 @@ export type FormFields = {
 const FormInput: FC<FormInputProps> = ({ data }) => {
   const [contents, setContents] = useState<TypeContent | undefined>();
   const [formData, setFormData] = useState<FormFields>({ topic: '', style: '' });
-  const [response, setResponse] = useState('');
 
-  const handleSubmit = async (inputData: FormData) => {
-    setResponse('');
-
-    const res = await fetch('/api/response', {
-      method: 'POST',
-      body: inputData,
-    });
-
-    if (!res.ok) throw new Error(res.statusText);
-
-    const data = res.body;
-    if (!data) return;
-
+  const handleStream = async (data: ReadableStream) => {
     const reader = data.getReader();
     const decoder = new TextDecoder();
     let done = false;
-
-    // Here intialized string to store the response data because we dont get data from response state
-    let streamDta = '';
+    let streamData = '';
 
     while (!done) {
       const { value, done: doneReading } = await reader.read();
       done = doneReading;
       const chunkValue = decoder.decode(value);
-      setResponse((prev) => prev + chunkValue);
-      streamDta += chunkValue;
+      //Todo fix this ts error temporary i used ts-expect-error
+      //@ts-expect-error
+      setContents({
+        results: (streamData += chunkValue),
+      });
+      streamData += chunkValue;
     }
-    if (done) {
-      await generateContentFn(inputData, streamDta)
-        .then((data) => {
-          console.log(data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+
+    return streamData;
+  };
+
+  const handleGenerate = async (inputData: FormData) => {
+    const topic = inputData.get('topic') as string;
+    const style = inputData.get('style') as string;
+
+    if (!topic || !style) {
+      toast({
+        description: 'Please fill all required fields',
+        variant: 'destructive',
+      });
+      return;
     }
+
+    const res = await fetch('/api/response', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ topic, style }),
+    });
+
+    const data = res.body;
+    if (!data) {
+      toast({
+        description: 'Something went wrong, please try again',
+      });
+      return;
+    }
+
+    const streamData = await handleStream(data);
+
+    await updateContent(topic, style, streamData).catch((error) => {
+      toast({
+        description: error,
+      });
+    });
   };
 
   return (
@@ -92,7 +112,7 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
               </InputWrapper>
             </div>
             <div className='mt-5 md:mt-44'>
-              <SubmitButton className='w-full ' formAction={handleSubmit}>
+              <SubmitButton className='w-full ' formAction={handleGenerate}>
                 Generate
               </SubmitButton>
             </div>
@@ -103,9 +123,7 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
           data={data}
           contents={contents}
           onSelectContent={(value) => setContents(value)}
-          setFormData={setFormData}
-          response={response}
-          setResponse={setResponse}
+          onSetFormData={(value) => setFormData(value)}
         />
       </div>
     </div>

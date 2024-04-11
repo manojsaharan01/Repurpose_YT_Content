@@ -9,22 +9,16 @@ type OutputContentProps = {
   data: TypeContent[];
   contents?: TypeContent;
   onSelectContent: (value: TypeContent) => void;
-  setFormData: Dispatch<SetStateAction<FormFields>>;
-  response?: string;
-  setResponse?: Dispatch<SetStateAction<string>>;
+  onSetFormData: (value: FormFields) => void;
 };
 
 const OutputContent: FC<OutputContentProps> = ({
   data,
   contents,
   onSelectContent,
-  setFormData,
-  response,
-  setResponse,
+  onSetFormData,
 }: OutputContentProps) => {
   const [currentTab, setCurrentTab] = React.useState('output');
-
-  console.log(contents?.results);
 
   return (
     <div className='w-full md:w-1/2 ml-0 md:ml-10'>
@@ -42,11 +36,7 @@ const OutputContent: FC<OutputContentProps> = ({
 
         <TabsContent value='output'>
           <div className='h-64 md:h-[25rem]  bg-[#9f9f9f]/5 rounded-lg border border-black/5 px-5 py-4 overflow-auto'>
-            {response ? (
-              <div
-                className=''
-                dangerouslySetInnerHTML={{ __html: response.replace(/^```html\s*|\s*```$/g, '') }}></div>
-            ) : contents ? (
+            {contents ? (
               <p
                 className=''
                 dangerouslySetInnerHTML={{
@@ -69,15 +59,12 @@ const OutputContent: FC<OutputContentProps> = ({
                   onClick={() => {
                     setCurrentTab('output');
                     onSelectContent(item);
-                    setFormData({ topic: item.topic, style: item.style });
-                    setResponse && setResponse('');
+                    onSetFormData({ topic: item.topic, style: item.style });
                   }}>
                   <div className='text-[#B9B9B9] text-sm font-semibold'>{index + 1}.</div>
-                  <div className='space-y-1'>
-                    <p className='text-[#3E3E3E] text-sm font-semibold leading-5'>
-                      {item.topic.charAt(0).toUpperCase() + item.topic.slice(1).toLowerCase()}
-                    </p>
-                  </div>
+                  <p className='text-[#3E3E3E] text-sm font-semibold leading-5 truncate capitalize'>
+                    {item.topic}
+                  </p>
                 </div>
               ))
             ) : (

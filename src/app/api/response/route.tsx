@@ -8,15 +8,12 @@ export const POST = async (req: Request) => {
     throw 'Please login to create contents.';
   }
 
-  const data = await req.formData();
+  const { topic, style } = await req.json();
 
-  const topic = data.get('topic');
-  const style = data.get('style');
-
-  const prompt = `Generate 5 social media contents on the topic: ${topic}.
+  const prompt = `Generate 1 social media contents on the topic: ${topic}.
   Make sure the style of the content is around ${style}.
   
-  The content should be at least 500 characters in length.
+  The content should be at least 100 characters in length.
   Please format the result in a simple HTML format as follows and strictly follow the structure below:
   
   <section>
