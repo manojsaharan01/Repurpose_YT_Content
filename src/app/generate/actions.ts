@@ -2,7 +2,7 @@
 
 import { getUserDetails, supabaseServerClient } from '@/utils/supabase/server';
 
-export async function updateContent(topic: string, style: string, response: string) {
+export async function saveContent(topic: string, style: string, response: string) {
   const supabase = supabaseServerClient();
 
   try {

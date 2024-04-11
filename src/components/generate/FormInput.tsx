@@ -6,14 +6,14 @@ import { SubmitButton } from '../SubmitButton';
 import { Input } from '../ui/input';
 import OutputContent from './OutputContent';
 import { TypeContent } from '../../../types/utils';
-import { toast } from '../ui/use-toast';
-import { updateContent } from '@/app/generate/actions';
+import { saveContent } from '@/app/generate/actions';
+import { errorToast } from '@/utils/utils';
 
 type FormInputProps = {
   data: TypeContent[];
 };
 
-export type FormFields = {
+type FormFields = {
   topic: string;
   style: string;
 };
@@ -21,6 +21,14 @@ export type FormFields = {
 const FormInput: FC<FormInputProps> = ({ data }) => {
   const [contentData, setContentData] = useState<string>();
   const [formData, setFormData] = useState<FormFields>({ topic: '', style: '' });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   const handleStream = async (data: ReadableStream) => {
     const reader = data.getReader();
@@ -39,15 +47,12 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
     return streamData;
   };
 
-  const handleGenerate = async (inputData: FormData) => {
+  const handleGeneration = async (inputData: FormData) => {
     const topic = inputData.get('topic') as string;
     const style = inputData.get('style') as string;
 
     if (!topic || !style) {
-      toast({
-        description: 'Please fill all required fields',
-        variant: 'destructive',
-      });
+      errorToast('Please fill all required fields');
       return;
     }
 
@@ -61,18 +66,13 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
 
     const data = res.body;
     if (!data) {
-      toast({
-        description: 'Something went wrong, please try again',
-        variant: 'destructive',
-      });
+      errorToast('Something went wrong, please try again');
       return;
     }
 
     const streamData = await handleStream(data);
 
-    await updateContent(topic, style, streamData).catch((error) => {
-      toast({ description: error, variant: 'destructive' });
-    });
+    await saveContent(topic, style, streamData).catch((error) => errorToast(error));
   };
 
   return (
@@ -83,7 +83,7 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
             <p className='text-[#27262B] text-xl font-bold leading-10'>AI Content Creator</p>
           </div>
 
-          <form className='h-full flex flex-col'>
+          <form className='md:h-[455px] flex flex-col justify-between'>
             <div className='mb-5'>
               <InputWrapper id='topic' label='Topic' className='mb-6'>
                 <Input
@@ -92,7 +92,7 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
                   placeholder="What's new in AI?"
                   autoFocus
                   value={formData.topic}
-                  onChange={(e) => setFormData({ ...formData, topic: e.target.value })}
+                  onChange={handleInputChange}
                 />
               </InputWrapper>
 
@@ -102,15 +102,14 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
                   name='style'
                   placeholder='Educational, Facts, Entertainment'
                   value={formData.style}
-                  onChange={(e) => setFormData({ ...formData, style: e.target.value })}
+                  onChange={handleInputChange}
                 />
               </InputWrapper>
             </div>
-            <div className='mt-5 md:mt-44'>
-              <SubmitButton className='w-full ' formAction={handleGenerate}>
-                Generate
-              </SubmitButton>
-            </div>
+
+            <SubmitButton className='w-full ' formAction={handleGeneration}>
+              Generate
+            </SubmitButton>
           </form>
         </div>
 
