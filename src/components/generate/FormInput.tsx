@@ -6,9 +6,8 @@ import { SubmitButton } from '../SubmitButton';
 import { Input } from '../ui/input';
 import OutputContent from './OutputContent';
 import { TypeContent } from '../../../types/utils';
-import { generateContentFn } from '@/app/(main)/generate/actions';
-import { toast } from '../ui/use-toast';
-import { useRouter } from 'next/navigation';
+import { saveContent } from '@/app/generate/actions';
+import { errorToast } from '@/utils/utils';
 
 type FormInputProps = {
   data: TypeContent[];
@@ -20,10 +19,8 @@ type FormFields = {
 };
 
 const FormInput: FC<FormInputProps> = ({ data }) => {
-  const [contents, setContents] = useState<TypeContent | undefined>();
+  const [contentData, setContentData] = useState<string>();
   const [formData, setFormData] = useState<FormFields>({ topic: '', style: '' });
-
-  const router = useRouter();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -33,14 +30,49 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
     }));
   };
 
-  const handleGeneration = async (data: FormData) => {
-    const response = await generateContentFn(data);
-    if (typeof response == 'string') {
-      toast({ description: response, variant: 'destructive' });
-    } else {
-      setContents(response);
-      router.refresh();
+  const handleStream = async (data: ReadableStream) => {
+    const reader = data.getReader();
+    const decoder = new TextDecoder();
+    let done = false;
+    let streamData = '';
+
+    while (!done) {
+      const { value, done: doneReading } = await reader.read();
+      done = doneReading;
+      const chunkValue = decoder.decode(value);
+      streamData += chunkValue;
+      setContentData(streamData.replace(/^```html\s*|\s*```$/g, ''));
     }
+
+    return streamData;
+  };
+
+  const handleGeneration = async (inputData: FormData) => {
+    const topic = inputData.get('topic') as string;
+    const style = inputData.get('style') as string;
+
+    if (!topic || !style) {
+      errorToast('Please fill all required fields');
+      return;
+    }
+
+    const res = await fetch('/api/generate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ topic, style }),
+    });
+
+    const data = res.body;
+    if (!data) {
+      errorToast('Something went wrong, please try again');
+      return;
+    }
+
+    const streamData = await handleStream(data);
+
+    await saveContent(topic, style, streamData).catch((error) => errorToast(error));
   };
 
   return (
@@ -83,13 +115,10 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
 
         <OutputContent
           data={data}
-          contents={contents}
+          content={contentData}
           onSelectContent={(value) => {
-            setContents(value);
-            setFormData({
-              topic: value.topic,
-              style: value.style,
-            });
+            setContentData(value.results!);
+            setFormData({ topic: value.topic, style: value.style });
           }}
         />
       </div>
