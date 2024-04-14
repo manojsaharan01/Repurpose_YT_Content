@@ -5,7 +5,7 @@ import InputWrapper from '../InputWrapper';
 import { SubmitButton } from '../SubmitButton';
 import { Input } from '../ui/input';
 import OutputContent from './OutputContent';
-import { TypeContent } from '../../../types/utils';
+import { TypeContent } from '@/types/types';
 import { saveContent } from '@/app/generate/actions';
 import { errorToast } from '@/utils/utils';
 

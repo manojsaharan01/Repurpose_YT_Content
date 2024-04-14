@@ -2,7 +2,7 @@
 
 import { FC, useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { TypeContent } from '../../../types/utils';
+import { TypeContent } from '@/types/types';
 
 type OutputContentProps = {
   data: TypeContent[];
