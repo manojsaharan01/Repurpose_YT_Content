@@ -64,6 +64,11 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
       body: JSON.stringify({ topic, style }),
     });
 
+    if (!res.ok) {
+      errorToast('Something went wrong, please try again');
+      return;
+    }
+
     const data = res.body;
     if (!data) {
       errorToast('Something went wrong, please try again');
