@@ -24,7 +24,7 @@ export default async function Navbar() {
           {user ? (
             <>
               <ModalAccount user={user} />
-              <SignOutButton className='rounded-lg border border-[#51DCA3] green-btn-gradient hover:text-white' />
+              <SignOutButton />
             </>
           ) : (
             <ButtonCta label='Sign In' />
@@ -44,7 +44,7 @@ export default async function Navbar() {
             {user ? (
               <div className='space-y-6'>
                 <ModalAccount user={user} className='text-black font-medium' />
-                <SignOutButton className='w-full green-btn-gradient' />
+                <SignOutButton />
               </div>
             ) : (
               <ButtonCta label='Sign In' />

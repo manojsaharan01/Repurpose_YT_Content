@@ -112,8 +112,8 @@ const Pricing = () => {
       </div>
       <div className='mt-5 mb-24 flex justify-center items-center'>
         <Button
-          variant='outline'
-          className='rounded-full text-green-600 text-center text-base not-italic font-medium leading-6 gap-3 py-6 hover:text-green-600'>
+          variant='default'
+          className='rounded-full text-green-600 text-center text-base not-italic font-medium leading-6 gap-3 py-6 bg-background '>
           {' '}
           <CiGift className='size-6' />
           Try free demo

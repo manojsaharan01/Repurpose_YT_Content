@@ -1,4 +1,5 @@
 import { ParsedEvent, ReconnectInterval, createParser } from 'eventsource-parser';
+import { getKeyFromCookie } from './cookie-store';
 
 export type ChatGPTAgent = 'user' | 'system';
 
@@ -23,11 +24,13 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
   const encoder = new TextEncoder();
   const decoder = new TextDecoder();
 
+  const userOpenAIKey = getKeyFromCookie('openai-key');
+
   const res = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+      Authorization: `Bearer ${userOpenAIKey || process.env.OPENAI_API_KEY}`,
     },
     body: JSON.stringify(payload),
   });
