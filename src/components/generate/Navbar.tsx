@@ -44,7 +44,7 @@ export default async function Navbar() {
             {user ? (
               <div className='space-y-6'>
                 <ModalAccount user={user} className='text-black font-medium' />
-                <SignOutButton  />
+                <SignOutButton />
               </div>
             ) : (
               <ButtonCta label='Sign In' />
