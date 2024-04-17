@@ -1,13 +1,12 @@
 import { FC } from 'react';
-import { getKeyFromCookie } from '@/utils/cookie-store';
-import { storeKeyInCookie } from './storeKeyInCookie';
-import Modal from './ui/model';
+import { getKeyFromCookie, storeKeyInCookie } from '@/utils/cookie-store';
 import InputWrapper from './InputWrapper';
 import { Input } from './ui/input';
 import { SubmitButton } from './SubmitButton';
+import Modal from './Model';
 
 const ModalUserKeys: FC = () => {
-  const openAIKey = getKeyFromCookie('openai-key');
+  const openAIKey = getKeyFromCookie('openai');
 
   if (openAIKey) {
     return null;
@@ -23,13 +22,15 @@ const ModalUserKeys: FC = () => {
   return (
     <div>
       <Modal>
-        <p className='text-lg font-medium'>Please enter the key below to use the respective tools.</p>
+        <p className='font-medium text-black mb-6'>
+          Please enter the keys below to use the respective tools.
+        </p>
         <form>
-          <InputWrapper id='key' label='OpenAI API Key' className='mt-5'>
-            <Input className='' placeholder='sk-**********' id='key' name='key' />
+          <InputWrapper id='key' label='OpenAI' className='mt-5'>
+            <Input placeholder='sk-****************************' id='key' name='key' />
           </InputWrapper>
           <SubmitButton className='w-full mt-5' formAction={handleSubmit}>
-            Generate
+            Submit
           </SubmitButton>
         </form>
       </Modal>

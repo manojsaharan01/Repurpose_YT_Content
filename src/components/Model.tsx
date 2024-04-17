@@ -2,7 +2,7 @@
 
 import { FC, ReactNode } from 'react';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { ButtonProps } from './button';
+import { ButtonProps } from './ui/button';
 
 interface ModalProps extends ButtonProps {
   children: ReactNode;
