@@ -28,7 +28,7 @@ const OutputContent: FC<OutputContentProps> = ({ data, content, onSelectContent 
         </div>
 
         <TabsContent value='output' className='h-full bg-[#9f9f9f]/5'>
-          <div className='h-full md:h-[25rem] rounded-lg border border-black/5 px-5 py-4 overflow-auto'>
+          <div className='h-full md:h-[455px] rounded-lg border border-black/5 px-5 py-4 overflow-auto'>
             {content ? (
               <p dangerouslySetInnerHTML={{ __html: content }} />
             ) : (
