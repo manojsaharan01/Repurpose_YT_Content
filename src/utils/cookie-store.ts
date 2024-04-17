@@ -13,11 +13,8 @@ export function storeKeyInCookie(openAiKey: string) {
 
   const sevenDays = 7 * 24 * 60 * 60 * 1000;
 
-  console.log(openAiKey);
-  
-
   const options = {
-    // domain: 'builderkit.ai',
+    domain: 'builderkit.ai',
     secure: true,
     maxAge: sevenDays,
     httpOnly: true,
