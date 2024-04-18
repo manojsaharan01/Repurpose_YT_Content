@@ -1,12 +1,12 @@
 import { FC } from 'react';
-import { getKeyFromCookie, storeKeyInCookie } from '@/utils/cookie-store';
+import { getOpenaiKeyFromCookie, storeKeyInCookie } from '@/utils/cookie-store';
 import InputWrapper from './InputWrapper';
 import { Input } from './ui/input';
 import { SubmitButton } from './SubmitButton';
 import Modal from './Model';
 
 const ModalUserKeys: FC = () => {
-  const openAIKey = getKeyFromCookie('openai');
+  const openAIKey = getOpenaiKeyFromCookie();
 
   if (openAIKey) {
     return null;
@@ -15,8 +15,10 @@ const ModalUserKeys: FC = () => {
   const handleSubmit = async (formData: FormData) => {
     'use server';
 
-    const openAiKey = formData.get('key') as string;
-    storeKeyInCookie(openAiKey);
+    const openAiKey = formData.get('openai');
+    if (openAiKey) {
+      storeKeyInCookie(openAiKey as string);
+    }
   };
 
   return (
@@ -26,8 +28,8 @@ const ModalUserKeys: FC = () => {
           Please enter the keys below to use the respective tools.
         </p>
         <form>
-          <InputWrapper id='key' label='OpenAI' className='mt-5'>
-            <Input placeholder='sk-****************************' id='key' name='key' />
+          <InputWrapper id='openai' label='OpenAI' className='mt-5'>
+            <Input placeholder='sk-****************************' id='openai' name='openai' />
           </InputWrapper>
           <SubmitButton className='w-full mt-5' formAction={handleSubmit}>
             Submit
