@@ -81,16 +81,16 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
   };
 
   return (
-    <div className='p-5 xl:p-0 h-auto md:h-auto '>
+    <div className='p-5 xl:p-0 h-auto md:h-auto mb-5'>
       <div className='block md:flex items-start space-y-10 md:space-y-0'>
         <div className='w-full md:w-1/2 md:border-r pr-0 md:pr-10'>
           <div className='mb-6'>
-            <p className='text-[#27262B] text-xl font-bold leading-10'>AI Content Creator</p>
+            <p className='text-white text-xl font-bold leading-10'>AI Content Creator</p>
           </div>
 
           <form className='md:h-[455px] flex flex-col justify-between'>
             <div className='mb-5'>
-              <InputWrapper id='topic' label='Topic' className='mb-6'>
+              <InputWrapper id='topic' label='Topic' className='mb-6 text-white'>
                 <Input
                   id='topic'
                   name='topic'
@@ -98,21 +98,23 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
                   autoFocus
                   value={formData.topic}
                   onChange={handleInputChange}
+                  className='bg-[#1b1b1b80] border border-transparent'
                 />
               </InputWrapper>
 
-              <InputWrapper id='style' label='Content Style' className='mb-6'>
+              <InputWrapper id='style' label='Content Style' className='mb-6 text-white'>
                 <Input
                   id='style'
                   name='style'
                   placeholder='Educational, Facts, Entertainment'
                   value={formData.style}
                   onChange={handleInputChange}
+                  className='bg-[#1b1b1b80] border border-transparent'
                 />
               </InputWrapper>
             </div>
 
-            <SubmitButton className='w-full ' formAction={handleGeneration}>
+            <SubmitButton className='w-full bg-[#161616] rounded-2xl' formAction={handleGeneration}>
               Generate
             </SubmitButton>
           </form>
