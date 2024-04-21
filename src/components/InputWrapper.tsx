@@ -27,7 +27,7 @@ const InputWrapper: FC<InputWrapperProps> = ({
   className,
 }) => {
   return (
-    <div className={cn('w-full relative text-[#27262B]', className)}>
+    <div className={cn('w-full relative', className)}>
       <div className='mb-2'>
         <label htmlFor={id} className='flex items-end gap-1 mb-1'>
           {extraOption && <div className='w-4'>{extraOption}</div>}

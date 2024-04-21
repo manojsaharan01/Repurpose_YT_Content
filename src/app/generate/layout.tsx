@@ -7,10 +7,10 @@ type Props = {
 
 export default function Layout({ children }: Props) {
   return (
-    <div className=''>
+    <>
       <Navbar />
       {children}
       <ModalUserKeys />
-    </div>
+    </>
   );
 }
