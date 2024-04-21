@@ -29,30 +29,25 @@ const ModalAccount: FC<ModalAccountProps> = ({ user, className }) => {
 
         <div className='space-y-6'>
           <div className='flex flex-col md:flex-row md:items-center md:justify-between gap-1 font-medium'>
-            <p className='text-[#70747B]'>Display Name</p>
-            <p className='text-[#3E3E3E]'>{user?.identities?.[0]?.identity_data?.full_name}</p>
+            <p>Display Name</p>
+            <p>{user?.identities?.[0]?.identity_data?.full_name}</p>
           </div>
           <div className='flex flex-col md:flex-row md:items-center md:justify-between gap-1 font-medium'>
-            <p className='text-[#70747B]'>Email Address</p>
-            <p className='text-[#3E3E3E]'>{user.email}</p>
+            <p>Email Address</p>
+            <p>{user.email}</p>
           </div>
           <div className='flex flex-col md:flex-row md:items-center md:justify-between gap-1 font-medium'>
-            <p className='text-[#70747B]'>Available Credits</p>
-            <p className='text-[#3E3E3E]'>24</p>
+            <p>Available Credits</p>
+            <p>24</p>
           </div>
           <div className='flex flex-col md:flex-row md:items-center md:justify-between gap-1 font-medium'>
-            <p className='text-[#70747B]'>Current Plan</p>
-            <p className='text-[#3E3E3E]'>Free</p>
+            <p>Current Plan</p>
+            <p>Free</p>
           </div>
           <Button className='rounded-lg w-full flex border border-[#51DCA3] green-btn-gradient gap-2'>
             Upgrade Plan <MdArrowOutward size={16} />
           </Button>
         </div>
-        <DialogClose>
-          <div className='absolute right-4 top-4 rounded-sm opacity-70 cursor-pointer'>
-            <Cross2Icon className='size-4 ' />
-          </div>
-        </DialogClose>
       </DialogContent>
     </Dialog>
   );
