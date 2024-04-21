@@ -1,4 +1,3 @@
-import ModalUserKeys from '@/components/ModelUserKeys';
 import Navbar from '@/components/generate/Navbar';
 
 type Props = {
@@ -10,7 +9,6 @@ export default function Layout({ children }: Props) {
     <>
       <Navbar />
       {children}
-      <ModalUserKeys />
     </>
   );
 }
