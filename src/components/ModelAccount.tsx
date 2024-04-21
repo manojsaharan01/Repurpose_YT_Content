@@ -21,7 +21,7 @@ interface ModalAccountProps {
 const ModalAccount: FC<ModalAccountProps> = ({ user, className }) => {
   return (
     <Dialog>
-      <DialogTrigger className={cn('text-white hover:no-underline', className)}>
+      <DialogTrigger className={cn('hover:no-underline', className)}>
         Account Setting
       </DialogTrigger>
       <DialogContent className='w-11/12 rounded-lg'>

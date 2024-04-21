@@ -7,12 +7,13 @@ import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
 import { HiBars3 } from 'react-icons/hi2';
 import ModalAccount from '../ModelAccount';
 import SignOutButton from '../navbar/SignOutButton';
+import { ModeToggle } from '../ModeToggle';
 export default async function Navbar() {
   const user = await getUserDetails();
 
   return (
-    <div className='w-full text-white bg-[#031614]'>
-      <div className={cn('max-w-6xl mx-auto flex justify-between items-center p-4')}>
+    <div className='w-full'>
+      <div className={cn('max-w-6xl mx-auto flex justify-between items-center p-4 xl:px-0 xl:py-4')}>
         <Link href='/'>
           <div className='flex items-center gap-1'>
             <Image src='/logo.svg' className='size-6 ' width={50} height={50} alt='logo' />
@@ -21,6 +22,7 @@ export default async function Navbar() {
         </Link>
 
         <div className='hidden md:flex items-center gap-4'>
+          <ModeToggle />
           {user ? (
             <>
               <ModalAccount user={user} />
