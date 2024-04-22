@@ -11,6 +11,7 @@ interface ButtonCtaProps {
 
 const ButtonCta: FC<ButtonCtaProps> = async ({ className, label }) => {
   const user = await getUserDetails();
+
   const buttonLabel = user == null && label ? label : user != null && label ? 'Try Now' : 'Get Started';
 
   return (

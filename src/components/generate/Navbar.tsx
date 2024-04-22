@@ -1,5 +1,4 @@
 import { cn } from '@/utils/utils';
-import ButtonCta from '../landing-page/ButtonCta';
 import { getUserDetails } from '@/utils/supabase/server';
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
 import { HiBars3 } from 'react-icons/hi2';
@@ -38,12 +37,10 @@ export default async function Navbar() {
               <Logo />
 
               {user && (
-                <>
-                  <div className='space-y-6'>
-                    <ModalAccount user={user} className='font-medium' />
-                    <SignOutButton className='w-full' />
-                  </div>
-                </>
+                <div className='space-y-6'>
+                  <ModalAccount user={user} className='font-medium' />
+                  <SignOutButton className='w-full' />
+                </div>
               )}
             </SheetContent>
           </Sheet>

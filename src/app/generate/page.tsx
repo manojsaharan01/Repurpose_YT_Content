@@ -1,6 +1,5 @@
 import { supabaseServerClient } from '@/utils/supabase/server';
 import FormInput from '@/components/generate/FormInput';
-import { redirect } from 'next/navigation';
 
 export default async function Home() {
   const supabase = supabaseServerClient();
