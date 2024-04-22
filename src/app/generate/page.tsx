@@ -10,8 +10,10 @@ export default async function Home() {
     .order('created_at', { ascending: false });
 
   return (
-    <div className='max-w-6xl mx-auto pt-14'>
-      <FormInput data={data!} />
-    </div>
+    <>
+      <div className='max-w-6xl mx-auto pt-14'>
+        <FormInput data={data!} />
+      </div>
+    </>
   );
 }
