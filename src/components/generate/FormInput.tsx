@@ -98,7 +98,7 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
                   autoFocus
                   value={formData.topic}
                   onChange={handleInputChange}
-                  className='bg-[#9F9F9F]/20 dark:bg-[#1b1b1b80] border border-transparent'
+                  className='bg-[#9F9F9F]/10 dark:bg-[#1b1b1b80] border border-transparent'
                 />
               </InputWrapper>
 
@@ -109,7 +109,7 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
                   placeholder='Educational, Facts, Entertainment'
                   value={formData.style}
                   onChange={handleInputChange}
-                  className='bg-[#9F9F9F]/20 dark:bg-[#1b1b1b80] border border-transparent'
+                  className='bg-[#9F9F9F]/10 dark:bg-[#1b1b1b80] border border-transparent'
                 />
               </InputWrapper>
             </div>
