@@ -1,12 +1,22 @@
+// This function encapsulates the logic for streaming responses from the OpenAI API.
+// It uses fetch API to make a POST request to OpenAI's chat completions endpoint.
+// The function sets up a ReadableStream to handle data chunks as they arrive, ensuring efficient data processing and transfer.
+// A parser from 'eventsource-parser' is used to process the data chunks into meaningful events, which are then encoded and sent to the client.
+// Errors in stream processing are handled gracefully, and the stream is closed when the data is marked as complete.
+
 import { ParsedEvent, ReconnectInterval, createParser } from 'eventsource-parser';
 
+// Defines a type for different roles that messages in the OpenAIStreamPayload can assume.
 export type ChatGPTAgent = 'user' | 'system';
 
+// Defines the structure for messages within the OpenAIStreamPayload.
 export interface ChatGPTMessage {
   role: ChatGPTAgent;
   content: string;
 }
 
+// Defines the structure for the payload to be sent to the OpenAI API.
+// Includes parameters for model configuration, such as temperature and token limits, to tailor the AI's response style and length.
 export interface OpenAIStreamPayload {
   model: string;
   messages: ChatGPTMessage[];
@@ -23,6 +33,7 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
   const encoder = new TextEncoder();
   const decoder = new TextDecoder();
 
+  // Fetch data from OpenAI API using the provided payload
   const res = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: {
@@ -34,6 +45,7 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
 
   let counter = 0;
 
+  // Handle streaming response from OpenAI API
   const stream = new ReadableStream({
     async start(controller) {
       function push(event: ParsedEvent | ReconnectInterval) {
@@ -70,5 +82,6 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
     },
   });
 
+  // Return response as a stream
   return stream;
 }

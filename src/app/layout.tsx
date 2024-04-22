@@ -8,19 +8,19 @@ import { ThemeProvider } from '@/components/theme-provider';
 const font = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://aiboilerplate.com'),
-  title: 'AI Boilerplate',
+  metadataBase: new URL('https://builderkit.ai'),
+  title: 'BuilderKit',
   description: 'Boilerplate for AI Content Writer',
   openGraph: {
     type: 'website',
-    title: 'AI Boilerplate',
+    title: 'BuilderKit',
     description: 'Boilerplate for AI Content Writer',
     images: '/og-image.png',
-    url: 'https://aiboilerplate.com',
+    url: 'https://builderkit.ai',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AI Boilerplate',
+    title: 'BuilderKit',
     description: 'Boilerplate for AI Content Writer',
     images: '/og-image.png',
   },
