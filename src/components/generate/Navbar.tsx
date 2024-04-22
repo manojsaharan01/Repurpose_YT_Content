@@ -6,7 +6,7 @@ import { getUserDetails } from '@/utils/supabase/server';
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
 import { HiBars3 } from 'react-icons/hi2';
 import { SelectTheme } from '../SelectTheme';
-import ButtonSignout from '../navbar/ButtonSignout';
+import ButtonSignout from './ButtonSignout';
 import ModalAccount from '../ModalAccount';
 import Logo from '../Logo';
 
