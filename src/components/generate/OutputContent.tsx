@@ -1,3 +1,6 @@
+// Component for displaying output content or history of generated content
+// It supports interactive selection from the history to re-display content
+
 'use client';
 
 import { FC, useState } from 'react';
@@ -11,11 +14,13 @@ type OutputContentProps = {
 };
 
 const OutputContent: FC<OutputContentProps> = ({ data, content, onSelectContent }: OutputContentProps) => {
+  // Manages the active tab state
   const [currentTab, setCurrentTab] = useState('output');
 
   return (
     <div className='w-full md:w-1/2 ml-0 md:ml-10'>
       <Tabs defaultValue='output' value={currentTab} className='w-full h-[460px]'>
+        {/* Tab option to select which section to see (e.g. History | Output) */}
         <div className='flex justify-center mb-6'>
           <TabsList className='rounded-full p-1 bg-transparent border dark:border-[#272626]'>
             <TabsTrigger onClick={() => setCurrentTab('output')} className='rounded-full' value='output'>
@@ -27,6 +32,7 @@ const OutputContent: FC<OutputContentProps> = ({ data, content, onSelectContent 
           </TabsList>
         </div>
 
+        {/* Output tab shows complete content for the selected option */}
         <TabsContent value='output' className='h-full bg-[#FCFAFA] dark:bg-[#9f9f9f]/5 rounded-lg'>
           <div className='h-full md:h-[455px] rounded-lg border border-black/5 px-5 py-4 overflow-auto'>
             {content ? (
@@ -37,6 +43,7 @@ const OutputContent: FC<OutputContentProps> = ({ data, content, onSelectContent 
           </div>
         </TabsContent>
 
+        {/* History tab conatining the already generated contents */}
         <TabsContent value='history' className='h-full bg-[#9f9f9f]/5 rounded-lg'>
           <div className='h-full rounded-lg border border-black/5 px-5 py-4 space-y-2 overflow-auto'>
             {data?.length > 0 ? (

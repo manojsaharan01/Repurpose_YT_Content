@@ -1,10 +1,13 @@
+// Navbar component used in the generate page for navigation and theme selection
+// It dynamically adjusts based on user authentication state
+
 import { cn } from '@/utils/utils';
 import { getUserDetails } from '@/utils/supabase/server';
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
 import { HiBars3 } from 'react-icons/hi2';
 import { SelectTheme } from '../SelectTheme';
-import SignOutButton from '../navbar/SignOutButton';
-import ModalAccount from '../ModelAccount';
+import ButtonSignout from '../navbar/ButtonSignout';
+import ModalAccount from '../ModalAccount';
 import Logo from '../Logo';
 
 export default async function Navbar() {
@@ -16,15 +19,16 @@ export default async function Navbar() {
         <Logo />
 
         <div className='hidden md:flex items-center gap-4'>
-          <SelectTheme />
+          <SelectTheme /> {/* Theme selection widget */}
           {user && (
             <>
-              <ModalAccount user={user} />
-              <SignOutButton />
+              <ModalAccount user={user} /> {/* Modal for account management */}
+              <ButtonSignout /> {/* Button to handle user sign-out */}
             </>
           )}
         </div>
 
+        {/* Hamburger menu for mobile view only */}
         <div className='flex md:hidden items-center gap-2'>
           <div className='block md:hidden'>
             <SelectTheme />
@@ -39,7 +43,7 @@ export default async function Navbar() {
               {user && (
                 <div className='space-y-6'>
                   <ModalAccount user={user} className='font-medium' />
-                  <SignOutButton className='w-full' />
+                  <ButtonSignout className='w-full' />
                 </div>
               )}
             </SheetContent>

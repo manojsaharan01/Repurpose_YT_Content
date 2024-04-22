@@ -1,3 +1,7 @@
+// This component is used to display a list of frequently asked questions and their answers.
+// This component is typically used in sections like 'Help' or 'Support' to assist users in finding quick answers.
+// The FAQ data is expected to be passed as a prop in the form of an array of {question, answer} objects.
+
 'use client';
 import React, { useState } from 'react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';

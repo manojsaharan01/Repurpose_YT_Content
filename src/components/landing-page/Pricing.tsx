@@ -1,3 +1,7 @@
+// This component displays the different subscription plans or pricing tiers available for the product or service.
+// It typically includes information such as price, features included in each plan, and a call-to-action for users to sign up or purchase.
+// This component is key for conversion and clearly communicates the value proposition of each pricing tier.
+
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '../ui/badge';

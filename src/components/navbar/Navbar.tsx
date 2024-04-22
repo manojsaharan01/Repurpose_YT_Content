@@ -1,3 +1,7 @@
+// This component serves as the navigation bar for the application, which appears across various pages.
+// It dynamically adjusts to display different links based on the user's authentication status and screen size.
+// The component uses both responsive and conditional rendering techniques for optimization across devices.
+
 import { cn } from '@/utils/utils';
 import Link from 'next/link';
 import { Button } from '../ui/button';
@@ -5,7 +9,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { HiBars3 } from 'react-icons/hi2';
 import { getUserDetails } from '@/utils/supabase/server';
 import ButtonCta from '../landing-page/ButtonCta';
-import SignOutButton from './SignOutButton';
+import ButtonSignout from './ButtonSignout';
 import Logo from '../Logo';
 
 const NavbarRoutes = [
@@ -16,6 +20,7 @@ const NavbarRoutes = [
 ];
 
 export default async function Navbar() {
+  // Fetch user information to determine authentication state.
   const user = await getUserDetails();
 
   return (
@@ -31,7 +36,7 @@ export default async function Navbar() {
           ))}
         </ul>
 
-        {user ? <SignOutButton /> : <ButtonCta label='Sign In' />}
+        {user ? <ButtonSignout /> : <ButtonCta label='Sign In' />}
 
         <Sheet>
           <SheetTrigger className='block md:hidden'>

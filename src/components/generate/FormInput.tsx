@@ -1,3 +1,6 @@
+// Component for rendering and interacting with the form used to generate new content
+// It handles content creation data input and sends it to the server for processing
+
 'use client';
 
 import { FC, useState } from 'react';
@@ -19,9 +22,12 @@ type FormFields = {
 };
 
 const FormInput: FC<FormInputProps> = ({ data }) => {
+  // Holds content from the server response stream
   const [contentData, setContentData] = useState<string>();
+  // Holds user input for form fields
   const [formData, setFormData] = useState<FormFields>({ topic: '', style: '' });
 
+  // Handles user input changes, updating form state
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -30,12 +36,14 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
     }));
   };
 
+  // Handles the streaming of content generation data from the server response
   const handleStream = async (data: ReadableStream) => {
     const reader = data.getReader();
     const decoder = new TextDecoder();
     let done = false;
     let streamData = '';
 
+    // Append the stream data to the contentData state as it arrives
     while (!done) {
       const { value, done: doneReading } = await reader.read();
       done = doneReading;
@@ -47,6 +55,7 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
     return streamData;
   };
 
+  // Handles the form submission, invokes content generation, and saves the generated content
   const handleGeneration = async (inputData: FormData) => {
     const topic = inputData.get('topic') as string;
     const style = inputData.get('style') as string;
@@ -56,6 +65,7 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
       return;
     }
 
+    // Makes an api call to /api/generate and receives a stream response
     const res = await fetch('/api/generate', {
       method: 'POST',
       headers: {
@@ -75,8 +85,10 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
       return;
     }
 
+    // Handle the stream data
     const streamData = await handleStream(data);
 
+    // Save the generated content once the stream is complete
     await saveContent(topic, style, streamData).catch((error) => errorToast(error));
   };
 
@@ -88,6 +100,7 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
             <p className='text-xl font-bold leading-10'>AI Content Creator</p>
           </div>
 
+          {/* Input form */}
           <form className='md:h-[455px] flex flex-col justify-between'>
             <div className='mb-5'>
               <InputWrapper id='topic' label='Topic' className='mb-6'>
@@ -120,6 +133,7 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
           </form>
         </div>
 
+        {/* Show the generated content here */}
         <OutputContent
           data={data}
           content={contentData}
