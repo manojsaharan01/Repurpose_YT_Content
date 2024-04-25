@@ -7,26 +7,25 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import Script from 'next/script';
 import { Toaster } from '@/components/ui/toaster';
-import { ThemeProvider } from '@/components/theme-provider';
 
 const font = Inter({ subsets: ['latin'] });
 
 // It handles the integration of SEO metadata.
 export const metadata: Metadata = {
   metadataBase: new URL('https://builderkit.ai'),
-  title: 'BuilderKit',
-  description: 'Boilerplate for AI Content Writer',
+  title: 'Content Writer - BuilderKit',
+  description: 'Boilerplate for Content Writer App',
   openGraph: {
     type: 'website',
-    title: 'BuilderKit',
-    description: 'Boilerplate for AI Content Writer',
+    title: 'Content Writer - BuilderKit',
+    description: 'Boilerplate for Content Writer App',
     images: '/og-image.png',
     url: 'https://builderkit.ai',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'BuilderKit',
-    description: 'Boilerplate for AI Content Writer',
+    title: 'Content Writer - BuilderKit',
+    description: 'Boilerplate for Content Writer App',
     images: '/og-image.png',
   },
 };
@@ -51,12 +50,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </Script>
 
       <html lang='en'>
-        <ThemeProvider attribute='class' defaultTheme='dark' enableSystem disableTransitionOnChange>
-          <body className={font.className}>
-            <main>{children}</main>
-            <Toaster />
-          </body>
-        </ThemeProvider>
+        <body className={font.className}>
+          <main>{children}</main>
+          <Toaster />
+        </body>
       </html>
     </>
   );
