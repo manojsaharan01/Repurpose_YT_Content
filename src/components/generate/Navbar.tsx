@@ -29,7 +29,7 @@ export default async function Navbar() {
               <Link href='https://apps.builderkit.ai/' target='_blank'>
                 <Button variant='outline' className='gap-3'>
                   <IoMdArrowBack className='h-5 w-5' />
-                  Back to Tools
+                  Demo apps
                 </Button>
               </Link>
               <ButtonSignout /> {/* Button to handle user sign-out */}
@@ -55,7 +55,7 @@ export default async function Navbar() {
                   <Link href='https://apps.builderkit.ai/' target='_blank'>
                     <Button variant='outline' className='gap-3'>
                       <IoMdArrowBack className='h-5 w-5' />
-                      Back to Tools
+                      Demo apps
                     </Button>
                   </Link>
                   <ButtonSignout className='w-full' />
