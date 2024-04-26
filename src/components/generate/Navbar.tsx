@@ -9,6 +9,9 @@ import { SelectTheme } from '../SelectTheme';
 import ButtonSignout from './ButtonSignout';
 import ModalAccount from '../ModalAccount';
 import Logo from '../Logo';
+import { Button } from '../ui/button';
+import { IoMdArrowBack } from 'react-icons/io';
+import Link from 'next/link';
 
 export default async function Navbar() {
   const user = await getUserDetails();
@@ -23,6 +26,12 @@ export default async function Navbar() {
           {user && (
             <>
               <ModalAccount user={user} /> {/* Modal for account management */}
+              <Link href='https://apps.builderkit.ai/' target='_blank'>
+                <Button variant='outline' className='gap-3'>
+                  <IoMdArrowBack className='h-5 w-5' />
+                  Back to Tools
+                </Button>
+              </Link>
               <ButtonSignout /> {/* Button to handle user sign-out */}
             </>
           )}
@@ -43,6 +52,12 @@ export default async function Navbar() {
               {user && (
                 <div className='space-y-6'>
                   <ModalAccount user={user} className='font-medium' />
+                  <Link href='https://apps.builderkit.ai/' target='_blank'>
+                    <Button variant='outline' className='gap-3'>
+                      <IoMdArrowBack className='h-5 w-5' />
+                      Back to Tools
+                    </Button>
+                  </Link>
                   <ButtonSignout className='w-full' />
                 </div>
               )}
