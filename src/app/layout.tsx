@@ -13,19 +13,19 @@ const font = Inter({ subsets: ['latin'] });
 // It handles the integration of SEO metadata.
 export const metadata: Metadata = {
   metadataBase: new URL('https://builderkit.ai'),
-  title: 'Content Writer - BuilderKit',
-  description: 'Boilerplate for Content Writer App',
+  title: 'Blog Writer - BuilderKit',
+  description: 'Boilerplate for Blog Writer App',
   openGraph: {
     type: 'website',
-    title: 'Content Writer - BuilderKit',
-    description: 'Boilerplate for Content Writer App',
+    title: 'Blog Writer - BuilderKit',
+    description: 'Boilerplate for Blog Writer App',
     images: '/og-image.png',
     url: 'https://builderkit.ai',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Content Writer - BuilderKit',
-    description: 'Boilerplate for Content Writer App',
+    title: 'Blog Writer - BuilderKit',
+    description: 'Boilerplate for Blog Writer App',
     images: '/og-image.png',
   },
 };
