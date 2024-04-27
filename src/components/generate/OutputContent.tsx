@@ -3,12 +3,11 @@
 
 'use client';
 
-import { FC, useRef, useState } from 'react';
+import { FC, useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { TypeContent } from '@/types/types';
 import { IoMdCopy } from 'react-icons/io';
 import { toast } from '../ui/use-toast';
-import { errorToast } from '@/utils/utils';
 import { Button } from '../ui/button';
 
 type OutputContentProps = {
@@ -21,23 +20,10 @@ const OutputContent: FC<OutputContentProps> = ({ data, content, onSelectContent 
   // Manages the active tab state
   const [currentTab, setCurrentTab] = useState('output');
 
-  const copiedRef = useRef(false);
-
-  const copyContent = () => {
+  const handleCopyContent = () => {
     const contentToCopy = document.querySelector('.output-content') as HTMLElement;
-    if (contentToCopy) {
-      navigator.clipboard.writeText(contentToCopy.innerText);
-      copiedRef.current = true; // Update copied state
-      toast({
-        title: 'Content copied to clipboard',
-        className: 'green-btn-gradient shadow rounded-lg border border-[#51DCA3] text-white',
-      });
-      setTimeout(() => {
-        copiedRef.current = false; // Reset copied state after 2 seconds
-      }, 2000);
-    } else {
-      errorToast('Failed to copy content');
-    }
+    navigator.clipboard.writeText(contentToCopy.innerText);
+    toast({ title: 'Content copied to clipboard', variant: 'default' });
   };
 
   return (
@@ -61,23 +47,19 @@ const OutputContent: FC<OutputContentProps> = ({ data, content, onSelectContent 
           className='h-full bg-[#FCFAFA] dark:bg-[#9f9f9f]/5 rounded-lg overflow-hidden relative'>
           <div className='h-full md:h-[480px] rounded-lg border border-black/5 px-5 py-4 overflow-auto'>
             {content ? (
-              <>
-                <div className=''>
-                  <p className='output-content' dangerouslySetInnerHTML={{ __html: content }} />
-                </div>
-              </>
+              <p className='output-content' dangerouslySetInnerHTML={{ __html: content }} />
             ) : (
               <p className='text-sm dark:text-[#4F4F4F]'>See the output here...</p>
             )}
           </div>
 
           {content && (
-            <div className='flex relative bottom-[60px] items-center bg-[#FCFAFA] dark:bg-[#1d1d1d] p-2 dark:border-[#272626] rounded-b-lg border border-t'>
+            <div className='flex relative bottom-[60px] items-center bg-[#FCFAFA] dark:bg-[#1d1d1d] p-2 dark:border-[#272626] rounded-b-lg border'>
               <Button
                 className='w-1/2 h-[42px] flex items-center justify-center gap-3 py-2.5 md:p-3 rounded-lg  text-sm '
-                onClick={copyContent}
+                onClick={handleCopyContent}
                 variant='outline'>
-                <IoMdCopy className='h-5 w-5 ' />
+                <IoMdCopy className='size-5 ' />
                 Copy to clipboard
               </Button>
             </div>

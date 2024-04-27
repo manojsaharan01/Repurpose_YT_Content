@@ -12,7 +12,8 @@ export default async function Generate() {
   const { data } = await supabase
     .from('content_creations')
     .select()
-    .order('created_at', { ascending: false });
+    .order('created_at', { ascending: false })
+    .not('results', 'is', null);
 
   return (
     <>

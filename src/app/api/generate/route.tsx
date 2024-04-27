@@ -46,7 +46,7 @@ export const POST = async (req: Request) => {
       stream: true,
       n: 1,
       model: 'gpt-4-0125-preview',
-      max_tokens: 1000,
+      max_tokens: 2000,
       temperature: 0.9,
     };
 
