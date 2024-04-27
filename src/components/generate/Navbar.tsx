@@ -10,8 +10,9 @@ import ButtonSignout from './ButtonSignout';
 import ModalAccount from '../ModalAccount';
 import Logo from '../Logo';
 import { Button } from '../ui/button';
-import { IoMdArrowBack } from 'react-icons/io';
 import Link from 'next/link';
+import { User } from '@supabase/supabase-js';
+import { RxExternalLink } from 'react-icons/rx';
 
 export default async function Navbar() {
   const user = await getUserDetails();
@@ -23,18 +24,7 @@ export default async function Navbar() {
 
         <div className='hidden md:flex items-center gap-4'>
           <SelectTheme /> {/* Theme selection widget */}
-          {user && (
-            <>
-              <ModalAccount user={user} /> {/* Modal for account management */}
-              <Link href='https://apps.builderkit.ai/' target='_blank'>
-                <Button variant='outline' className='gap-3'>
-                  <IoMdArrowBack className='h-5 w-5' />
-                  Demo apps
-                </Button>
-              </Link>
-              <ButtonSignout /> {/* Button to handle user sign-out */}
-            </>
-          )}
+          {user && <NavItems user={user} />}
         </div>
 
         {/* Hamburger menu for mobile view only */}
@@ -46,19 +36,12 @@ export default async function Navbar() {
             <SheetTrigger className='block md:hidden'>
               <HiBars3 />
             </SheetTrigger>
-            <SheetContent className=''>
+            <SheetContent>
               <Logo />
 
               {user && (
-                <div className='space-y-6'>
-                  <ModalAccount user={user} className='font-medium' />
-                  <Link href='https://apps.builderkit.ai/' target='_blank'>
-                    <Button variant='outline' className='gap-3'>
-                      <IoMdArrowBack className='h-5 w-5' />
-                      Demo apps
-                    </Button>
-                  </Link>
-                  <ButtonSignout className='w-full' />
+                <div className='space-y-6 mt-8'>
+                  <NavItems user={user} />
                 </div>
               )}
             </SheetContent>
@@ -66,5 +49,20 @@ export default async function Navbar() {
         </div>
       </div>
     </div>
+  );
+}
+
+function NavItems({ user }: { user: User }) {
+  return (
+    <>
+      <Link href='https://apps.builderkit.ai/' target='_blank' className='block w-full'>
+        <Button variant='outline' className='gap-3 w-full'>
+          Demo Apps
+          <RxExternalLink />
+        </Button>
+      </Link>
+      <ModalAccount user={user} />
+      <ButtonSignout className='w-full' />
+    </>
   );
 }
