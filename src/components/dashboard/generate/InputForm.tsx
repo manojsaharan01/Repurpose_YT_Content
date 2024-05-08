@@ -155,7 +155,7 @@ const InputForm = ({ generatedData }: Props) => {
             </Select>
           </InputWrapper>
 
-          <SubmitButton className='w-full rounded-lg mt-8' formAction={handleGeneration}>
+          <SubmitButton className='w-full rounded-lg mt-8' variant="blue" formAction={handleGeneration}>
             Generate
           </SubmitButton>
         </form>

@@ -19,15 +19,18 @@ const OutputContent = ({ contentData }: Props) => {
       {contentData.length > 0 ? (
         <p className='text-sm font-medium mb-4'>Output</p>
       ) : (
-        <p className='text-base font-medium text-center mb-16'>Your output will be displayed here</p>
+        <p className='text-base font-medium text-center mb-16 mt-10 lg:mt-0'>Your output will be displayed here</p>
       )}
       {contentData.length > 0 ? (
         <div className='space-y-5'>
           {contentData.map((content, index) => (
-            <div key={index} className='border border-[#EEE] p-4 rounded-lg'>
-              <div
-                className='flex justify-between items-start cursor-pointer'
-                onClick={() => {
+            <div key={index} className='border border-[#EEE] dark:border-[#272626] p-4 rounded-lg'>
+              <div className='flex justify-between items-start'>
+                <p className='text-lg font-medium text-[#333333] dark:text-[#E5E7EB] mb-2'>
+                  {content?.title}
+                </p>
+
+                <IoMdCopy className='size-10 p-1 rounded border text-[#3e3e3e] border-[#EEE] dark:border-[#272626] cursor-pointer' onClick={() => {
                   navigator.clipboard
                     .writeText(`${content.title} \n ${content.description}`)
                     .then(() => {
@@ -36,12 +39,7 @@ const OutputContent = ({ contentData }: Props) => {
                     .catch(() => {
                       errorToast("Couldn't copy content to clipboard");
                     });
-                }}>
-                <p className='text-lg font-medium text-[#333333] dark:text-[#E5E7EB] mb-2'>
-                  {content?.title}
-                </p>
-
-                <IoMdCopy className='size-10 p-1 rounded border border-[#ECECEC] text-[#3e3e3e]' />
+                }} />
               </div>
               <p className='text-base text-[#4B5563] dark:text-[#9CA3AF]'>{content.description}</p>
             </div>

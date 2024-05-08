@@ -1,4 +1,4 @@
-import { DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
+import { DropdownMenuItem, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
 import React from 'react';
 import {
   Dialog,
@@ -21,16 +21,18 @@ const AccountSettings = async () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className='flex items-center relative select-none rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:bg-gray-100 cursor-pointer'>
+        <div className='relative flex select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 cursor-pointer' >
+          <div className="flex items-center ">
           <MdOutlineAccountCircle className='size-5' />
-          <p className=' text-sm ml-2'>Account</p>
+            <p className=' text-sm ml-2'>Account</p>
+            </div>
         </div>
       </DialogTrigger>
       <DialogContent className='sm:max-w-[500px] max-w-[600px] gap-3 '>
         <DialogHeader className='flex flex-row justify-between items-start'>
           <div>
             <DialogTitle className='mb-2'>Account</DialogTitle>
-            <DialogDescription className='text-[#475467]'>
+            <DialogDescription>
               Choose the avatar that best describes your use case
             </DialogDescription>
           </div>
@@ -44,17 +46,17 @@ const AccountSettings = async () => {
         {/* todo add credentials */}
         <div className='space-y-5'>
           <div className='space-y-1'>
-            <p className='text-[#70747B] font-medium'>Display Name</p>
+            <p className='font-medium'>Display Name</p>
             <p className='font-semibold'>{user?.identities?.[0]?.identity_data?.full_name}</p>
           </div>
           <div className='space-y-1'>
-            <p className='text-[#70747B] font-medium'>Email Address</p>
+            <p className='font-medium'>Email Address</p>
             <p className='font-semibold'>{user?.email}</p>
           </div>
           <div className='space-y-1'>
             <div className='flex justify-between items-center'>
               <div>
-                <p className='text-[#70747B] font-medium'>Current Plan</p>
+                <p className='font-medium'>Current Plan</p>
                 <p className='font-semibold'>Free</p>
               </div>
               <Button

@@ -19,7 +19,7 @@ const UserButton = async () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <div className='bg-[#F9F9F9] rounded-lg px-1.5 py-2.5 flex items-center gap-2 overflow-hidden cursor-pointer'>
+        <div className='bg-[#F9F9F9] dark:bg-[#5a5959]/10 rounded-lg px-1.5 py-2.5 flex items-center gap-2 overflow-hidden cursor-pointer'>
           <Image
             src={user?.user_metadata?.avatar_url ?? '/avatar.png'}
             className='size-10 rounded-full'
@@ -27,7 +27,7 @@ const UserButton = async () => {
             height={20}
             alt='avatar'
           />
-          <p className='text-[#3E3E3E] font-semibold'>{user?.identities?.[0]?.identity_data?.full_name}</p>
+          <p className='font-semibold'>{user?.identities?.[0]?.identity_data?.full_name}</p>
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent className='rounded-lg w-60 mb-2'>

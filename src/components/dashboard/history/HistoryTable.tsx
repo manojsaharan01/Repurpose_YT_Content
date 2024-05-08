@@ -48,7 +48,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
               table.getRowModel().rows.map((row) => (
                 <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id} className='border-b border-[#F0F0F0] p-4 font-semibold'>
+                    <TableCell key={cell.id} className='border-b p-4 font-semibold'>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   ))}

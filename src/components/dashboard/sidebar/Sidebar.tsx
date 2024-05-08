@@ -8,12 +8,12 @@ import UserButton from './UserButton';
 
 const Sidebar = () => {
   return (
-    <div className='h-full border border-[#F2F2F2] m-2 rounded-xl p-3 flex flex-col justify-between'>
+    <div className='h-full border border-[#F2F2F2] dark:border-[#272626] m-2 rounded-xl p-3 flex flex-col justify-between'>
       <div>
         <div className='mb-6'>
           <Logo />
         </div>
-        <Button className='w-full mb-3'>
+        <Button className='w-full mb-3' variant="blue">
           <FaPlus className='mr-2' /> New Content
         </Button>
         <SidebarItems />

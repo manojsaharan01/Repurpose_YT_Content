@@ -61,8 +61,8 @@ const DeleteActionCell = ({ row }: { row: any }) => {
   };
 
   return (
-    <div className='rounded w-fit p-1 border border-red-200 cursor-pointer' onClick={handleDelete}>
-      <FaRegTrashAlt className='text-red-500 size-5' />
+    <div className='rounded w-fit p-1 border cursor-pointer' onClick={handleDelete}>
+      <FaRegTrashAlt className='size-5' />
     </div>
   );
 };
