@@ -33,7 +33,7 @@ const OutputContent = ({ contentData }: Props) => {
                     .then(() => {
                       toast({ title: 'Content copied to clipboard', variant: 'default' });
                     })
-                    .catch((error) => {
+                    .catch(() => {
                       errorToast("Couldn't copy content to clipboard");
                     });
                 }}>
