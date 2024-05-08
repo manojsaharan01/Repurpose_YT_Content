@@ -11,6 +11,7 @@ import OutputContent from './OutputContent';
 import { TypeContent } from '@/types/types';
 import { saveContent } from '@/app/generate/actions';
 import { errorToast } from '@/utils/utils';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 type FormInputProps = {
   data: TypeContent[];
@@ -19,13 +20,15 @@ type FormInputProps = {
 type FormFields = {
   topic: string;
   style: string;
+  wordLimit: string;
+  voice: string;
 };
 
 const FormInput: FC<FormInputProps> = ({ data }) => {
   // Holds content from the server response stream
   const [contentData, setContentData] = useState<string>();
   // Holds user input for form fields
-  const [formData, setFormData] = useState<FormFields>({ topic: '', style: '' });
+  const [formData, setFormData] = useState<FormFields>({ topic: '', style: '', wordLimit: '', voice: '' });
 
   // Handles user input changes, updating form state
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,8 +62,10 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
   const handleGeneration = async (inputData: FormData) => {
     const topic = inputData.get('topic') as string;
     const style = inputData.get('style') as string;
+    const wordLimit = inputData.get('wordLimit') as string;
+    const voice = inputData.get('voice') as string;
 
-    if (!topic || !style) {
+    if (!topic || !style || !wordLimit || !voice) {
       errorToast('Please fill all required fields');
       return;
     }
@@ -71,7 +76,7 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ topic, style }),
+      body: JSON.stringify({ topic, style, wordLimit, voice}),
     });
 
     if (!res.ok) {
@@ -89,7 +94,7 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
     const streamData = await handleStream(data);
 
     // Save the generated content once the stream is complete
-    await saveContent(topic, style, streamData).catch((error) => errorToast(error));
+    await saveContent(topic, style,wordLimit, voice, streamData).catch((error) => errorToast(error));
   };
 
   return (
@@ -123,6 +128,37 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
                   onChange={handleInputChange}
                 />
               </InputWrapper>
+
+              <InputWrapper id='wordLimit' label='Word Limit' className='mb-6'>
+                <Input
+                  id='wordLimit'
+                  name='wordLimit'
+                  placeholder='120'
+                  value={formData.wordLimit}
+                  onChange={handleInputChange}
+                />
+              </InputWrapper>
+
+              <InputWrapper id='voice' label='voice' className='mb-6'>
+                <Select
+                  value={formData.voice}
+                  onValueChange={(value) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      voice: value,
+                    }))
+                  }>
+                  <SelectTrigger>
+                    <SelectValue placeholder='voice of' />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value='formal'>Formal</SelectItem>
+                    <SelectItem value='informal'>Informal</SelectItem>
+                    <SelectItem value='professional'>Professional</SelectItem>
+                    <SelectItem value='academic'>Academic</SelectItem>
+                  </SelectContent>
+                </Select>
+              </InputWrapper>
             </div>
 
             <SubmitButton className='w-full rounded-xl' variant='blue' formAction={handleGeneration}>
@@ -137,7 +173,7 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
           content={contentData}
           onSelectContent={(value) => {
             setContentData(value.results!);
-            setFormData({ topic: value.topic, style: value.style });
+            setFormData({ topic: value.topic, style: value.style, wordLimit: '', voice: '' });
           }}
         />
       </div>
