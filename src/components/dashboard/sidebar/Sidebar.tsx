@@ -13,7 +13,7 @@ const Sidebar = () => {
         <div className='mb-6'>
           <Logo />
         </div>
-        <Button className='w-full mb-3' variant="blue">
+        <Button className='w-full mb-3' variant='blue'>
           <FaPlus className='mr-2' /> New Content
         </Button>
         <SidebarItems />

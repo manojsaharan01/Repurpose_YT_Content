@@ -24,7 +24,7 @@ const page = () => {
               </p>
             </CardContent>
             <CardFooter>
-              <Button className='w-full' variant="blue">
+              <Button className='w-full' variant='blue'>
                 <FaPlus className='mr-2' /> Create content
               </Button>
             </CardFooter>
