@@ -63,7 +63,6 @@ interface FunctionObject {
   };
 }
 
-
 export async function OpenAIStream(payload: OpenAIStreamPayload) {
   const encoder = new TextEncoder();
   const decoder = new TextDecoder();

@@ -19,12 +19,12 @@ export const POST = async (req: Request) => {
 
     // Validate that both topic and style are provided
     if (!topic || !style || !wordLimit || !voice) {
-      throw new Error("Please provide all required fields.");
+      throw new Error('Please provide all required fields.');
     }
 
-    // TODO change prompt   
+    // TODO change prompt
     // Construct the prompt for the OpenAI content generation
-    const prompt = `Generate 5 social media contents on the topic: ${topic}. ⁠
+    const prompt = `Generate 5 social media contents on the topic: ${topic}.
     Make sure the style of the content is around ${style}.
     Voice: ${voice}
     Language: ${voice}

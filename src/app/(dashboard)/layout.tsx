@@ -1,6 +1,5 @@
 // Layout component that includes the Navbar and ensures user authentication
 
-import Navbar from '@/components/generate/Navbar';
 import { getUserDetails } from '@/utils/supabase/server';
 import { redirect } from 'next/navigation';
 import { ThemeProvider } from '@/components/theme-provider';

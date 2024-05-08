@@ -22,7 +22,7 @@ const AccountSettings = async () => {
     <Dialog>
       <DialogTrigger asChild>
         <div className='flex items-center relative select-none rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:bg-gray-100 cursor-pointer'>
-          <MdOutlineAccountCircle className='h-5 w-5' />
+          <MdOutlineAccountCircle className='size-5' />
           <p className=' text-sm ml-2'>Account</p>
         </div>
       </DialogTrigger>
@@ -36,7 +36,7 @@ const AccountSettings = async () => {
           </div>
           <DialogClose>
             <div>
-              <IoClose className='h-10 w-10 border rounded-full text-gray-500 p-2' />
+              <IoClose className='size-10 border rounded-full text-gray-500 p-2' />
             </div>
           </DialogClose>
         </DialogHeader>

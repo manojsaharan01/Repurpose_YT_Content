@@ -64,7 +64,7 @@ const InputForm = ({ generatedData }: Props) => {
     return streamData;
   };
 
-  const handleGeneration = async (inputData: FormData) => {
+  const handleGeneration = async () => {
     const { topic, style, wordLimit, voice } = formData;
 
     if (!topic || !style || !wordLimit || !voice) {

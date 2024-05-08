@@ -76,7 +76,7 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ topic, style, wordLimit, voice}),
+      body: JSON.stringify({ topic, style, wordLimit, voice }),
     });
 
     if (!res.ok) {
@@ -94,7 +94,7 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
     const streamData = await handleStream(data);
 
     // Save the generated content once the stream is complete
-    await saveContent(topic, style,wordLimit, voice, streamData).catch((error) => errorToast(error));
+    await saveContent(topic, style, wordLimit, voice, streamData).catch((error) => errorToast(error));
   };
 
   return (

@@ -30,7 +30,7 @@ const UserButton = async () => {
           <p className='text-[#3E3E3E] font-semibold'>{user?.identities?.[0]?.identity_data?.full_name}</p>
         </div>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className='rounded-lg w-[15rem] mb-2'>
+      <DropdownMenuContent className='rounded-lg w-60 mb-2'>
         <DropdownMenuItem className='flex items-start gap-3 overflow-hidden'>
           <Image
             src={user?.user_metadata?.avatar_url ?? '/avatar.png'}
@@ -50,23 +50,23 @@ const UserButton = async () => {
         <DropdownMenuSeparator />
 
         <DropdownMenuItem className='cursor-pointer'>
-          <IoIosHelpCircleOutline className='h-5 w-5 mr-2' />
+          <IoIosHelpCircleOutline className='size-5 mr-2' />
           Support
         </DropdownMenuItem>
 
         <DropdownMenuSeparator />
-        <Link href="/pricing">
+        <Link href='/pricing'>
           <DropdownMenuItem className='cursor-pointer'>
-            <AiFillDollarCircle className='h-5 w-5 mr-2' />
+            <AiFillDollarCircle className='size-5 mr-2' />
             Pricing
           </DropdownMenuItem>
           <DropdownMenuSeparator />
         </Link>
         <DropdownMenuItem className='cursor-pointer'>
-          <FiLogOut className='h-5 w-5 mr-2' />
+          <FiLogOut className='size-5 mr-2' />
           Log Out
         </DropdownMenuItem>
-        <div className='flex items-center mx-2 my-2 text-[12px]'>
+        <div className='flex items-center m-2 text-[12px]'>
           <a href=''>
             <span className='border-b'> Privacy policy</span> ,
             <span className='border-b'> Terms & conditions</span>

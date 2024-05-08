@@ -12,8 +12,8 @@ const page = () => {
         <div className='text-lg font-semibold mt-5 mb-7'>Pricing</div>
       </Navbar>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'>
-        {Array.from({ length: 10 }, (_) => (
-          <Card>
+        {Array.from({ length: 10 }, (_, index) => (
+          <Card key={index}>
             <CardHeader className='pb-2 font-normal text-[#18181B]'>
               <p>Academic Research</p>
             </CardHeader>
