@@ -20,14 +20,14 @@ import { User } from '@supabase/supabase-js';
 const AccountSettings = () => {
   const supabase = supabaseBrowserClient();
 
-  const [user, setUser] = useState(User);
+  const [user, setUser] = useState<User>();
 
   useEffect(() => {
     const fetchUserDetails = async () => {
       const {
         data: { user },
       } = await supabase.auth.getUser();
-      setUser(user);
+      setUser(user!);
     };
 
     fetchUserDetails();
