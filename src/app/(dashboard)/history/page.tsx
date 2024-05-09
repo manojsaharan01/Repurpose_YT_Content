@@ -1,4 +1,3 @@
-import Navbar from '@/components/dashboard/Navbar';
 import UpgradePlan from '@/components/dashboard/UpgradePlan';
 import { DataTable } from '@/components/dashboard/history/HistoryTable';
 import { columns } from '@/components/dashboard/history/columns';

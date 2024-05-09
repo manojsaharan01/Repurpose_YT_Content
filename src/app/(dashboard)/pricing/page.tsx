@@ -1,4 +1,3 @@
-import Navbar from '@/components/dashboard/Navbar';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/utils/utils';
 import React from 'react';

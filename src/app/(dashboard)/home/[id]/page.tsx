@@ -1,4 +1,3 @@
-import Navbar from '@/components/dashboard/Navbar';
 import InputForm from '@/components/dashboard/generate/InputForm';
 import { supabaseServerClient } from '@/utils/supabase/server';
 
