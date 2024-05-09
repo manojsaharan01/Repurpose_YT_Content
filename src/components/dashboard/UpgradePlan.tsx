@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from '../ui/button';
+import Link from 'next/link';
 
 const UpgradePlan = () => {
   return (
@@ -11,9 +12,11 @@ const UpgradePlan = () => {
         <li>Get GPT-4 and Claude 3 level quality on Builderkit.</li>
         <li>Also get unlimited access to all our standard features.</li>
       </ul>
-      <Button className='mt-6 w-full font-normal' variant='gray'>
-        Upgrade Plan
-      </Button>
+      <Link href='/pricing'>
+        <Button className='mt-6 w-full font-normal' variant='gray'>
+          Upgrade Plan
+        </Button>
+      </Link>
     </div>
   );
 };
