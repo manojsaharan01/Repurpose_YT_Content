@@ -19,7 +19,7 @@ const OutputContent = ({ contentData }: Props) => {
       {contentData.length > 0 ? (
         <p className='text-sm font-medium mb-4'>Output</p>
       ) : (
-        <p className='text-base font-medium text-center mb-16 mt-10 lg:mt-0'>
+        <p className='text-base font-medium text-center mb-16 mt-10'>
           Your output will be displayed here
         </p>
       )}

@@ -20,7 +20,7 @@ export const SidebarRoutes = [
   },
   {
     icon: <PiMagicWand />,
-    label: 'prompt library',
+    label: 'Prompt library',
     path: '/prompt-library',
   },
 ];

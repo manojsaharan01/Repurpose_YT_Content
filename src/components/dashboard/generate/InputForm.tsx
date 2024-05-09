@@ -100,10 +100,10 @@ const InputForm = ({ generatedData }: Props) => {
   };
 
   return (
-    <div className='block lg:flex items-start space-y-10 md:space-y-0'>
+    <div className='block lg:flex items-start space-y-10 md:space-y-0 mt-8'>
       <div className='w-full lg:w-1/2 mr-0 lg:mr-8'>
         <form>
-          <InputWrapper id='topic' label='What do you want to generate?' className='mb-5'>
+          <InputWrapper id='topic' label='What do you want to generate?' className='mb-2'>
             <Input
               id='topic'
               name='topic'
@@ -114,7 +114,7 @@ const InputForm = ({ generatedData }: Props) => {
             />
           </InputWrapper>
 
-          <InputWrapper id='wordLimit' label='Word Limit' className='mb-5'>
+          <InputWrapper id='wordLimit' label='Word Limit' className='mb-2'>
             <Input
               id='wordLimit'
               name='wordLimit'
@@ -124,7 +124,7 @@ const InputForm = ({ generatedData }: Props) => {
             />
           </InputWrapper>
 
-          <InputWrapper id='style' label='Content Style' className='mb-6'>
+          <InputWrapper id='style' label='Content Style' className='mb-2'>
             <Input
               id='style'
               name='style'
@@ -134,7 +134,7 @@ const InputForm = ({ generatedData }: Props) => {
             />
           </InputWrapper>
 
-          <InputWrapper id='voice' label='voice' className='mb-6'>
+          <InputWrapper id='voice' label='Voice' className='mb-2'>
             <Select
               value={formData.voice}
               onValueChange={(value) =>
@@ -155,10 +155,26 @@ const InputForm = ({ generatedData }: Props) => {
             </Select>
           </InputWrapper>
 
-          <SubmitButton className='w-full rounded-lg mt-8' variant='blue' formAction={handleGeneration}>
+          <SubmitButton className='w-full rounded-lg mt-6' variant='blue' formAction={handleGeneration}>
             Generate
           </SubmitButton>
         </form>
+
+        <hr className='my-8' />
+
+        <p className='font-medium text-sm mb-4'>Use below prompts to create content</p>
+
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
+          {Array.from(Array(2)).map((_, index) => (
+            <div key={index} className='px-4 py-5 space-y-2 border border-[#E4E4E4] rounded cursor-pointer'>
+              <p>Academic Research</p>
+              <p className='text-sm text-[#83888B]'>
+                Write in a scholarly tone, utilising accurate, authoritative sources and citations. Ensure
+                that your...
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
       <OutputContent contentData={contentData} />
     </div>

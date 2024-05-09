@@ -22,7 +22,7 @@ const UserButton = async () => {
         <div className='bg-[#F9F9F9] dark:bg-[#5a5959]/10 rounded-lg px-1.5 py-2.5 flex items-center gap-2 overflow-hidden cursor-pointer'>
           <Image
             src={user?.user_metadata?.avatar_url ?? '/avatar.png'}
-            className='size-10 rounded-full'
+            className='size-5 rounded-full'
             width={20}
             height={20}
             alt='avatar'

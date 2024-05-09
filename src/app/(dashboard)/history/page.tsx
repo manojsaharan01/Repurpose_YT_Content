@@ -17,8 +17,8 @@ const page = async () => {
     .not('topic', 'is', null);
 
   return (
-    <div className='p-2 flex flex-col justify-between'>
-      <div>
+    <div className='p-2 flex flex-col justify-between items-center h-full min-h-screen'>
+      <div className='w-full'>
         <Navbar>
           <div className='text-lg font-semibold mt-5 mb-7'>History</div>
         </Navbar>
