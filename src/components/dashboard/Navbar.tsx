@@ -1,6 +1,5 @@
 'use client';
 
-import { FaPlus } from 'react-icons/fa';
 import React from 'react';
 import { SelectTheme } from '../SelectTheme';
 import { usePathname } from 'next/navigation';

@@ -36,9 +36,8 @@ const MobileSidebar = () => {
                 const isActive = pathname.startsWith(route.path);
 
                 return (
-                  <SheetClose asChild>
+                  <SheetClose asChild key={index}>
                     <Link
-                      key={index}
                       href={route.path}
                       className={cn(
                         isActive &&

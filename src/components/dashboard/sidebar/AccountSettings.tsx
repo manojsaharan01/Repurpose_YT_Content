@@ -13,7 +13,6 @@ import { Button } from '@/components/ui/button';
 import { MdOutlineAccountCircle } from 'react-icons/md';
 import { IoClose } from 'react-icons/io5';
 import { FiArrowUpRight } from 'react-icons/fi';
-import { getUserDetails } from '@/utils/supabase/server';
 import Link from 'next/link';
 import { supabaseBrowserClient } from '@/utils/supabase/client';
 import { User } from '@supabase/supabase-js';
