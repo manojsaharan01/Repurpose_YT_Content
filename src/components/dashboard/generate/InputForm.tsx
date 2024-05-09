@@ -9,6 +9,8 @@ import { errorToast } from '@/utils/utils';
 import { saveContent } from '@/app/generate/actions';
 import { TypeContent } from '@/types/types';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Cross2Icon, PlusIcon } from '@radix-ui/react-icons';
+import UpgradePlan from '../UpgradePlan';
 
 type Props = {
   generatedData?: TypeContent;
@@ -21,6 +23,23 @@ type FormFields = {
   wordLimit: string;
   voice: string;
 };
+
+const prompts = [
+  {
+    topic: 'AI news show',
+    style:
+      'Write in a scholarly tone, utilising accurate, authoritative sources and citations. Ensure that your...',
+    wordLimit: '300',
+    voice: 'formal',
+  },
+  {
+    topic: 'Virtual Reality',
+    style:
+      'Write in a conversational tone, using simple language and examples to explain complex concepts...',
+    wordLimit: '400',
+    voice: 'formal',
+  },
+];
 
 const InputForm = ({ generatedData, firstTime }: Props) => {
   const [formData, setFormData] = useState<FormFields>({
@@ -103,15 +122,32 @@ const InputForm = ({ generatedData, firstTime }: Props) => {
 
   if (howToUse) {
     return (
-      <div className='flex w-full h-full '>
-        <div className='border rounded-lg blue-gradient border-[#ECECEC] px-6 py-5 w-full text-white'>
-          <p className='text-lg font-semibold mb-3'>How to use the builder kit tools</p>
+      <div className='flex flex-col justify-between w-full h-[calc(100vh-90px)] '>
+        <div className='border rounded-lg blue-gradient border-[#ECECEC] dark:border-dark px-6 py-5 w-full text-white'>
+          <div className='flex items-center justify-between'>
+            <p className='text-lg font-semibold mb-3'>How to use the builder kit tools</p>
+            <Cross2Icon
+              className='cursor-pointer size-6'
+              onClick={() => {
+                sethowToUse(false);
+              }}
+            />
+          </div>
           <ul>
-            <li>1. Click on </li>
+            <li className='flex items-center gap-2'>
+              1. Click on
+              <div
+                className='flex items-center w-fit border border-[#E2E2E2] rounded gap-0.5 py-0.5 px-1 text-[10px] font-medium text-[#91908F] bg-white cursor-pointer'
+                onClick={() => sethowToUse(false)}>
+                <PlusIcon />
+                New Content
+              </div>
+            </li>
             <li>2. Enter the input data</li>
             <li>3. Generate the output</li>
           </ul>
         </div>
+        <UpgradePlan />
       </div>
     );
   }
@@ -120,7 +156,7 @@ const InputForm = ({ generatedData, firstTime }: Props) => {
     <div className='block lg:flex items-start space-y-10 md:space-y-0'>
       <div className='w-full lg:w-1/2 mr-0 lg:mr-8'>
         <form>
-          <InputWrapper id='topic' label='What do you want to generate?' className='mb-2'>
+          <InputWrapper id='topic' label='What do you want to generate?' className='mb-3'>
             <Input
               id='topic'
               name='topic'
@@ -131,7 +167,7 @@ const InputForm = ({ generatedData, firstTime }: Props) => {
             />
           </InputWrapper>
 
-          <InputWrapper id='wordLimit' label='Word Limit' className='mb-2'>
+          <InputWrapper id='wordLimit' label='Word Limit' className='mb-3'>
             <Input
               id='wordLimit'
               name='wordLimit'
@@ -141,7 +177,7 @@ const InputForm = ({ generatedData, firstTime }: Props) => {
             />
           </InputWrapper>
 
-          <InputWrapper id='style' label='Content Style' className='mb-2'>
+          <InputWrapper id='style' label='Style' className='mb-3'>
             <Input
               id='style'
               name='style'
@@ -151,7 +187,7 @@ const InputForm = ({ generatedData, firstTime }: Props) => {
             />
           </InputWrapper>
 
-          <InputWrapper id='voice' label='Voice' className='mb-2'>
+          <InputWrapper id='voice' label='Voice' className='mb-3'>
             <Select
               value={formData.voice}
               onValueChange={(value) =>
@@ -161,7 +197,7 @@ const InputForm = ({ generatedData, firstTime }: Props) => {
                 }))
               }>
               <SelectTrigger>
-                <SelectValue placeholder='voice of' />
+                <SelectValue className='placeholder:text-[#DCDCDC]' placeholder='voice of' />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value='formal'>Formal</SelectItem>
@@ -172,23 +208,29 @@ const InputForm = ({ generatedData, firstTime }: Props) => {
             </Select>
           </InputWrapper>
 
-          <SubmitButton className='w-full rounded-lg mt-6' variant='blue' formAction={handleGeneration}>
+          <SubmitButton className='w-full rounded-lg mt-6' formAction={handleGeneration}>
             Generate
           </SubmitButton>
         </form>
 
         <hr className='my-8' />
 
-        <p className='font-medium text-sm mb-4'>Use below prompts to create content</p>
+        <p className='font-semibold text-sm mb-4 text-input-title dark:text-white'>
+          Use below prompts to create content
+        </p>
 
         <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
-          {Array.from(Array(2)).map((_, index) => (
-            <div key={index} className='px-4 py-5 space-y-2 border border-[#E4E4E4] rounded cursor-pointer'>
-              <p className='font-semibold'>Academic Research</p>
-              <p className='text-sm text-[#83888B]'>
-                Write in a scholarly tone, utilising accurate, authoritative sources and citations. Ensure
-                that your...
-              </p>
+          {prompts.map((item, index) => (
+            <div
+              key={index}
+              className='px-4 py-5 space-y-2 border border-[#E4E4E4] dark:border-[#272626] rounded cursor-pointer'
+              onClick={() => {
+                setFormData({
+                  ...item,
+                });
+              }}>
+              <p className='font-semibold text-[#18181B] dark:text-white'>{item.topic}</p>
+              <p className='text-sm text-[#83888B] dark:text-white/90'>{item.style}</p>
             </div>
           ))}
         </div>

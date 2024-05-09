@@ -13,9 +13,7 @@ export default async function Generate({ params }: { params: { id: string } }) {
 
   return (
     <div className='p-2 flex flex-col justify-between min-h-screen'>
-      <div>
-        <InputForm generatedData={data?.[0]} />
-      </div>
+      <InputForm generatedData={data?.[0]} />
     </div>
   );
 }

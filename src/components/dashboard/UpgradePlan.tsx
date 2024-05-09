@@ -11,7 +11,7 @@ const UpgradePlan = () => {
         <li>Get GPT-4 and Claude 3 level quality on Builderkit.</li>
         <li>Also get unlimited access to all our standard features.</li>
       </ul>
-      <Button className='mt-6 w-full font-normal' variant='blue'>
+      <Button className='mt-6 w-full font-normal' variant='gray'>
         Upgrade Plan
       </Button>
     </div>

@@ -4,19 +4,18 @@ import { FaPlus } from 'react-icons/fa';
 import React from 'react';
 import { SelectTheme } from '../SelectTheme';
 import { usePathname } from 'next/navigation';
+import MobileSidebar from './sidebar/MobileSidebar';
+import { RxExternalLink } from 'react-icons/rx';
+import Link from 'next/link';
 
 const Navbar = () => {
   const pathname = usePathname();
 
-  console.log(pathname);
-
-  console.log(pathname);
-
   return (
     <div className='h-14 flex items-center justify-between mb-3.5'>
-      <div className='text-lg font-semibold'>
+      <div className='text-lg font-semibold text-grey dark:text-white'>
         {pathname === '/home'
-          ? 'Home'
+          ? 'Content Writer'
           : pathname === '/history'
             ? 'History'
             : pathname === '/pricing'
@@ -27,13 +26,20 @@ const Navbar = () => {
       </div>
 
       <div className='flex items-center gap-5'>
-        <SelectTheme />
+        <div className='flex items-center gap-5 mr-2'>
+          <SelectTheme />
 
-        <div className='bg-[#FFF4F0] py-2 px-2.5 border border-[#FFE4D8] rounded-lg gap-3 flex items-center'>
-          <p className='text-[#FF4D00] font-medium'>Your Credits : 4</p>
-          <div className='bg-[#FF4D00] p-1 rounded text-white'>
-            <FaPlus />
+          <div className='hidden md:flex'>
+            <Link href='https://apps.builderkit.ai/' target='_blank'>
+              <div className='bg-light-white dark:bg-light-dark/10 rounded-lg px-4 py-2.5 flex items-center gap-2 cursor-pointer'>
+                Demo Apps
+                <RxExternalLink />
+              </div>
+            </Link>
           </div>
+        </div>
+        <div className='block md:hidden'>
+          <MobileSidebar />
         </div>
       </div>
     </div>

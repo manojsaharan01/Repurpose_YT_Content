@@ -9,17 +9,17 @@ import { MdHistory } from 'react-icons/md';
 
 export const SidebarRoutes = [
   {
-    icon: <RiLayoutGridFill />,
+    icon: <RiLayoutGridFill className='size-5' />,
     label: 'Home',
     path: '/home',
   },
   {
-    icon: <MdHistory />,
+    icon: <MdHistory className='size-5' />,
     label: 'History',
     path: '/history',
   },
   {
-    icon: <PiMagicWand />,
+    icon: <PiMagicWand className='size-5' />,
     label: 'Prompt library',
     path: '/prompt-library',
   },
@@ -39,11 +39,11 @@ const SidebarItems = () => {
             href={route.path}
             className={cn(
               isActive &&
-                'border !border-[#E8E8E8] dark:!border-[#3b3a3a] rounded-lg bg-[#F9F9F9] dark:bg-[#5a5959]/10 !text-black dark:!text-white',
-              'flex items-center px-2 py-1.5 gap-3 font-semibold tracking-tight border border-transparent hover:bg-[#F9F9F9] hover:dark:bg-[#5a5959]/10 hover:border hover:border-[#E8E8E8] hover:dark:!border-[#3b3a3a] hover:!text-black rounded-lg text-[#8C8C8C] dark:!text-white'
+                'border !border-[#E8E8E8] dark:!border-dark rounded-lg bg-light-white dark:bg-light-dark/10 !text-[#3E3E3E] dark:!text-white',
+              'flex items-center px-2 py-1.5 gap-2 font-semibold tracking-tight border border-transparent hover:bg-light-white hover:dark:bg-light-dark/10 hover:border hover:border-[#E8E8E8] hover:hover:dark:!border-dark hover:!text-[#3E3E3E] rounded-lg text-[#8C8C8C] dark:!text-white'
             )}>
             <div>{route.icon}</div>
-            <span>{route.label}</span>
+            <span className='text-[14px]'>{route.label}</span>
           </Link>
         );
       })}

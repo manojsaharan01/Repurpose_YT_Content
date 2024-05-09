@@ -76,6 +76,14 @@ module.exports = {
         'light-gray': '#475467',
         title: '#70747B',
         orange: '#FF4D00',
+        'input-title': '#120500',
+      },
+      backgroundColor: {
+        'light-white': '#F9F9F9',
+        'light-dark': '#5a5959',
+      },
+      borderColor: {
+        dark: '#3b3a3a',
       },
     },
   },

@@ -11,7 +11,7 @@ const page = () => {
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'>
           {Array.from({ length: 10 }, (_, index) => (
             <Card key={index}>
-              <CardHeader className='pb-2 font-normal'>
+              <CardHeader className='pb-2 font-medium text-[#18181B] dark:text-white'>
                 <p>Academic Research</p>
               </CardHeader>
               <CardContent>
@@ -21,7 +21,7 @@ const page = () => {
                 </p>
               </CardContent>
               <CardFooter>
-                <Button className='w-full' variant='blue'>
+                <Button className='w-full' variant='gray'>
                   <FaPlus className='mr-2' /> Create content
                 </Button>
               </CardFooter>

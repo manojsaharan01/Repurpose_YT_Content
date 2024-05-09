@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,20 +11,32 @@ import {
 import Image from 'next/image';
 import { IoIosHelpCircleOutline } from 'react-icons/io';
 import AccountSettings from './AccountSettings';
-import { getUserDetails, supabaseServerClient } from '@/utils/supabase/server';
 import { AiFillDollarCircle } from 'react-icons/ai';
 import Link from 'next/link';
 import ButtonSignout from '@/components/generate/ButtonSignout';
+import { supabaseBrowserClient } from '@/utils/supabase/client';
+import { User } from '@supabase/supabase-js';
 
-const UserButton = async () => {
-  const user = await getUserDetails();
-  const supabase = supabaseServerClient();
-  // const router = useRouter();
+const UserButton = () => {
+  const supabase = supabaseBrowserClient();
+
+  const [user, setUser] = useState(User);
+
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      setUser(user);
+    };
+
+    fetchUserDetails();
+  }, []);
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <div className='bg-[#F9F9F9] dark:bg-[#5a5959]/10 rounded-lg px-1.5 py-2.5 flex items-center gap-2 overflow-hidden cursor-pointer'>
+        <div className='bg-light-white dark:bg-light-dark/10 rounded-lg px-1.5 py-2.5 flex items-center gap-2 overflow-hidden cursor-pointer'>
           <Image
             src={user?.user_metadata?.avatar_url ?? '/avatar.png'}
             className='size-5 rounded-full'

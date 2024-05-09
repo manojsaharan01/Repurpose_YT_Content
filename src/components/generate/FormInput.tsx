@@ -161,7 +161,7 @@ const FormInput: FC<FormInputProps> = ({ data }) => {
               </InputWrapper>
             </div>
 
-            <SubmitButton className='w-full rounded-xl' variant='blue' formAction={handleGeneration}>
+            <SubmitButton className='w-full rounded-xl' formAction={handleGeneration}>
               Generate
             </SubmitButton>
           </form>

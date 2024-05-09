@@ -19,12 +19,14 @@ const OutputContent = ({ contentData }: Props) => {
       {contentData.length > 0 ? (
         <p className='text-sm font-medium mb-4'>Output</p>
       ) : (
-        <p className='text-base font-medium text-center mb-16 mt-10'>Your output will be displayed here</p>
+        <p className='text-base font-medium text-center mb-16 mt-10 text-input-title dark:text-white'>
+          Your output will be displayed here
+        </p>
       )}
       {contentData.length > 0 ? (
-        <div className='space-y-5'>
+        <div className='space-y-5 overflow-auto max-h-[calc(100vh-130px)]'>
           {contentData.map((content, index) => (
-            <div key={index} className='border border-[#EEE] dark:border-[#272626] p-4 rounded-lg'>
+            <div key={index} className='border border-[#EEE] dark:border-[#272626] p-4 rounded-lg '>
               <div className='flex justify-between items-start'>
                 <p className='text-lg font-medium text-[#333333] dark:text-[#E5E7EB] mb-2'>
                   {content?.title}
