@@ -80,3 +80,7 @@
 .green-btn-gradient {
   background: linear-gradient(180deg, rgba(38, 171, 117, 0.9) 0%, #26ab75 100%);
 }
+
+.blue-gradient {
+  background: linear-gradient(188deg, #0f6fff 7.48%, #1e53a3 94.97%);
+}

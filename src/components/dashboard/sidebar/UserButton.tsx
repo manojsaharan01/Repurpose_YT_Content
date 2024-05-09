@@ -8,14 +8,17 @@ import {
 } from '@/components/ui/dropdown-menu';
 import Image from 'next/image';
 import { IoIosHelpCircleOutline } from 'react-icons/io';
-import { FiLogOut } from 'react-icons/fi';
 import AccountSettings from './AccountSettings';
-import { getUserDetails } from '@/utils/supabase/server';
+import { getUserDetails, supabaseServerClient } from '@/utils/supabase/server';
 import { AiFillDollarCircle } from 'react-icons/ai';
 import Link from 'next/link';
+import ButtonSignout from '@/components/generate/ButtonSignout';
 
 const UserButton = async () => {
   const user = await getUserDetails();
+  const supabase = supabaseServerClient();
+  // const router = useRouter();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -27,10 +30,12 @@ const UserButton = async () => {
             height={20}
             alt='avatar'
           />
-          <p className='font-semibold'>{user?.identities?.[0]?.identity_data?.full_name}</p>
+          <p className='font-semibold text-grey dark:text-white'>
+            {user?.identities?.[0]?.identity_data?.full_name}
+          </p>
         </div>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className='rounded-lg w-60 mb-2'>
+      <DropdownMenuContent className='rounded-lg m-2'>
         <DropdownMenuItem className='flex items-start gap-3 overflow-hidden'>
           <Image
             src={user?.user_metadata?.avatar_url ?? '/avatar.png'}
@@ -40,8 +45,10 @@ const UserButton = async () => {
             alt='avatar'
           />
           <div>
-            <p className='font-semibold'>{user?.identities?.[0]?.identity_data?.full_name}</p>
-            <p>{user?.email}</p>
+            <p className='font-semibold text-grey dark:text-white'>
+              {user?.identities?.[0]?.identity_data?.full_name}
+            </p>
+            <p className='text-light-grey dark:text-white/90'>{user?.email}</p>
           </div>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
@@ -49,24 +56,23 @@ const UserButton = async () => {
         <AccountSettings />
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem className='cursor-pointer'>
-          <IoIosHelpCircleOutline className='size-5 mr-2' />
-          Support
-        </DropdownMenuItem>
+        <a href='mailto:support@example.com'>
+          <DropdownMenuItem className='cursor-pointer text-grey dark:text-white'>
+            <IoIosHelpCircleOutline className='size-5 mr-2' />
+            Support
+          </DropdownMenuItem>
+        </a>
 
         <DropdownMenuSeparator />
         <Link href='/pricing'>
-          <DropdownMenuItem className='cursor-pointer'>
+          <DropdownMenuItem className='cursor-pointer text-grey dark:text-white'>
             <AiFillDollarCircle className='size-5 mr-2' />
             Pricing
           </DropdownMenuItem>
           <DropdownMenuSeparator />
         </Link>
-        <DropdownMenuItem className='cursor-pointer'>
-          <FiLogOut className='size-5 mr-2' />
-          Log Out
-        </DropdownMenuItem>
-        <div className='flex items-center m-2 text-[12px]'>
+        <ButtonSignout />
+        <div className='flex items-center m-2 text-[12px] text-[#83888B]'>
           <a href=''>
             <span className='border-b'> Privacy policy</span> ,
             <span className='border-b'> Terms & conditions</span>

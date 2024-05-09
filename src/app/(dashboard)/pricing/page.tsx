@@ -21,9 +21,6 @@ const pricingPlans = [
 const Pricing = () => {
   return (
     <div className='p-2'>
-      <Navbar>
-        <div className='text-lg font-semibold mt-5 mb-7'>Pricing</div>
-      </Navbar>
       <div className='flex my-20 justify-center'>
         <p className='text-lg font-medium text-center tracking-tight max-w-2xl'>
           Unlock the most powerful AI research assistant. Use Builder kit to go to the next level, upgraded AI

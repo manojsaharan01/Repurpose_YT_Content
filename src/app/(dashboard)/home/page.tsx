@@ -1,15 +1,17 @@
 import Navbar from '@/components/dashboard/Navbar';
 import InputForm from '@/components/dashboard/generate/InputForm';
+import { supabaseServerClient } from '@/utils/supabase/server';
 import React from 'react';
 
-const page = () => {
+const page = async () => {
+  const supabase = supabaseServerClient();
+
+  const { data } = await supabase.from('voice_transcriptions').select('id');
+
   return (
-    <div className='p-2 flex flex-col justify-between'>
+    <div className='flex flex-col justify-between'>
       <div>
-        <Navbar>
-          <div className='text-lg font-semibold mt-5 mb-7'>Content Writer</div>
-        </Navbar>
-        <InputForm />
+        <InputForm firstTime={data?.length === 0} />
       </div>
     </div>
   );

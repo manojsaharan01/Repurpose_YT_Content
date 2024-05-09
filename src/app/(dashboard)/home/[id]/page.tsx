@@ -15,9 +15,6 @@ export default async function Generate({ params }: { params: { id: string } }) {
   return (
     <div className='p-2 flex flex-col justify-between min-h-screen'>
       <div>
-        <Navbar>
-          <div className='text-lg font-semibold mt-5 mb-7'>Content Writer</div>
-        </Navbar>
         <InputForm generatedData={data?.[0]} />
       </div>
     </div>

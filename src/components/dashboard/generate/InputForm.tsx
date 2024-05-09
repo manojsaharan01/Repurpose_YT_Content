@@ -12,6 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 
 type Props = {
   generatedData?: TypeContent;
+  firstTime?: boolean;
 };
 
 type FormFields = {
@@ -21,7 +22,7 @@ type FormFields = {
   voice: string;
 };
 
-const InputForm = ({ generatedData }: Props) => {
+const InputForm = ({ generatedData, firstTime }: Props) => {
   const [formData, setFormData] = useState<FormFields>({
     topic: generatedData?.topic ?? '',
     style: generatedData?.style ?? '',
@@ -32,6 +33,7 @@ const InputForm = ({ generatedData }: Props) => {
   const parsedContentData = generatedData?.results ? JSON.parse(generatedData.results) : {};
 
   const [contentData, setContentData] = useState(parsedContentData.content_ideas ?? []);
+  const [howToUse, sethowToUse] = useState(firstTime);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -99,8 +101,23 @@ const InputForm = ({ generatedData }: Props) => {
     await saveContent(topic, style, wordLimit, voice, streamData).catch((error) => errorToast(error));
   };
 
+  if (howToUse) {
+    return (
+      <div className='flex w-full h-full '>
+        <div className='border rounded-lg blue-gradient border-[#ECECEC] px-6 py-5 w-full text-white'>
+          <p className='text-lg font-semibold mb-3'>How to use the builder kit tools</p>
+          <ul>
+            <li>1. Click on </li>
+            <li>2. Enter the input data</li>
+            <li>3. Generate the output</li>
+          </ul>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className='block lg:flex items-start space-y-10 md:space-y-0 mt-8'>
+    <div className='block lg:flex items-start space-y-10 md:space-y-0'>
       <div className='w-full lg:w-1/2 mr-0 lg:mr-8'>
         <form>
           <InputWrapper id='topic' label='What do you want to generate?' className='mb-2'>
@@ -167,7 +184,7 @@ const InputForm = ({ generatedData }: Props) => {
         <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
           {Array.from(Array(2)).map((_, index) => (
             <div key={index} className='px-4 py-5 space-y-2 border border-[#E4E4E4] rounded cursor-pointer'>
-              <p>Academic Research</p>
+              <p className='font-semibold'>Academic Research</p>
               <p className='text-sm text-[#83888B]'>
                 Write in a scholarly tone, utilising accurate, authoritative sources and citations. Ensure
                 that your...
