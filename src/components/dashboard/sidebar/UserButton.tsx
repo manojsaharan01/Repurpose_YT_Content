@@ -13,7 +13,7 @@ import { IoIosHelpCircleOutline } from 'react-icons/io';
 import AccountSettings from './AccountSettings';
 import { AiFillDollarCircle } from 'react-icons/ai';
 import Link from 'next/link';
-import ButtonSignout from '@/components/generate/ButtonSignout';
+import ButtonSignout from '@/components/dashboard/ButtonSignout';
 import { supabaseBrowserClient } from '@/utils/supabase/client';
 import { User } from '@supabase/supabase-js';
 
@@ -44,9 +44,7 @@ const UserButton = () => {
             height={20}
             alt='avatar'
           />
-          <p className='font-semibold text-grey dark:text-white'>
-            {user?.identities?.[0]?.identity_data?.full_name}
-          </p>
+          <p className='font-semibold text-grey dark:text-white'>{user?.user_metadata?.full_name} </p>
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent className='rounded-lg m-2'>
@@ -59,9 +57,7 @@ const UserButton = () => {
             alt='avatar'
           />
           <div>
-            <p className='font-semibold text-grey dark:text-white'>
-              {user?.identities?.[0]?.identity_data?.full_name}
-            </p>
+            <p className='font-semibold text-grey dark:text-white'>{user?.user_metadata?.full_name}</p>
             <p className='text-light-grey dark:text-white/90'>{user?.email}</p>
           </div>
         </DropdownMenuItem>

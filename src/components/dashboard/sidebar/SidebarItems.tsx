@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { RiLayoutGridFill } from 'react-icons/ri';
 import { PiMagicWand } from 'react-icons/pi';
 import { MdHistory } from 'react-icons/md';
+import { buttonVariants } from '@/components/ui/button';
 
 export const SidebarRoutes = [
   {
@@ -38,9 +39,9 @@ const SidebarItems = () => {
             key={index}
             href={route.path}
             className={cn(
+              buttonVariants({ variant: 'light-gray' }),
               isActive &&
-                'border !border-[#E8E8E8] dark:!border-dark rounded-lg bg-light-white dark:bg-light-dark/10 !text-[#3E3E3E] dark:!text-white',
-              'flex items-center px-2 py-1.5 gap-2 font-semibold tracking-tight border border-transparent hover:bg-light-white hover:dark:bg-light-dark/10 hover:border hover:border-[#E8E8E8] hover:hover:dark:!border-dark hover:!text-[#3E3E3E] rounded-lg text-[#8C8C8C] dark:!text-white'
+                'border !border-[#E8E8E8] dark:!border-dark rounded-lg bg-light-white dark:bg-light-dark/10 !text-[#3E3E3E] dark:!text-white'
             )}>
             <div>{route.icon}</div>
             <span className='text-[14px]'>{route.label}</span>
