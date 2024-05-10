@@ -8,7 +8,6 @@ import { SubmitButton } from '@/components/SubmitButton';
 import { errorToast } from '@/utils/utils';
 import { saveContent } from '@/app/(dashboard)/home/actions';
 import { TypeContent } from '@/types/types';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Cross2Icon, PlusIcon } from '@radix-ui/react-icons';
 import UpgradePlan from '../UpgradePlan';
 
