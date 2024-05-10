@@ -6,14 +6,14 @@ import InputWrapper from '@/components/InputWrapper';
 import { Input } from '@/components/ui/input';
 import { SubmitButton } from '@/components/SubmitButton';
 import { errorToast } from '@/utils/utils';
-import { saveContent } from '@/app/generate/actions';
+import { saveContent } from '@/app/(dashboard)/home/actions';
 import { TypeContent } from '@/types/types';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Cross2Icon, PlusIcon } from '@radix-ui/react-icons';
 import UpgradePlan from '../UpgradePlan';
 
 type Props = {
-  generatedData?: TypeContent;
+  generatedData?: TypeContent | null;
   firstTime?: boolean;
 };
 
@@ -153,7 +153,7 @@ const InputForm = ({ generatedData, firstTime }: Props) => {
   }
 
   return (
-    <div className='block lg:flex items-start space-y-10 md:space-y-0'>
+    <div className='block lg:flex items-start space-y-10 lg:space-y-0'>
       <div className='w-full lg:w-1/2 mr-0 lg:mr-8'>
         <form>
           <InputWrapper id='topic' label='What do you want to generate?' className='mb-3'>
@@ -188,24 +188,13 @@ const InputForm = ({ generatedData, firstTime }: Props) => {
           </InputWrapper>
 
           <InputWrapper id='voice' label='Voice' className='mb-3'>
-            <Select
+            <Input
+              id='voice'
+              name='voice'
+              placeholder='voice of'
               value={formData.voice}
-              onValueChange={(value) =>
-                setFormData((prev) => ({
-                  ...prev,
-                  voice: value,
-                }))
-              }>
-              <SelectTrigger>
-                <SelectValue className='placeholder:text-[#DCDCDC]' placeholder='voice of' />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value='formal'>Formal</SelectItem>
-                <SelectItem value='informal'>Informal</SelectItem>
-                <SelectItem value='professional'>Professional</SelectItem>
-                <SelectItem value='academic'>Academic</SelectItem>
-              </SelectContent>
-            </Select>
+              onChange={handleInputChange}
+            />
           </InputWrapper>
 
           <SubmitButton className='w-full rounded-lg mt-6' formAction={handleGeneration}>

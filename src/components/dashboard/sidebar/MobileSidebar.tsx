@@ -3,7 +3,7 @@ import { Sheet, SheetClose, SheetContent, SheetTrigger } from '@/components/ui/s
 import { FaBars } from 'react-icons/fa6';
 import Logo from '@/components/Logo';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { FaPlus } from 'react-icons/fa';
 import { LuArrowUpRight } from 'react-icons/lu';
 import UserButton from './UserButton';
@@ -40,9 +40,9 @@ const MobileSidebar = () => {
                     <Link
                       href={route.path}
                       className={cn(
+                        buttonVariants({ variant: 'light-gray' }),
                         isActive &&
-                          'border !border-[#E8E8E8] dark:!border-dark rounded-lg bg-light-white dark:bg-light-dark/10 !text-[#3E3E3E] dark:!text-white',
-                        'flex items-center px-2 py-1.5 gap-2 font-semibold tracking-tight border border-transparent hover:bg-light-white hover:dark:bg-light-dark/10 hover:border hover:border-[#E8E8E8] hover:dark:!border-dark hover:!text-black rounded-lg text-[#8C8C8C] dark:!text-white'
+                          'border !border-[#E8E8E8] dark:!border-dark rounded-lg bg-light-white dark:bg-light-dark/10 !text-[#3E3E3E] dark:!text-white'
                       )}>
                       <div>{route.icon}</div>
                       <span>{route.label}</span>
