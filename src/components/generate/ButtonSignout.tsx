@@ -10,7 +10,7 @@ import { FiLogOut } from 'react-icons/fi';
 interface ButtonSignoutProps {
   className?: string;
 }
-const ButtonSignout: FC<ButtonSignoutProps> = ({ className }) => {
+const ButtonSignout: FC<ButtonSignoutProps> = () => {
   const supabase = supabaseBrowserClient();
   const router = useRouter();
 
