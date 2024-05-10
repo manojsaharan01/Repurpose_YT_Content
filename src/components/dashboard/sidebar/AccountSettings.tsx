@@ -1,8 +1,7 @@
 import { DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -11,7 +10,6 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { MdOutlineAccountCircle } from 'react-icons/md';
-import { IoClose } from 'react-icons/io5';
 import { FiArrowUpRight } from 'react-icons/fi';
 import Link from 'next/link';
 import { supabaseBrowserClient } from '@/utils/supabase/client';
@@ -31,7 +29,7 @@ const AccountSettings = () => {
     };
 
     fetchUserDetails();
-  }, []);
+  }, [supabase.auth]);
 
   return (
     <Dialog>
@@ -43,21 +41,16 @@ const AccountSettings = () => {
           </div>
         </div>
       </DialogTrigger>
-      <DialogContent className='sm:max-w-[500px] max-w-[600px] gap-3 '>
+      <DialogContent className='w-11/12 md:w-1/3 gap-3 rounded-lg'>
         <DialogHeader className='flex flex-row justify-between items-start'>
           <div>
-            <DialogTitle className='mb-2 text-grey dark:text-white'>Account</DialogTitle>
+            <DialogTitle className='mb-2 text-grey dark:text-white text-left'>Account</DialogTitle>
             <DialogDescription
-              className='text-light-grey dark:text-white/90
+              className='text-light-grey dark:text-white/90 text-left
             '>
               Choose the avatar that best describes your use case
             </DialogDescription>
           </div>
-          <DialogClose>
-            <div>
-              <IoClose className='size-10 border rounded-full text-grey dark:text-white p-2' />
-            </div>
-          </DialogClose>
         </DialogHeader>
         <DropdownMenuSeparator />
         {/* todo add credentials */}

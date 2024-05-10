@@ -31,7 +31,7 @@ const UserButton = () => {
     };
 
     fetchUserDetails();
-  }, []);
+  }, [supabase.auth]);
 
   return (
     <DropdownMenu>
