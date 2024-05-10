@@ -5,7 +5,6 @@ import Logo from '@/components/Logo';
 import Link from 'next/link';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { FaPlus } from 'react-icons/fa';
-import { LuArrowUpRight } from 'react-icons/lu';
 import UserButton from './UserButton';
 import { usePathname } from 'next/navigation';
 import { SidebarRoutes } from './SidebarItems';

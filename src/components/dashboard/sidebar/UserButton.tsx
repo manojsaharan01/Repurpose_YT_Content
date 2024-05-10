@@ -39,7 +39,7 @@ const UserButton = () => {
         <div className='bg-light-white dark:bg-light-dark/10 rounded-lg px-1.5 py-2.5 flex items-center gap-2 overflow-hidden cursor-pointer'>
           <Image
             src={user?.user_metadata?.avatar_url ?? '/avatar.png'}
-            className='size-5 rounded-full'
+            className='size-8 rounded-full'
             width={20}
             height={20}
             alt='avatar'
