@@ -7,9 +7,9 @@ import {
   useReactTable,
   getPaginationRowModel,
 } from '@tanstack/react-table';
-
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
+import MachinLerningIcon from '@/assets/icons/MachinLerningIcon';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -58,8 +58,10 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} className='h-24 text-center'>
-                  No results.
+                <TableCell colSpan={columns.length} className='mx-auto'>
+                  <div className='flex flex-col justify-center items-center'>
+                    <MachinLerningIcon /> <p className='text-[#B8B8B8] font-medium mt-4'>No content generated yet</p>
+                  </div>
                 </TableCell>
               </TableRow>
             )}
