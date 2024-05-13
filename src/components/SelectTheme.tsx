@@ -1,9 +1,4 @@
-// This component is used to switch between light and dark themes.
-// It uses the next-themes package to switch between themes.
-// The component uses the useTheme hook to get the current theme and setTheme to switch between themes.
-
 'use client';
-
 import { MoonIcon, SunIcon } from '@radix-ui/react-icons';
 import { useTheme } from 'next-themes';
 

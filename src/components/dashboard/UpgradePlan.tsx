@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 const UpgradePlan = () => {
   return (
-    <div className='p-4 border border-[#ECECEC] rounded-lg mt-10 w-full'>
+    <div className='p-4 border border-[#ECECEC] dark:border-dark rounded-lg mt-10 w-full'>
       <p className='font-semibold text-lg mb-3'>Upgrade now to experience the best of builderkit</p>
 
       <ul className='list-disc list-inside '>

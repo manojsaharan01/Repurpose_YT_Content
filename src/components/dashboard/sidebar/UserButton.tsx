@@ -7,10 +7,9 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import Image from 'next/image';
-import { IoIosHelpCircleOutline } from 'react-icons/io';
 import AccountSettings from './AccountSettings';
 import { getUserDetails } from '@/utils/supabase/server';
-import { AiFillDollarCircle } from 'react-icons/ai';
+import { AiOutlineQuestionCircle } from 'react-icons/ai';
 import Link from 'next/link';
 import ButtonSignout from '../ButtonSignout';
 
@@ -50,9 +49,9 @@ const UserButton = async () => {
         <AccountSettings />
         <DropdownMenuSeparator />
 
-        <a href='mailto:support@example.com'>
+        <a href='mailto:vatsal1811@gmail.com'>
           <DropdownMenuItem className='cursor-pointer text-grey dark:text-white'>
-            <IoIosHelpCircleOutline className='size-5 mr-2' />
+            <AiOutlineQuestionCircle className='size-5 mr-2' />
             Support
           </DropdownMenuItem>
         </a>
@@ -60,7 +59,7 @@ const UserButton = async () => {
         <DropdownMenuSeparator />
         <Link href='/pricing'>
           <DropdownMenuItem className='cursor-pointer text-grey dark:text-white'>
-            <AiFillDollarCircle className='size-5 mr-2' />
+            <AiOutlineQuestionCircle className='size-5 mr-2' />
             Pricing
           </DropdownMenuItem>
           <DropdownMenuSeparator />
@@ -68,7 +67,7 @@ const UserButton = async () => {
 
         <ButtonSignout />
 
-        <div className='flex items-center m-2 text-[12px] text-[#83888B]'>
+        <div className='flex items-center m-2 mt-2.5 text-[12px] text-[#83888B]'>
           <a href=''>
             <span className='border-b'> Privacy policy</span> ,
             <span className='border-b'> Terms & conditions</span>

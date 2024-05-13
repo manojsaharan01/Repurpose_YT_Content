@@ -32,7 +32,6 @@ export const columns: ColumnDef<TypeContent>[] = [
   },
   {
     id: 'actions',
-    header: 'Actions',
     cell: ({ row }) => {
       return <DeleteActionCell row={row} />;
     },
@@ -61,8 +60,10 @@ const DeleteActionCell = ({ row }: { row: any }) => {
   };
 
   return (
-    <div className='rounded w-fit p-1 border cursor-pointer' onClick={handleDelete}>
-      <FaRegTrashAlt className='size-5' />
+    <div className='flex justify-end'>
+      <div className='rounded p-1 border cursor-pointer' onClick={handleDelete}>
+        <FaRegTrashAlt className='size-5' />
+      </div>
     </div>
   );
 };

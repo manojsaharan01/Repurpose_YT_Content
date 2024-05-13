@@ -125,8 +125,8 @@ const InputForm = ({ generatedData, firstTime }: Props) => {
     return (
       <div className='flex flex-col justify-between w-full h-[calc(100vh-90px)] '>
         <div className='border rounded-lg blue-gradient border-[#ECECEC] dark:border-dark px-6 py-5 w-full text-white'>
-          <div className='flex items-center justify-between'>
-            <p className='text-lg font-semibold mb-3'>How to use the builder kit tools</p>
+          <div className='flex items-center justify-between mb-3'>
+            <p className='text-lg font-semibold'>How to use the builder kit tools</p>
             <Cross2Icon
               className='cursor-pointer size-6'
               onClick={() => {
