@@ -3,7 +3,6 @@
 // The application name is dynamically fetched from the config and displayed at the top.
 // The `EmailAuth` and `GoogleAuth` components are used here for handling the respective authentication methods.
 
-import Logo from '@/components/Logo';
 import EmailAuth from '@/components/auth/EmailAuth';
 import GoogleAuth from '@/components/auth/GoogleAuth';
 import { Separator } from '@/components/ui/separator';
@@ -12,7 +11,9 @@ export default function Login() {
   return (
     <div className='h-screen flex'>
       <div className='w-full flex flex-col items-center justify-center px-6'>
-        <h1 className='text-4xl font-medium mb-6'>Content Creator</h1>
+        <h1 className='text-2xl md:text-4xl font-medium mb-6 text-center'>
+          AI Content Writer Tool by Builderkit.ai
+        </h1>
         <h2 className='text-[#3E3E3E] dark:text-[#98A5A8] text-sm mt-3 mb-9 font-medium'>
           Login or register with your email
         </h2>

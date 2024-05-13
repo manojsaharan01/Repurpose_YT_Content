@@ -11,7 +11,7 @@ export default function Logo() {
   const { theme } = useTheme();
   const pathname = usePathname();
   const isHomePage = pathname === '/';
-  
+
   const logoSrc = isHomePage ? '/dark-logo.png' : theme === 'dark' ? '/dark-logo.png' : '/light-logo.png';
 
   return (

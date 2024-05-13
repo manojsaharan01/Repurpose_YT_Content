@@ -34,7 +34,7 @@ const OutputContent = ({ contentData }: Props) => {
                 </p>
 
                 <BiCopy
-                  className='size-8 p-1 rounded border text-[#3e3e3e] dark:text-white border-[#ECECEC] dark:border-[#272626] cursor-pointer'
+                  className='size-8 p-1.5 rounded border text-[#3e3e3e] dark:text-white border-[#ECECEC] dark:border-[#272626] cursor-pointer'
                   onClick={() => {
                     navigator.clipboard
                       .writeText(`${content.title} \n ${content.description}`)
@@ -47,7 +47,7 @@ const OutputContent = ({ contentData }: Props) => {
                   }}
                 />
               </div>
-              <p className='text-base text-[#4B5563] dark:text-[#9CA3AF] text-justify'>
+              <p className='text-sm text-grey dark:text-[#9CA3AF] font-medium text-justify'>
                 {content.description}
               </p>
             </div>

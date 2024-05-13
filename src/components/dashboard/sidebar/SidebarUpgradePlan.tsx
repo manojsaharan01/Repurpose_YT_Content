@@ -11,7 +11,7 @@ const SidebarUpgradePlan = () => {
           <LuArrowUpRight className='size-4' />
         </div>
         <div className='text-grey dark:text-white text-sm'>
-          <p>Upgrade to experience the pro benefits.</p>
+          <p>Upgrade now to unlock higher limits and pro features</p>
         </div>
       </div>
     </Link>

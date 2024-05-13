@@ -19,6 +19,7 @@ const buttonVariants = cva(
         gray: 'bg-[#3E3E3E] shadow-sm hover:bg-[#3E3E3E]/90 text-white',
         'light-gray':
           'flex items-center justify-start px-2 py-1.5 gap-2 font-semibold tracking-tight border border-transparent hover:bg-light-white hover:dark:bg-light-dark/10 hover:border hover:border-[#E8E8E8] hover:hover:dark:!border-dark hover:!text-[#3E3E3E] rounded-lg text-[#8C8C8C] dark:!text-white',
+        'buy-now': 'bg-[#F9F9F9] text-grey text-sm font-semibold dark:bg-[#131313] dark:text-white',
       },
       size: {
         default: 'h-9 px-4 py-2',

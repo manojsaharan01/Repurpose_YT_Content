@@ -157,7 +157,7 @@ const InputForm = ({ generatedData, firstTime }: Props) => {
     <div className='block lg:flex items-start space-y-10 lg:space-y-0'>
       <div className='w-full lg:w-1/2 mr-0 lg:mr-8'>
         <form>
-          <InputWrapper id='topic' label='What do you want to generate?' className='mb-3'>
+          <InputWrapper id='topic' label='What do you want to Generate?' className='mb-3'>
             <Input
               id='topic'
               name='topic'
@@ -192,7 +192,7 @@ const InputForm = ({ generatedData, firstTime }: Props) => {
             <Input
               id='voice'
               name='voice'
-              placeholder='voice of'
+              placeholder='Elon Musk, David Perrel, Sahil Bloom etc'
               value={formData.voice}
               onChange={handleInputChange}
             />
@@ -206,7 +206,7 @@ const InputForm = ({ generatedData, firstTime }: Props) => {
         <hr className='my-8' />
 
         <p className='font-semibold text-sm mb-4 text-input-title dark:text-white'>
-          Use below prompts to create content
+          Start with one of these Prompts 👇🏻
         </p>
 
         <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>

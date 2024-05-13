@@ -61,7 +61,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
               <TableRow>
                 <TableCell colSpan={columns.length} className='mx-auto'>
                   <div className='flex flex-col justify-center items-center'>
-                    <Image src={ZeroState} height={478} width={478} alt='zero-state' /> 
+                    <Image src={ZeroState} height={478} width={478} alt='zero-state' />
                     <p className='text-[#B8B8B8] font-medium mt-4'>No content generated yet</p>
                   </div>
                 </TableCell>
