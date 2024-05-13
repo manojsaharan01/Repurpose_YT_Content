@@ -12,6 +12,7 @@ import { getUserDetails } from '@/utils/supabase/server';
 import { AiOutlineQuestionCircle } from 'react-icons/ai';
 import Link from 'next/link';
 import ButtonSignout from '../ButtonSignout';
+import { AiOutlineDollarCircle } from "react-icons/ai";
 
 const UserButton = async () => {
   const user = await getUserDetails();
@@ -59,7 +60,7 @@ const UserButton = async () => {
         <DropdownMenuSeparator />
         <Link href='/pricing'>
           <DropdownMenuItem className='cursor-pointer text-grey dark:text-white'>
-            <AiOutlineQuestionCircle className='size-5 mr-2' />
+            <AiOutlineDollarCircle className='size-5 mr-2' />
             Pricing
           </DropdownMenuItem>
           <DropdownMenuSeparator />
