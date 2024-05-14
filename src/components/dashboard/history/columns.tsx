@@ -2,7 +2,6 @@
 
 import { TypeContent } from '@/types/types';
 import { ColumnDef } from '@tanstack/react-table';
-import { useRouter } from 'next/navigation';
 import { format } from 'date-fns';
 import ModalDeleteContent from './ModalDeleteContent';
 import TopicCell from './ContentRow';

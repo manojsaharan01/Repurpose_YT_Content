@@ -12,10 +12,10 @@ export default function GoogleAuth() {
   const { theme } = useTheme();
 
   // Define theme-dependent variables
-  let textColor = theme === 'dark' ? 'text-white' : 'text-black';
-  let buttonBackground = theme === 'dark' ? '#2A2A2A' : '#F7F7F7';
-  let buttonBackgroundHover = theme === 'dark' ? '#2A2A2A' : '#F7F7F7';
-  let buttonBorder = theme === 'dark' ? '#2A2A2A' : '#F7F7F7';
+  const textColor = theme === 'dark' ? 'text-white' : 'text-black';
+  const buttonBackground = theme === 'dark' ? '#2A2A2A' : '#F7F7F7';
+  const buttonBackgroundHover = theme === 'dark' ? '#2A2A2A' : '#F7F7F7';
+  const buttonBorder = theme === 'dark' ? '#2A2A2A' : '#F7F7F7';
 
   // Ensure the redirect URL is configured correctly in the Supabase project settings.
   // Incorrect configuration can lead to failed authentication attempts or security vulnerabilities.
