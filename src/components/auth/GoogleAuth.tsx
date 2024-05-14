@@ -1,7 +1,9 @@
 // This component provides Google authentication using Supabase's auth UI.
 // It is configured to redirect users to a specified callback URL upon successful authentication.
 // The appearance of the auth button is customized according to the application's theme.
+
 'use client';
+
 import { supabaseBrowserClient } from '@/utils/supabase/client';
 import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
