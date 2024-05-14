@@ -10,8 +10,10 @@ import { Separator } from '@/components/ui/separator';
 export default function Login() {
   return (
     <div className='h-screen flex'>
-      <div className='w-full flex flex-col items-center justify-center px-6'>
-        <h1 className='text-2xl md:text-4xl font-medium mb-6 text-center'>AI Content Writer Tool</h1>
+      <div className='w-full flex flex-col items-center justify-center px-6'> <div className='text-2xl md:text-4xl font-medium mb-6 text-center space-y-2'>
+          <p>AI Content Writer Tool </p>
+          <p className='text-lg'>by Builderkit.ai</p>
+        </div>
         <h2 className='text-[#3E3E3E] dark:text-[#98A5A8] text-sm mt-3 mb-9 font-medium'>
           Login or register with your email
         </h2>
