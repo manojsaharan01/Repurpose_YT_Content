@@ -11,6 +11,12 @@ export default function GoogleAuth() {
   const supabase = supabaseBrowserClient();
   const { theme } = useTheme();
 
+  // Define theme-dependent variables
+  let textColor = theme === 'dark' ? 'text-white' : 'text-black';
+  let buttonBackground = theme === 'dark' ? '#2A2A2A' : '#F7F7F7';
+  let buttonBackgroundHover = theme === 'dark' ? '#2A2A2A' : '#F7F7F7';
+  let buttonBorder = theme === 'dark' ? '#2A2A2A' : '#F7F7F7';
+
   // Ensure the redirect URL is configured correctly in the Supabase project settings.
   // Incorrect configuration can lead to failed authentication attempts or security vulnerabilities.
   const redirectUrl = `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/callback`;
@@ -26,10 +32,10 @@ export default function GoogleAuth() {
           variables: {
             default: {
               colors: {
-                defaultButtonText: theme === 'dark' ? 'text-white' : 'text-black',
-                defaultButtonBackground: theme === 'dark' ? '#2A2A2A' : '#F7F7F7',
-                defaultButtonBackgroundHover: theme === 'dark' ? '#2A2A2A' : '#F7F7F7',
-                defaultButtonBorder: theme === 'dark' ? '#2A2A2A' : '#F7F7F7',
+                defaultButtonText: textColor,
+                defaultButtonBackground: buttonBackground,
+                defaultButtonBackgroundHover: buttonBackgroundHover,
+                defaultButtonBorder: buttonBorder,
               },
               radii: {
                 borderRadiusButton: '6px',

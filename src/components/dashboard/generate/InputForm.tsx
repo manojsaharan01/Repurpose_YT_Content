@@ -73,8 +73,6 @@ const InputForm = ({ generatedData, firstTime }: Props) => {
       const { value, done: doneReading } = await reader.read();
       done = doneReading;
       const chunkValue = decoder.decode(value);
-      console.log(streamData);
-
       streamData += chunkValue;
     }
 

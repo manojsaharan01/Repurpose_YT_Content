@@ -12,8 +12,8 @@ export default function Logo() {
   const pathname = usePathname();
   const isHomePage = pathname === '/';
 
-  const logoSrc = isHomePage ? '/dark-logo.png' : theme === 'dark' ? '/dark-logo.png' : '/light-logo.png';
-
+  const logoSrc = isHomePage || theme === 'dark' ? '/dark-logo.png' : '/light-logo.png'
+  
   return (
     <Link href='https://www.builderkit.ai/#pricing'>
       <div className='flex items-center gap-2 w-fit'>

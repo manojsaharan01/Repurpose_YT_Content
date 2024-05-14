@@ -15,7 +15,7 @@ import ButtonSignout from '../ButtonSignout';
 import { AiOutlineDollarCircle } from 'react-icons/ai';
 import dynamic from 'next/dynamic';
 
-const UserButtonContent = dynamic(() => import('./UserButtonContent'), { ssr: false });
+const DropdownContentWrapper = dynamic(() => import('./DropdownContentWrapper'), { ssr: false });
 
 const UserButton = async () => {
   const user = await getUserDetails();
@@ -34,7 +34,7 @@ const UserButton = async () => {
           <p className='font-semibold text-grey dark:text-white'>{user?.user_metadata?.full_name} </p>
         </div>
       </DropdownMenuTrigger>
-      <UserButtonContent>
+      <DropdownContentWrapper>
         <DropdownMenuItem className='flex items-start gap-3 overflow-hidden'>
           <Image
             src={user?.user_metadata?.avatar_url ?? '/avatar.png'}
@@ -77,7 +77,7 @@ const UserButton = async () => {
             <span className='border-b'> Terms & conditions</span>
           </a>
         </div>
-      </UserButtonContent>
+      </DropdownContentWrapper>
     </DropdownMenu>
   );
 };
