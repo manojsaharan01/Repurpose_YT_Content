@@ -4,31 +4,26 @@ import { cn } from '@/utils/utils';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { buttonVariants } from '@/components/ui/button';
-import { SidebarRoutes } from './content';
+import { FC } from 'react';
 
-const SidebarItems = () => {
+interface SidebarItemProps {
+  route: { icon: JSX.Element; label: string; path: string };
+}
+
+const SidebarItems: FC<SidebarItemProps> = ({ route }) => {
   const pathname = usePathname();
 
+  const isActive = pathname.startsWith(route.path);
   return (
-    <div className='space-y-1'>
-      {SidebarRoutes.map((route, index) => {
-        const isActive = pathname.startsWith(route.path);
-
-        return (
-          <Link
-            key={index}
-            href={route.path}
-            className={cn(
-              buttonVariants({ variant: 'light-gray' }),
-              isActive &&
-                'border !border-[#E8E8E8] dark:!border-dark rounded-lg bg-light-white dark:bg-light-dark/10 !text-[#3E3E3E] dark:!text-white'
-            )}>
-            <div>{route.icon}</div>
-            <span className='text-[14px]'>{route.label}</span>
-          </Link>
-        );
-      })}
-    </div>
+    <Link
+      href={route.path}
+      className={cn(
+        buttonVariants({ variant: 'light-gray' }),
+        isActive && 'border-border  rounded-lg bg-muted/30 !text-default'
+      )}>
+      <div>{route.icon}</div>
+      <span className='text-[14px]'>{route.label}</span>
+    </Link>
   );
 };
 

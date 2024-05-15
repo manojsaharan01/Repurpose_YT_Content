@@ -49,9 +49,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
               table.getRowModel().rows.map((row) => (
                 <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell
-                      key={cell.id}
-                      className='border-b p-4 font-semibold text-grey dark:text-white/90'>
+                    <TableCell key={cell.id} className='border-b p-4 font-semibold text-default'>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   ))}
@@ -62,7 +60,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                 <TableCell colSpan={columns.length} className='mx-auto'>
                   <div className='flex flex-col justify-center items-center'>
                     <Image src={ZeroState} height={478} width={478} alt='zero-state' />
-                    <p className='text-[#B8B8B8] font-medium mt-4'>No content generated yet</p>
+                    <p className='text-subtle font-medium mt-4'>No content generated yet</p>
                   </div>
                 </TableCell>
               </TableRow>

@@ -22,7 +22,7 @@ const UserButton = async () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <div className='bg-light-white dark:bg-light-dark/10 rounded-lg px-1.5 py-2.5 flex items-center gap-2 overflow-hidden cursor-pointer'>
+        <div className='bg-muted/30 rounded-lg px-1.5 py-2.5 flex items-center gap-2 overflow-hidden cursor-pointer'>
           <Image
             src={user?.user_metadata?.avatar_url ?? '/avatar.png'}
             className='size-8 rounded-full'
@@ -30,7 +30,7 @@ const UserButton = async () => {
             height={20}
             alt='avatar'
           />
-          <p className='font-semibold text-grey dark:text-white'>{user?.user_metadata?.full_name} </p>
+          <p className='font-semibold text-default'>{user?.user_metadata?.full_name} </p>
         </div>
       </DropdownMenuTrigger>
       <DropdownContentWrapper>
@@ -43,7 +43,7 @@ const UserButton = async () => {
             alt='avatar'
           />
           <div>
-            <p className='font-semibold text-grey dark:text-white'>{user?.user_metadata?.full_name}</p>
+            <p className='font-semibold text-default'>{user?.user_metadata?.full_name}</p>
             <p className='text-light-grey dark:text-white/90'>{user?.email}</p>
           </div>
         </DropdownMenuItem>
@@ -53,7 +53,7 @@ const UserButton = async () => {
         <DropdownMenuSeparator />
 
         <a href='mailto:vatsal1811@gmail.com'>
-          <DropdownMenuItem className='cursor-pointer text-grey dark:text-white'>
+          <DropdownMenuItem className='cursor-pointer text-default'>
             <AiOutlineQuestionCircle className='size-5 mr-2' />
             Support
           </DropdownMenuItem>
@@ -61,7 +61,7 @@ const UserButton = async () => {
 
         <DropdownMenuSeparator />
         <Link href='/pricing'>
-          <DropdownMenuItem className='cursor-pointer text-grey dark:text-white'>
+          <DropdownMenuItem className='cursor-pointer text-default'>
             <AiOutlineDollarCircle className='size-5 mr-2' />
             Pricing
           </DropdownMenuItem>
@@ -70,7 +70,7 @@ const UserButton = async () => {
 
         <ButtonSignout />
 
-        <div className='flex items-center m-2 mt-2.5 text-[12px] text-[#83888B]'>
+        <div className='flex items-center m-2 mt-2.5 text-[12px] text-subtle'>
           <a href=''>
             <span className='border-b'> Privacy policy</span> ,
             <span className='border-b'> Terms & conditions</span>

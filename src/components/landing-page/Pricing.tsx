@@ -59,7 +59,7 @@ const Pricing = () => {
         <h1 className='text-center text-5xl md:text-[56px] font-medium leading-[56px] pricing-header '>
           Pay once, use forever, upgrade for free
         </h1>
-        <p className='text-[#C8C8C8] text-center text-xl not-italic font-normal leading-8 max-w-3xl mx-auto'>
+        <p className='text-subtlt text-center text-xl not-italic font-normal leading-8 max-w-3xl mx-auto'>
           Flexible pricing for any team size. It's a one-time payment — you only buy a license once, and all
           future updates are free for you forever.
         </p>

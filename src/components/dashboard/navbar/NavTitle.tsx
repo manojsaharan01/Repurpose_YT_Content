@@ -9,7 +9,7 @@ const NavTitle: FC<NavTitleProps> = () => {
   const pathname = usePathname();
 
   const title =
-    pathname === '/home'
+    pathname === '/home' || pathname.includes('/home/')
       ? 'Content Writer'
       : pathname === '/history'
         ? 'History'
@@ -21,7 +21,7 @@ const NavTitle: FC<NavTitleProps> = () => {
 
   return (
     <>
-      <div className='text-lg font-semibold text-grey dark:text-white'>{title}</div>
+      <div className='text-lg font-semibold text-default'>{title}</div>
     </>
   );
 };

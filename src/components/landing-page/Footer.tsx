@@ -21,10 +21,10 @@ const Footer = () => {
   return (
     <div className='space-y-[154px] mt-44'>
       <div className='space-y-10 max-w-[676px] mx-auto px-4'>
-        <h1 className='text-[#ABABB0] text-5xl md:text-[56px] text-center font-medium'>
+        <h1 className='text-subtle text-5xl md:text-[56px] text-center font-medium'>
           Unleash the power of AI
         </h1>
-        <p className='text-[#ABABB0] text-lg md:text-2xl font-normal leading-[30px] md:leading-[34px] tracking-[0.2px] text-center'>
+        <p className='text-subtle text-lg md:text-2xl font-normal leading-[30px] md:leading-[34px] tracking-[0.2px] text-center'>
           Feel free to customize your reports. Utilize our super-table instead of exporting and importing data
         </p>
         <div className='w-fit mt-8 mx-auto'>
@@ -42,9 +42,9 @@ const Footer = () => {
       </div>
 
       <div className='border-t border-white/10 space-y-12 px-4 py-16'>
-        <ul className='flex flex-col md:flex-row gap-5 justify-center text-[#A5ABB6]'>
+        <ul className='flex flex-col md:flex-row gap-5 justify-center text-subtle'>
           {footerItems.map((item, index) => (
-            <li key={index} className='text-[#A5ABB6] text-base font-normal'>
+            <li key={index} className='text-subtle text-base font-normal'>
               {item}
             </li>
           ))}

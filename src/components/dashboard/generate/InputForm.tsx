@@ -122,7 +122,7 @@ const InputForm = ({ generatedData, firstTime }: Props) => {
   if (howToUse) {
     return (
       <div className='flex flex-col justify-between w-full h-[calc(100vh-90px)] '>
-        <div className='border rounded-lg blue-gradient border-[#ECECEC] dark:border-dark px-6 py-5 w-full text-white'>
+        <div className='border rounded-lg blue-gradient px-6 py-5 w-full text-white'>
           <div className='flex items-center justify-between mb-3'>
             <p className='text-lg font-semibold'>How to use the builder kit tools</p>
             <Cross2Icon
@@ -136,7 +136,7 @@ const InputForm = ({ generatedData, firstTime }: Props) => {
             <li className='flex items-center gap-2'>
               1. Click on
               <div
-                className='flex items-center w-fit border border-[#E2E2E2] rounded gap-0.5 py-0.5 px-1 text-[10px] font-medium text-[#91908F] bg-white cursor-pointer'
+                className='flex items-center w-fit rounded gap-0.5 py-0.5 px-1 text-[10px] font-medium text-subtle bg-white cursor-pointer'
                 onClick={() => sethowToUse(false)}>
                 <PlusIcon />
                 New Content
@@ -203,22 +203,20 @@ const InputForm = ({ generatedData, firstTime }: Props) => {
 
         <hr className='my-8' />
 
-        <p className='font-semibold text-sm mb-4 text-input-title dark:text-white'>
-          Start with one of these Prompts 👇🏻
-        </p>
+        <p className='font-semibold text-sm mb-4 text-default'>Start with one of these Prompts 👇🏻</p>
 
         <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
           {prompts.map((item, index) => (
             <div
               key={index}
-              className='px-4 py-5 space-y-2 border border-[#E4E4E4] dark:border-[#272626] rounded cursor-pointer'
+              className='px-4 py-5 space-y-2 border rounded cursor-pointer'
               onClick={() => {
                 setFormData({
                   ...item,
                 });
               }}>
-              <p className='font-semibold text-[#18181B] dark:text-white'>{item.topic}</p>
-              <p className='text-sm text-[#83888B] dark:text-white/90'>{item.style}</p>
+              <p className='font-semibold text-default'>{item.topic}</p>
+              <p className='text-sm text-subtle'>{item.style}</p>
             </div>
           ))}
         </div>

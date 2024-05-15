@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 const UpgradePlan = () => {
   return (
-    <div className='p-4 border border-[#ECECEC] dark:border-dark rounded-lg mt-10 w-full'>
+    <div className='p-4 border rounded-lg mt-10 w-full'>
       <p className='font-semibold text-lg mb-3'>Upgrade now to experience the best of builderkit</p>
 
       <ul className='list-disc list-inside '>
@@ -13,7 +13,7 @@ const UpgradePlan = () => {
         <li>Get 24/7 Support</li>
       </ul>
       <Link href='/pricing'>
-        <Button className='mt-6 w-full font-semibold text-grey text-sm' variant='buy-now'>
+        <Button className='mt-6 w-full shadow-none font-semibold text-default text-sm bg-muted/30 hover:bg-muted/20'>
           Upgrade Plan
         </Button>
       </Link>

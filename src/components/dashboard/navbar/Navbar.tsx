@@ -15,7 +15,7 @@ const Navbar = () => {
 
           <div className='hidden md:flex'>
             <Link href='https://apps.builderkit.ai/' target='_blank'>
-              <div className='bg-light-white dark:bg-light-dark/10 rounded-lg px-4 py-2.5 flex items-center gap-2 cursor-pointer'>
+              <div className='bg-muted/30 rounded-lg px-4 py-2.5 flex items-center gap-2 cursor-pointer'>
                 Demo Apps
                 <RxExternalLink />
               </div>
