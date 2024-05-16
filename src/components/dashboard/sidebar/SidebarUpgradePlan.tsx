@@ -19,4 +19,3 @@ const SidebarUpgradePlan = () => {
 };
 
 export default SidebarUpgradePlan;
-// hsl(var(--primary) / 0.1);
