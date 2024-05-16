@@ -39,7 +39,7 @@ const UserButton = async () => {
         </div>
       </DropdownMenuTrigger>
       <DropdownContentWrapper>
-        <div className='flex items-start gap-3 overflow-hidden px-2 py-1.5'>
+        <div className='flex items-center gap-3 overflow-hidden px-2 py-1.5'>
           <Image
             src={user?.user_metadata?.avatar_url ?? '/avatar.png'}
             className='size-10 rounded-full'
