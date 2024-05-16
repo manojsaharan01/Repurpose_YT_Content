@@ -20,8 +20,8 @@ const SidebarItem: FC<SidebarItemProps> = ({ route }) => {
       href={route.path}
       className={cn(
         buttonVariants({ variant: 'secondary' }),
-        'flex justify-start bg-transparent gap-2 font-semibold border border-transparent hover:border-border rounded-lg text-subtle tracking-tight',
-        isActive && 'border-border rounded-lg text-default bg-secondary'
+        'flex justify-start bg-transparent gap-2 font-semibold border border-transparent hover:border-border rounded-lg text-subtle dark:text-subtle/70 tracking-tight hover:bg-secondary hover:!text-default',
+        isActive && 'border-border rounded-lg !text-default bg-secondary'
       )}>
       <div>{route.icon}</div>
       <span className='text-sm'>{route.label}</span>
