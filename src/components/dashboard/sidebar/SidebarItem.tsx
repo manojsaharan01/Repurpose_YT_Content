@@ -10,21 +10,23 @@ interface SidebarItemProps {
   route: { icon: JSX.Element; label: string; path: string };
 }
 
-const SidebarItems: FC<SidebarItemProps> = ({ route }) => {
+const SidebarItem: FC<SidebarItemProps> = ({ route }) => {
   const pathname = usePathname();
 
   const isActive = pathname.startsWith(route.path);
+
   return (
     <Link
       href={route.path}
       className={cn(
-        buttonVariants({ variant: 'light-gray' }),
-        isActive && 'border-border  rounded-lg bg-muted/30 !text-default'
+        buttonVariants({ variant: 'secondary' }),
+        'flex justify-start bg-transparent gap-2 font-semibold border border-transparent hover:border-border rounded-lg text-subtle tracking-tight',
+        isActive && 'border-border rounded-lg text-default bg-secondary'
       )}>
       <div>{route.icon}</div>
-      <span className='text-[14px]'>{route.label}</span>
+      <span className='text-sm'>{route.label}</span>
     </Link>
   );
 };
 
-export default SidebarItems;
+export default SidebarItem;

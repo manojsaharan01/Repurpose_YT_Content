@@ -36,7 +36,7 @@ const Pricing = () => {
             )}>
             {plan.mostPopular && (
               <div className='px-2 bg-destructive/10 rounded w-fit mb-5'>
-                <span className='text-destructive text-[12px] font-semibold'>MOST POPULAR</span>
+                <span className='text-destructive text-xs font-semibold'>MOST POPULAR</span>
               </div>
             )}
             <p className='font-medium mb-4'>{plan.name}</p>
