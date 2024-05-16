@@ -1,12 +1,7 @@
-import React from 'react';
 import {
   DropdownMenu,
   DropdownMenuItem,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import Image from 'next/image';
@@ -54,7 +49,7 @@ const UserButton = async () => {
           />
           <div>
             <p className='font-semibold text-default'>{user?.user_metadata?.full_name}</p>
-            <p className='text-light-grey dark:text-white/90'>{user?.email}</p>
+            <p className='text-default dark:text-white/90'>{user?.email}</p>
           </div>
         </div>
         <DropdownMenuSeparator />

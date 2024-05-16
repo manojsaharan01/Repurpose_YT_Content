@@ -28,7 +28,7 @@ const AccountSettings = async () => {
         <DialogHeader className='flex flex-row justify-between items-start'>
           <div>
             <DialogTitle className='mb-2 text-default text-left text-lg font-semibold'>Account</DialogTitle>
-            <DialogDescription className='text-light-grey dark:text-white/90 text-left font-normal text-sm'>
+            <DialogDescription className='text-default dark:text-white/90 text-left text-sm'>
               Choose the avatar that best describes your use case
             </DialogDescription>
           </div>

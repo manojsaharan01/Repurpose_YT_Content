@@ -13,7 +13,7 @@ const UpgradePlan = () => {
         <li>Get 24/7 Support</li>
       </ul>
       <Link href='/pricing'>
-        <Button size="lg" variant="secondary" className='mt-6 w-full'>
+        <Button size='lg' variant='secondary' className='mt-6 w-full'>
           Upgrade Plan
         </Button>
       </Link>

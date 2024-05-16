@@ -2,7 +2,8 @@ import { toast } from '@/components/ui/use-toast';
 import { supabaseBrowserClient } from '@/utils/supabase/client';
 import { cn, errorToast } from '@/utils/utils';
 import { useRouter } from 'next/navigation';
-import { LuTrash2 } from "react-icons/lu";import {
+import { LuTrash2 } from 'react-icons/lu';
+import {
   Dialog,
   DialogClose,
   DialogContent,
