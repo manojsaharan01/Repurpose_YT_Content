@@ -91,7 +91,7 @@ const Pricing = () => {
               </p>
               <Button
                 className={cn(
-                  'rounded-full w-full border py-6 font-bold mt-6 mb-12 gap-2 shadow-none',
+                  'rounded-full w-full border border-[#e7e7e7] py-6 font-bold mt-6 mb-12 gap-2 shadow-none',
                   plan.isHiglighted ? 'text-white bg-lp-light-background' : 'text-[#2AA875] bg-[#DFFFF2]'
                 )}>
                 <FaFire className='size-5' />

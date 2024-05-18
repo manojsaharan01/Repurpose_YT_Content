@@ -24,7 +24,7 @@ export default async function Navbar() {
       <div className={cn('max-w-6xl mx-auto flex justify-between items-center p-4')}>
         <Logo />
 
-        <ul className='hidden md:flex items-center gap-6'>
+        <ul className='hidden md:flex items-center gap-12'>
           {NavbarRoutes.map((item, index) => (
             <li key={index} className='text-sm cursor-pointer font-medium leading-6'>
               <Link href={item.url}>{item.label}</Link>
