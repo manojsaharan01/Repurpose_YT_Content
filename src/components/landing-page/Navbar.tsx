@@ -32,7 +32,9 @@ export default async function Navbar() {
           ))}
         </ul>
 
-        <ButtonCta label='Sign In' />
+        <div className='hidden md:block'>
+          <ButtonCta label='Sign In' />
+        </div>
 
         <Sheet>
           <SheetTrigger className='block md:hidden'>
@@ -47,9 +49,7 @@ export default async function Navbar() {
                   </li>
                 ))}
               </ul>
-              <Button className='rounded-lg w-full flex border border-lp-border green-btn-gradient'>
-                Sign Up
-              </Button>
+              <ButtonCta className='w-full' label='Sign In' />
             </div>
           </SheetContent>
         </Sheet>
