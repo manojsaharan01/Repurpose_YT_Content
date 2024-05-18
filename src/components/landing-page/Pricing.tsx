@@ -8,7 +8,6 @@ import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 import { FaFire } from 'react-icons/fa';
 import CheckedIcon from '@/assets/icons/CheckedIcon';
-import { CiGift } from 'react-icons/ci';
 import { cn } from '@/utils/utils';
 import GreenBadge from '@/assets/icons/GreenBadge';
 
@@ -55,7 +54,7 @@ const ListItem = ({ text }: { text: string }) => (
 
 const Pricing = () => {
   return (
-    <div id='pricing' className='space-y-[120px] px-6 mt-44 mb-24'>
+    <div id='pricing' className='space-y-[120px] px-6 mt-[200px] mb-24'>
       <div className='space-y-6'>
         <h1 className='text-center text-5xl md:text-[56px] font-medium leading-[66px] header-gradient tracking-[-1.12px]'>
           Pay once, use forever, upgrade for free

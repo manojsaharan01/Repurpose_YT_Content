@@ -27,7 +27,7 @@ const socialMediaIcons = [
 
 const Footer = () => {
   return (
-    <div className='space-y-[154px] mt-44'>
+    <div className='space-y-[154px] mt-[200px]'>
       <div className='space-y-10 mx-auto px-4'>
         <p className='header-gradient text-5xl md:text-[56px] text-center font-medium leading-[64px]'>
           Unleash the power of AI with GenAI
