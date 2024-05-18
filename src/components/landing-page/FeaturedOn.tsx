@@ -1,8 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
-import Dropbox from '../../assets/images/dropbox.png';
-import Paypal from '../../assets/images/paypal.png';
-import Google from '../../assets/images/google.png';
+import Dropbox from '@/assets/images/dropbox.png';
+import Paypal from '@/assets/images/paypal.png';
+import Google from '@/assets/images/google.png';
 import { cn } from '@/utils/utils';
 
 const logos = [
