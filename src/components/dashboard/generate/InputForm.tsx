@@ -59,7 +59,7 @@ const InputForm = ({ generatedData, firstTime }: Props) => {
     if (firstTime) {
       setShowNewForm(true);
     }
-  }, [firstTime]);
+  }, [firstTime, setShowNewForm]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
