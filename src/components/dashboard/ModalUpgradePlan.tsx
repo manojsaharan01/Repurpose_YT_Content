@@ -18,7 +18,7 @@ const ModalUpgradePlan: FC<ModalUpgradePlanProps> = ({ children }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent>
+      <DialogContent className='w-11/12 rounded-lg'>
         <DialogHeader>
           <DialogTitle className='text-center text-lg font-semibold mb-1.5'>Pricing</DialogTitle>
           <DialogDescription className='text-center text-sm leading-6'>

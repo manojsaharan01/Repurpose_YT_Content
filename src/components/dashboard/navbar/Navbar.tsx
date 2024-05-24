@@ -21,7 +21,7 @@ const Navbar = () => {
               </Button>
             </Link>
             <Link href='https://apps.builderkit.ai/' target='_blank'>
-              <Button className='gap-2 border border-destructive/10 bg-destructive/10 dark:bg-destructive/20 text-destructive'>
+              <Button className='gap-2 border border-destructive/10 bg-destructive/10 dark:bg-destructive/20 text-destructive shadow-none'>
                 Get Builderkit.ai
                 <RxExternalLink />
               </Button>
