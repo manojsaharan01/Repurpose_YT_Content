@@ -27,7 +27,7 @@ const ModalUpgradePlan: FC<ModalUpgradePlanProps> = ({ children }) => {
           </DialogDescription>
         </DialogHeader>
         <Link href='https://www.builderkit.ai/#pricing' target='_blank'>
-          <Button className='mt-4 w-full'>Buy Builderkit.ai</Button>
+          <Button className='mt-4 w-full'>Get Builderkit.ai</Button>
         </Link>
       </DialogContent>
     </Dialog>
