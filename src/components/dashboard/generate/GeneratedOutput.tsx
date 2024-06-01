@@ -25,7 +25,7 @@ const GeneratedOutput: FC<GeneratedOutputProps> = ({ data }) => {
             allowFullScreen
             allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
           />
-          <div className='text-default leading-6 font-semibold space-y-2.5'>
+          <div className='space-y-2.5'>
             <div className='flex justify-between items-center'>
               <p className='text-default font-semibold leading-6'>Summary</p>
               <BiCopy
@@ -44,6 +44,17 @@ const GeneratedOutput: FC<GeneratedOutputProps> = ({ data }) => {
             </div>
             <p className='text-default text-sm font-medium leading-6 text-justify'>{data.summary}</p>
           </div>
+          {data.chapters && Array.isArray(data.chapters) && (
+            <div className='space-y-2.5'>
+              <p className='text-default font-semibold leading-6'>Chapters</p>
+
+              {(data.chapters as { title?: string | undefined }[]).map((chapter, index) => (
+                <div key={index} className='flex justify-between items-center'>
+                  <p className='text-default text-sm font-medium leading-6'>{chapter?.title}</p>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
       <GenerateContent data={data} />

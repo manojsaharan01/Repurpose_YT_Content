@@ -2,6 +2,7 @@ import { getUserDetails, supabaseServerClient } from '@/utils/supabase/server';
 import { NextResponse } from 'next/server';
 import ytdl from 'ytdl-core';
 import { parseStringPromise } from 'xml2js';
+import { Json } from '@/types/supabase';
 
 export async function POST(request: Request) {
   try {
@@ -59,6 +60,7 @@ export async function POST(request: Request) {
           youtube_title: videoData?.title ?? '',
           url: url,
           summary: summary,
+          chapters: (videoData?.chapters as unknown as Json) ?? undefined,
         },
       ])
       .select()
