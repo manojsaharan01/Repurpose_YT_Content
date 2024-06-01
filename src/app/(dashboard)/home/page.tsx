@@ -1,5 +1,7 @@
+import InputForm from '@/components/dashboard/generate/InputForm';
+
 const page = () => {
-  return <div className=''></div>;
+  return <InputForm />;
 };
 
 export default page;

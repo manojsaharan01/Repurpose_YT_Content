@@ -1,3 +1,3 @@
 import { Database } from './supabase';
 
-export type TypeContent = Database['public']['Tables']['content_creations']['Row'];
+export type TypeYoutubeContent = Database['public']['Tables']['youtube_content_generator']['Row'];

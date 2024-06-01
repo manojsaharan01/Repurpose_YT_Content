@@ -12,9 +12,4 @@ export const SidebarRoutes = [
     label: 'History',
     path: '/history',
   },
-  // {
-  //   icon: <PiMagicWand className='size-5' />,
-  //   label: 'Prompt library',
-  //   path: '/prompt-library',
-  // },
 ];

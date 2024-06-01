@@ -22,7 +22,7 @@ const ModalDeleteContent = ({ row }: { row: any }) => {
     const supabase = supabaseBrowserClient();
 
     try {
-      const { error } = await supabase.from('content_creations').delete().eq('id', row.original.id);
+      const { error } = await supabase.from('youtube_content_generator').delete().eq('id', row.original.id);
 
       if (!error) {
         toast({ title: 'Content deleted successfully', variant: 'destructive' });

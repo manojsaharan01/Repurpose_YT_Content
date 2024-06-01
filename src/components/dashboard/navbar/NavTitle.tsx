@@ -9,12 +9,12 @@ const NavTitle: FC<NavTitleProps> = () => {
   const pathname = usePathname();
 
   const title = pathname.includes('/home')
-    ? 'Dashboard'
+    ? 'Home'
     : pathname === '/history'
       ? 'History'
       : pathname === '/pricing'
         ? 'Pricing'
-        : 'Dashboard';
+        : 'Home';
 
   return (
     <>

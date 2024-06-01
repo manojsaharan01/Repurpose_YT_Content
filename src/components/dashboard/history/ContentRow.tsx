@@ -9,9 +9,7 @@ const TopicCell = ({ row }: { row: any }) => {
 
   return (
     <div className='cursor-pointer' onClick={() => handlePush(row.original.id)}>
-      <div>
-        {row.original.topic.length > 40 ? `${row.original.topic.substring(0, 40)} ...` : row.original.topic}
-      </div>
+      <div className='w-48 truncate'>{row.original.youtube_title}</div>
     </div>
   );
 };

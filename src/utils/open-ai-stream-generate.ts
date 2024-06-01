@@ -31,6 +31,9 @@ export interface OpenAIStreamPayload {
     type: string;
   };
   functions: FunctionObject[];
+  function_call: {
+    name: string;
+  };
 }
 
 // Defines the structure for the function object within the OpenAIStreamPayload.
