@@ -11,6 +11,8 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { TypeYoutubeContent } from '@/types/types';
 import { supabaseBrowserClient } from '@/utils/supabase/client';
 import { toast } from '@/components/ui/use-toast';
+import Image from 'next/image';
+import ZeroState from '@/assets/images/zero-state.png';
 
 type GenerateContentProps = {
   data: TypeYoutubeContent;
@@ -193,8 +195,15 @@ const GenerateContent: FC<GenerateContentProps> = ({ data }) => {
               ))}
             </div>
           ) : (
-            <div className='flex items-center justify-center h-20'>
-              {isLoading ? <AiOutlineLoading className='animate-spin size-8' /> : 'No content generated yet'}
+            <div className='flex items-center justify-center'>
+              {isLoading ? (
+                <AiOutlineLoading className='animate-spin size-8' />
+              ) : (
+                <div className='flex flex-col justify-center items-center'>
+                  <Image src={ZeroState} height={150} width={150} alt='zero-state' />
+                  <p className='text-subtle font-medium mt-4'>No content generated yet</p>
+                </div>
+              )}
             </div>
           )}
         </div>
