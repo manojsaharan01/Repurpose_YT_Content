@@ -51,7 +51,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
       <html lang='en'>
         <body className={font.className}>
-          <main>{children}</main>
+          {children}
           <Toaster />
         </body>
       </html>
