@@ -34,7 +34,7 @@ const InputForm: FC<InputFormProps> = () => {
       router.replace(`/home/${response.data.data.id}`);
       setData(response.data.data);
     } catch (error: any) {
-      errorToast("YouTube video couldn't be processed. Please try again.");
+      errorToast("YouTube video couldn't be processed");
     }
   };
 
