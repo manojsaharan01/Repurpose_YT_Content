@@ -49,7 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       `}
       </Script>
 
-      <html lang='en'>
+      <html lang='en' className='overflow-hidden'>
         <body className={font.className}>
           {children}
           <Toaster />
