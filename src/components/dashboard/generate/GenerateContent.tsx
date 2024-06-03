@@ -13,6 +13,7 @@ import { supabaseBrowserClient } from '@/utils/supabase/client';
 import { toast } from '@/components/ui/use-toast';
 import Image from 'next/image';
 import ZeroState from '@/assets/images/zero-state.png';
+import { format } from 'date-fns';
 
 type GenerateContentProps = {
   data: TypeYoutubeContent;
@@ -33,8 +34,6 @@ const languages = [
   { value: 'Chinese', label: 'Chinese' },
   { value: 'Russian', label: 'Russian' },
 ];
-
-const summary = `In this electrifying escapade, we journey into the heart of camaraderie and candor with Chandler, entangled in the wires of a lie detector, as his friends, from a clandestine location within a sprawling warehouse, unleash a barrage of queries. The objective? To sift through the layers of humor and hijinks, revealing the unvarnished truth, even if it means striding into the discomfort zone. But Chandler isn't the sole focus; the spotlight rotates, illuminating each friend in their vulnerable moment of truth.`;
 
 const GenerateContent: FC<GenerateContentProps> = ({ data }) => {
   const supabase = supabaseBrowserClient();
@@ -80,6 +79,13 @@ const GenerateContent: FC<GenerateContentProps> = ({ data }) => {
 
   const handleGenerate = async (type: string) => {
     setIsLoading(true);
+    const summary = data.summary;
+
+    if (!summary || !language || !type) {
+      errorToast('Please provide all the required fields');
+      setIsLoading(false);
+      return;
+    }
 
     try {
       const res = await fetch('/api/generate', {
@@ -190,7 +196,9 @@ const GenerateContent: FC<GenerateContentProps> = ({ data }) => {
                     />
                   </div>
                   <p className='text-subtle text-sm font-medium leading-6'>{content.description}</p>
-                  <p className='text-muted-foreground text-xs font-medium leading-6'>Jul 9, 2023</p>
+                  <p className='text-muted-foreground text-xs font-medium leading-6'>
+                    {format(data.created_at, 'MMM d, yyyy')}
+                  </p>
                 </div>
               ))}
             </div>

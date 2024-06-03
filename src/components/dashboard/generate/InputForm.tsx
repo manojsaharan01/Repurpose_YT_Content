@@ -10,6 +10,7 @@ import axios from 'axios';
 import GeneratedOutput from './GeneratedOutput';
 import { TypeYoutubeContent } from '@/types/types';
 import { useRouter } from 'next/navigation';
+import Logo from '@/components/Logo';
 
 type InputFormProps = {};
 
@@ -45,7 +46,8 @@ const InputForm: FC<InputFormProps> = () => {
       ) : (
         <>
           <div className='w-full flex flex-col items-center justify-center mt-12'>
-            <p className='text-default font-medium leading-6 max-w-96'>
+            <Logo />
+            <p className='text-default font-medium leading-6 max-w-96 mt-5'>
               Generate content from your favourite YouTube videos. Paste the URL below and create content
             </p>
             <form className='mt-11 w-full flex items-center mx-auto max-w-2xl relative'>
@@ -57,8 +59,8 @@ const InputForm: FC<InputFormProps> = () => {
               />
               <SubmitButton
                 size='icon'
-                variant='outline'
-                className='rounded-r-md absolute right-0 top-0 h-full rounded-l-none'
+                variant='secondary'
+                className='rounded-r-md absolute right-0 top-0 h-full rounded-l-none border'
                 formAction={handleGeneration}>
                 <FaArrowRight />
               </SubmitButton>

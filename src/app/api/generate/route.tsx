@@ -1,5 +1,5 @@
-// This route is used for generating custom social media content based on user-defined topics and styles.
-// The API is called by the Content Writer component in the frontend where users can specify the desired topic and style.
+// This route is used for generating custom social media content based on YouTube video.
+// The API is called by the Youtube Content Generation component in the frontend where user can enter YouTube URL and generate scoial media content.
 
 import { OpenAIStream, OpenAIStreamPayload } from '@/utils/open-ai-stream-generate';
 import { getUserDetails } from '@/utils/supabase/server';

@@ -16,6 +16,7 @@ const GeneratedOutput: FC<GeneratedOutputProps> = ({ data }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const embedUrl = convertToEmbedUrl(data.url);
+
   return (
     <div className='block lg:flex justify-between gap-1 h-[calc(100vh-86px)] space-y-10 lg:space-y-0'>
       <div className='w-full lg:w-1/2 border rounded-xl overflow-auto'>
@@ -37,7 +38,7 @@ const GeneratedOutput: FC<GeneratedOutputProps> = ({ data }) => {
                   navigator.clipboard
                     .writeText(data.summary)
                     .then(() => {
-                      toast({ title: 'Content copied to clipboard', variant: 'default' });
+                      toast({ title: 'Content copied to clipboard' });
                     })
                     .catch(() => {
                       errorToast("Couldn't copy content to clipboard");
@@ -47,7 +48,7 @@ const GeneratedOutput: FC<GeneratedOutputProps> = ({ data }) => {
             </div>
             <p className='text-default text-sm font-medium leading-6 text-justify'>{data.summary}</p>
           </div>
-          {data.chapters && Array.isArray(data.chapters) && (
+          {Array.isArray(data.chapters) && data.chapters.length > 0 && (
             <div className='space-y-2.5'>
               <p className='text-default font-semibold leading-6'>Chapters</p>
               {(data.chapters as { title?: string | undefined }[]).map((chapter, index) => (

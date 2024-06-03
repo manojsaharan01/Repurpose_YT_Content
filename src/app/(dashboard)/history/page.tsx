@@ -7,7 +7,7 @@ import { errorToast } from '@/utils/utils';
 const page = async () => {
   const supabase = supabaseServerClient();
 
-  // Retrieves all content creation entries from 'content_creations' table
+  // Retrieves all content creation entries from 'youtube_content_generator' table
   // Ordered by creation date, newest first
 
   const { data, error } = await supabase

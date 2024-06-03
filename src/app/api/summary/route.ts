@@ -21,7 +21,7 @@ export async function POST(request: Request) {
 
     const videoData = await getYoutubeVideoDetails(url);
 
-    if (videoData == null) {
+    if (videoData?.subtitles == null) {
       throw new Error('Error fetching YouTube video details.');
     }
 
@@ -57,7 +57,7 @@ export async function POST(request: Request) {
       .insert([
         {
           user_id: userId,
-          youtube_title: videoData?.title ?? '',
+          youtube_title: videoData?.title,
           url: url,
           summary: summary,
           chapters: (videoData?.chapters as unknown as Json) ?? undefined,
