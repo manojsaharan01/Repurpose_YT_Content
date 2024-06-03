@@ -10,12 +10,15 @@ import { FaArrowRight, FaPlus } from 'react-icons/fa6';
 import { useRouter } from 'next/navigation';
 import { getYouTubeVideoSubTitle, saveSummary } from '@/app/(dashboard)/home/action';
 import { AiOutlineLoading } from 'react-icons/ai';
+import ReactMarkdown from 'react-markdown';
+import rehypeHighlight from 'rehype-highlight';
+import remarkGfm from 'remark-gfm';
 
-type GeneratedOutputProps = {
+type SummaryProps = {
   data: TypeYoutubeContent;
 };
 
-const GeneratedOutput: FC<GeneratedOutputProps> = ({ data }) => {
+const Summary: FC<SummaryProps> = ({ data }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [summary, setSummary] = useState<string>(data.summary || '');
   const [loading, setLoading] = useState<boolean>(false);
@@ -113,7 +116,12 @@ const GeneratedOutput: FC<GeneratedOutputProps> = ({ data }) => {
                 <p className='text-default text-sm font-medium leading-6 text-justify'>Loading summary...</p>
               </div>
             ) : (
-              <p className='text-default text-sm font-medium leading-6 text-justify'>{summary}</p>
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                rehypePlugins={[rehypeHighlight]}
+                className='text-default text-sm font-medium leading-6 text-justify space-y-2'>
+                {summary}
+              </ReactMarkdown>
             )}
           </div>
           {Array.isArray(data.chapters) && data.chapters.length > 0 && (
@@ -122,15 +130,17 @@ const GeneratedOutput: FC<GeneratedOutputProps> = ({ data }) => {
               {(data.chapters as { title?: string | undefined }[]).map((chapter, index) => (
                 <div key={index} className='space-y-1.5'>
                   <div
-                    className='flex justify-between items-center hover:bg-[#ECF6FF] dark:hover:bg-[#ECF6FF]/20  rounded-lg px-2 py-1'
+                    className='flex justify-between items-center hover:bg-[#ECF6FF] dark:hover:bg-[#ECF6FF]/20 gap-2 rounded-lg px-2 py-1'
                     onMouseEnter={() => setHoveredIndex(index)}
                     onMouseLeave={() => setHoveredIndex(null)}>
                     <p className='text-default text-sm font-medium leading-6'>{chapter?.title}</p>
-                    {hoveredIndex === index ? (
-                      <FaPlus className='size-3.5 text-default' />
-                    ) : (
-                      <FaArrowRight className='size-3.5 text-default' />
-                    )}
+                    <div className=''>
+                      {hoveredIndex === index ? (
+                        <FaPlus className='size-3.5 text-default' />
+                      ) : (
+                        <FaArrowRight className='size-3.5 text-default' />
+                      )}
+                    </div>
                   </div>
                 </div>
               ))}
@@ -143,4 +153,4 @@ const GeneratedOutput: FC<GeneratedOutputProps> = ({ data }) => {
   );
 };
 
-export default GeneratedOutput;
+export default Summary;

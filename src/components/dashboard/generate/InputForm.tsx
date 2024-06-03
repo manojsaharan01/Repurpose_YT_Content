@@ -1,20 +1,18 @@
 'use client';
 
 import { Input } from '@/components/ui/input';
-import React, { FC, useState } from 'react';
+import { useState } from 'react';
 import UpgradePlan from '../UpgradePlan';
 import { FaArrowRight } from 'react-icons/fa6';
 import { SubmitButton } from '@/components/SubmitButton';
 import { errorToast } from '@/utils/utils';
-import GeneratedOutput from './GeneratedOutput';
+import Summary from './Summary';
 import { TypeYoutubeContent } from '@/types/types';
 import { useRouter } from 'next/navigation';
 import Logo from '@/components/Logo';
 import { getYoutubeVideoDetails } from '@/app/(dashboard)/home/action';
 
-type InputFormProps = {};
-
-const InputForm: FC<InputFormProps> = () => {
+const InputForm = () => {
   const [data, setData] = useState<TypeYoutubeContent | null>(null);
   const router = useRouter();
 
@@ -42,7 +40,7 @@ const InputForm: FC<InputFormProps> = () => {
   return (
     <div className='flex flex-col justify-between items-center h-[calc(100vh-86px)]'>
       {data ? (
-        <GeneratedOutput data={data} />
+        <Summary data={data} />
       ) : (
         <>
           <div className='w-full flex flex-col items-center justify-center mt-12'>

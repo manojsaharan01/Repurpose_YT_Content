@@ -1,7 +1,7 @@
 'use client';
 
 import { Separator } from '@/components/ui/separator';
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { BiCopy } from 'react-icons/bi';
@@ -14,6 +14,9 @@ import { toast } from '@/components/ui/use-toast';
 import Image from 'next/image';
 import ZeroState from '@/assets/images/zero-state.png';
 import { format } from 'date-fns';
+import ReactMarkdown from 'react-markdown';
+import rehypeHighlight from 'rehype-highlight';
+import remarkGfm from 'remark-gfm';
 
 type GenerateContentProps = {
   data: TypeYoutubeContent;
@@ -196,7 +199,13 @@ const GenerateContent: FC<GenerateContentProps> = ({ data }) => {
                       }}
                     />
                   </div>
-                  <p className='text-subtle text-sm font-medium leading-6'>{content.description}</p>
+
+                  <ReactMarkdown
+                    className='text-subtle text-sm font-medium leading-6'
+                    remarkPlugins={[remarkGfm]}
+                    rehypePlugins={[rehypeHighlight]}>
+                    {content.description}
+                  </ReactMarkdown>
                   <p className='text-muted-foreground text-xs font-medium leading-6'>
                     {format(data.created_at, 'MMM d, yyyy')}
                   </p>

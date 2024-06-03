@@ -13,6 +13,15 @@ export async function getYoutubeVideoDetails(url: string) {
 
     const chapters = info.videoDetails.chapters;
 
+    const subTitles = info.player_response.captions?.playerCaptionsTracklistRenderer?.captionTracks || [];
+
+    // Filter out only the English subtitles
+    const englishSubtitles = subTitles.filter((track) => track.languageCode === 'en');
+
+    if (englishSubtitles.length === 0) {
+      throw new Error('No subtitles found.');
+    }
+
     const supabase = supabaseServerClient();
     const user = await getUserDetails();
     const userId = user?.id;
@@ -39,7 +48,7 @@ export async function getYoutubeVideoDetails(url: string) {
     return data;
   } catch (error) {
     console.error('Error fetching YouTube video details:', error);
-    return null;
+    throw new Error('This YouTube video is not supported! Please try another video.');
   }
 }
 
@@ -48,6 +57,7 @@ export const getYouTubeVideoSubTitle = async (url: string) => {
     const info = await ytdl.getInfo(url);
 
     const subTitles = info.player_response.captions?.playerCaptionsTracklistRenderer?.captionTracks || [];
+
     // Filter out only the English subtitles
     const englishSubtitles = subTitles.filter((track) => track.languageCode === 'en');
     const subtitleTexts = await Promise.all(
@@ -68,7 +78,7 @@ export const getYouTubeVideoSubTitle = async (url: string) => {
     return subTitle;
   } catch (error) {
     console.error('Error fetching YouTube video details:', error);
-    return null;
+    throw new Error('This YouTube video is not supported! Please try another video.');
   }
 };
 

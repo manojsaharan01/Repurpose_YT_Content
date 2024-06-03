@@ -1,4 +1,4 @@
-import GeneratedOutput from '@/components/dashboard/generate/GeneratedOutput';
+import Summary from '@/components/dashboard/generate/Summary';
 import { supabaseServerClient } from '@/utils/supabase/server';
 import { redirect } from 'next/navigation';
 
@@ -11,5 +11,5 @@ export default async function Generate({ params }: { params: { id: string } }) {
   if (!data) {
     redirect('/home');
   }
-  return <GeneratedOutput data={data} />;
+  return <Summary data={data} />;
 }
