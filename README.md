@@ -1,14 +1,14 @@
-# AI Content Writer Tool by [BuilderKit.ai](https://www.builderkit.ai)
+# AI Youtube Content Generation Tool by [BuilderKit.ai](https://www.builderkit.ai)
 
 `nextjs` `typescript` `openai` `supabase` `tailwindcss` `shadcn`
 
 ## Introduction
 
-Content generation tool designed to assist users in creating high-quality social media posts, blog entries, and other content types efficiently. Utilizing advanced AI models, the platform offers a variety of customization options to match the user's style and preferences.
+The YouTube Content Generator is an AI-powered tool that allows you to input any YouTube URL to receive a summary and then generate content for blog posts, tweets, Reddit posts, and LinkedIn posts in several languages. Integrated with Supabase for user authentication and data management, it also supports theme switching between light and dark modes.
 
 <a href="https://content-writer.builderkit.ai/home" target="_blank" rel="noopener">
   <picture>
-    <img alt="AI Content Writer Tool" src="https://content-writer.builderkit.ai/github-cover.webp" />
+    <img alt="AI YouTube Content Generation Tool" src="https://content-writer.builderkit.ai/github-cover.webp" />
   </picture>
 </a>
 
@@ -32,19 +32,28 @@ Ensure you have the following installed:
 
 ### Installation
 
-1. **Clone the repository:**
+1. **Clone the repository:** **Starter**
 
-   Use the Project Url based on your plan
+   Use the Project URL based on your plan
 
-   - Starter - https://github.com/1811-Labs-LLC/BuilderKit-Starter.git
-   - Pro - https://github.com/1811-Labs-LLC/BuilderKit-Pro.git
+   **Starter**
 
    ```sh
-   git clone <url>
+   git clone https://github.com/1811-Labs-LLC/BuilderKit-Starter.git [YOUR_APP_NAME]
+   ```
 
-   cd builderkit
+   **Pro**
 
-   git checkout content-writer
+   ```sh
+   git clone https://github.com/1811-Labs-LLC/BuilderKit-Pro.git [YOUR_APP_NAME]
+   ```
+
+   ```sh
+   cd [YOUR_APP_NAME]
+
+   git remote remove origin
+
+   git checkout youtube-summary-tool
    ```
 
 2. **Install dependencies:**
@@ -71,10 +80,14 @@ Ensure you have the following installed:
    This will sync the table schema locally from Supabase. Run the below commands to login to supabase and sync the schema type.
 
    ```sh
-   supabase login
+   npx supabase login
 
-   npx supabase gen types typescript --project-id <project-id> --schema public > src/types/supabase.ts
+   npx supabase init
+
+   npx supabase gen types typescript --project-id [PROJECT_ID] --schema public > src/types/supabase.ts
    ```
+
+   _To get the **PROJECT ID**, go to **Project Settings** in Supabase where you have created your project. You will find **Reference ID** under **General settings** section which is your Project ID._
 
 ### Running the Application
 

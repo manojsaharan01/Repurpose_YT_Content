@@ -19,14 +19,10 @@ const page = async () => {
     errorToast('Something went wrong, please try again');
   }
 
-  if (!data) {
-    return null;
-  }
-
   return (
     <div className='flex flex-col justify-between items-center h-[calc(100vh-86px)]'>
       <div className='w-full'>
-        <DataTable columns={columns} data={data} />
+        <DataTable columns={columns} data={data ?? []} />
       </div>
       <UpgradePlan />
     </div>
