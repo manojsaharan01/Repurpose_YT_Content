@@ -10,9 +10,7 @@ export async function getYoutubeVideoDetails(url: string) {
     const info = await ytdl.getInfo(url);
 
     const title = info.videoDetails.title;
-
     const chapters = info.videoDetails.chapters;
-
     const subTitles = info.player_response.captions?.playerCaptionsTracklistRenderer?.captionTracks || [];
 
     // Filter out only the English subtitles
@@ -60,6 +58,7 @@ export const getYouTubeVideoSubTitle = async (url: string) => {
 
     // Filter out only the English subtitles
     const englishSubtitles = subTitles.filter((track) => track.languageCode === 'en');
+    
     const subtitleTexts = await Promise.all(
       englishSubtitles.map(async (subtitle) => {
         const response = await fetch(subtitle.baseUrl);

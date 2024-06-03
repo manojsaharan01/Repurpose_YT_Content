@@ -17,6 +17,7 @@ const page = async () => {
 
   if (error) {
     errorToast('Something went wrong, please try again');
+    return;
   }
 
   return (
