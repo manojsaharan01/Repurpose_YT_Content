@@ -81,6 +81,19 @@ const Summary: FC<SummaryProps> = ({ data }) => {
     return await handleStream(streamResponse);
   };
 
+  const handleCopy = () => {
+    const textContent = document.querySelector('.markdown-container')?.textContent || '';
+
+    navigator.clipboard
+      .writeText(textContent!)
+      .then(() => {
+        toast({ description: 'Text copied to clipboard' });
+      })
+      .catch(() => {
+        toast({ description: 'Failed to copy text to clipboard', variant: 'destructive' });
+      });
+  };
+
   return (
     <div className='block lg:flex justify-between gap-1 h-[calc(100vh-86px)] space-y-10 lg:space-y-0'>
       <div className='w-full lg:w-1/2 border rounded-xl overflow-auto'>
@@ -98,16 +111,7 @@ const Summary: FC<SummaryProps> = ({ data }) => {
               <p className='text-default font-semibold leading-6'>Summary</p>
               <BiCopy
                 className='size-8 p-1.5 rounded border text-default cursor-pointer'
-                onClick={() => {
-                  navigator.clipboard
-                    .writeText(summary)
-                    .then(() => {
-                      toast({ title: 'Content copied to clipboard' });
-                    })
-                    .catch(() => {
-                      errorToast("Couldn't copy content to clipboard");
-                    });
-                }}
+                onClick={handleCopy}
               />
             </div>
             {loading ? (
@@ -119,7 +123,7 @@ const Summary: FC<SummaryProps> = ({ data }) => {
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 rehypePlugins={[rehypeHighlight]}
-                className='text-default text-sm font-medium leading-6 text-justify space-y-2'>
+                className='text-default text-sm font-medium leading-6 text-justify space-y-2 markdown-container'>
                 {summary}
               </ReactMarkdown>
             )}

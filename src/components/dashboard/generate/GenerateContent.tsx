@@ -5,7 +5,7 @@ import { FC, useState } from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { BiCopy } from 'react-icons/bi';
-import { errorToast } from '@/utils/utils';
+import { cn, errorToast } from '@/utils/utils';
 import { AiOutlineLoading } from 'react-icons/ai';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { TypeYoutubeContent } from '@/types/types';
@@ -119,6 +119,20 @@ const GenerateContent: FC<GenerateContentProps> = ({ data }) => {
     }
   };
 
+  const handleCopy = (containerClassName: string) => {
+    // Get the text content of the container element bec
+    const textContent = document.querySelector(containerClassName)?.textContent || '';
+
+    navigator.clipboard
+      .writeText(textContent)
+      .then(() => {
+        toast({ description: 'Text copied to clipboard' });
+      })
+      .catch(() => {
+        toast({ description: 'Failed to copy text to clipboard', variant: 'destructive' });
+      });
+  };
+
   return (
     <div className='w-full lg:w-1/2 border rounded-xl overflow-auto'>
       <form className='space-y-6 p-4 lg:px-6 lg:py-8'>
@@ -187,21 +201,12 @@ const GenerateContent: FC<GenerateContentProps> = ({ data }) => {
                     <p className='text-default text-sm font-bold leading-6'>{content?.title}</p>
                     <BiCopy
                       className='size-8 p-1.5 rounded border text-default cursor-pointer'
-                      onClick={() => {
-                        navigator.clipboard
-                          .writeText(content.description)
-                          .then(() => {
-                            toast({ title: 'Content copied to clipboard', variant: 'default' });
-                          })
-                          .catch(() => {
-                            errorToast("Couldn't copy content to clipboard");
-                          });
-                      }}
+                      onClick={() => handleCopy(`.content-${index}`)}
                     />
                   </div>
 
                   <ReactMarkdown
-                    className='text-subtle text-sm font-medium leading-6'
+                    className={cn(`content-${index}` , 'text-subtle text-sm font-medium leading-6 markdown')}
                     remarkPlugins={[remarkGfm]}
                     rehypePlugins={[rehypeHighlight]}>
                     {content.description}
