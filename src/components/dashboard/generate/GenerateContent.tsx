@@ -206,7 +206,7 @@ const GenerateContent: FC<GenerateContentProps> = ({ data }) => {
                   </div>
 
                   <ReactMarkdown
-                    className={cn(`content-${index}` , 'text-subtle text-sm font-medium leading-6 markdown')}
+                    className={cn(`content-${index}`, 'text-subtle text-sm font-medium leading-6 markdown')}
                     remarkPlugins={[remarkGfm]}
                     rehypePlugins={[rehypeHighlight]}>
                     {content.description}
