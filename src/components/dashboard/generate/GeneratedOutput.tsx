@@ -1,12 +1,15 @@
 'use client';
 
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { BiCopy } from 'react-icons/bi';
 import GenerateContent from './GenerateContent';
 import { TypeYoutubeContent } from '@/types/types';
 import { convertToEmbedUrl, errorToast } from '@/utils/utils';
 import { toast } from '@/components/ui/use-toast';
 import { FaArrowRight, FaPlus } from 'react-icons/fa6';
+import { useRouter } from 'next/navigation';
+import { getYouTubeVideoSubTitle, saveSummary } from '@/app/(dashboard)/home/action';
+import { AiOutlineLoading } from 'react-icons/ai';
 
 type GeneratedOutputProps = {
   data: TypeYoutubeContent;
@@ -14,8 +17,65 @@ type GeneratedOutputProps = {
 
 const GeneratedOutput: FC<GeneratedOutputProps> = ({ data }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [summary, setSummary] = useState<string>(data.summary || '');
+  const [loading, setLoading] = useState<boolean>(false);
 
+  const router = useRouter();
   const embedUrl = convertToEmbedUrl(data.url);
+
+  useEffect(() => {
+    if (data.summary) return;
+
+    const fetchSummary = async () => {
+      setLoading(true);
+      try {
+        const subTitle = await getYouTubeVideoSubTitle(data.url);
+        const summary = await generateSummary(subTitle);
+        setSummary(summary);
+        if (summary) {
+          await saveSummary(summary, data.id);
+        }
+      } catch (error) {
+        errorToast('Failed to get transcription summary. Please try again later.');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchSummary();
+  }, [data.url]);
+
+  const handleStream = async (data: ReadableStream) => {
+    setLoading(false);
+    const reader = data.getReader();
+    const decoder = new TextDecoder();
+    let done = false;
+    let streamData = '';
+
+    while (!done) {
+      const { value, done: doneReading } = await reader.read();
+      done = doneReading;
+      const chunkValue = decoder.decode(value);
+      streamData += chunkValue;
+      setSummary((prev) => prev + chunkValue);
+    }
+
+    return streamData;
+  };
+
+  const generateSummary = async (subTitle: string) => {
+    const response = await fetch('/api/summary', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ subTitle }),
+    });
+
+    const streamResponse = response.body;
+    if (!streamResponse) {
+      errorToast('Failed to get transcription summary. Please try again later.');
+      return '';
+    }
+    return await handleStream(streamResponse);
+  };
 
   return (
     <div className='block lg:flex justify-between gap-1 h-[calc(100vh-86px)] space-y-10 lg:space-y-0'>
@@ -36,7 +96,7 @@ const GeneratedOutput: FC<GeneratedOutputProps> = ({ data }) => {
                 className='size-8 p-1.5 rounded border text-default cursor-pointer'
                 onClick={() => {
                   navigator.clipboard
-                    .writeText(data.summary)
+                    .writeText(summary)
                     .then(() => {
                       toast({ title: 'Content copied to clipboard' });
                     })
@@ -46,7 +106,14 @@ const GeneratedOutput: FC<GeneratedOutputProps> = ({ data }) => {
                 }}
               />
             </div>
-            <p className='text-default text-sm font-medium leading-6 text-justify'>{data.summary}</p>
+            {loading ? (
+              <div className='flex flex-col items-center justify-center'>
+                <AiOutlineLoading className='animate-spin size-8 mb-2' />
+                <p className='text-default text-sm font-medium leading-6 text-justify'>Loading summary...</p>
+              </div>
+            ) : (
+              <p className='text-default text-sm font-medium leading-6 text-justify'>{summary}</p>
+            )}
           </div>
           {Array.isArray(data.chapters) && data.chapters.length > 0 && (
             <div className='space-y-2.5'>
@@ -54,7 +121,7 @@ const GeneratedOutput: FC<GeneratedOutputProps> = ({ data }) => {
               {(data.chapters as { title?: string | undefined }[]).map((chapter, index) => (
                 <div key={index} className='space-y-1.5'>
                   <div
-                    className='flex justify-between items-center hover:bg-[#ECF6FF] rounded-lg px-2 py-1'
+                    className='flex justify-between items-center hover:bg-[#ECF6FF] dark:hover:bg-[#ECF6FF]/20  rounded-lg px-2 py-1'
                     onMouseEnter={() => setHoveredIndex(index)}
                     onMouseLeave={() => setHoveredIndex(null)}>
                     <p className='text-default text-sm font-medium leading-6'>{chapter?.title}</p>

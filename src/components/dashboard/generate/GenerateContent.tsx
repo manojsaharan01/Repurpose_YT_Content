@@ -43,6 +43,8 @@ const GenerateContent: FC<GenerateContentProps> = ({ data }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [language, setLanguage] = useState<string | undefined>(data.language || 'English');
 
+  const summary = data.summary;
+
   // Handles the streaming of content generation data from the server response
   const handleStream = async (redablestream: ReadableStream) => {
     const reader = redablestream.getReader();
@@ -79,7 +81,6 @@ const GenerateContent: FC<GenerateContentProps> = ({ data }) => {
 
   const handleGenerate = async (type: string) => {
     setIsLoading(true);
-    const summary = data.summary;
 
     if (!summary || !language || !type) {
       errorToast('Please provide all the required fields');
@@ -137,7 +138,7 @@ const GenerateContent: FC<GenerateContentProps> = ({ data }) => {
         </div>
         <div className='mt-3 grid grid-cols-2 gap-2'>
           <Button
-            disabled={isLoading}
+            disabled={isLoading || !summary}
             onClick={() => handleGenerate('blog')}
             variant='secondary'
             size='sm'
@@ -145,7 +146,7 @@ const GenerateContent: FC<GenerateContentProps> = ({ data }) => {
             Generate Blog
           </Button>
           <Button
-            disabled={isLoading}
+            disabled={isLoading || !summary}
             onClick={() => handleGenerate('twitter')}
             variant='secondary'
             size='sm'
@@ -153,7 +154,7 @@ const GenerateContent: FC<GenerateContentProps> = ({ data }) => {
             Generate Twitter ‘X’ Post
           </Button>
           <Button
-            disabled={isLoading}
+            disabled={isLoading || !summary}
             onClick={() => handleGenerate('reddit')}
             variant='secondary'
             size='sm'
@@ -161,7 +162,7 @@ const GenerateContent: FC<GenerateContentProps> = ({ data }) => {
             Generate Reddit Post
           </Button>
           <Button
-            disabled={isLoading}
+            disabled={isLoading || !summary}
             onClick={() => handleGenerate('linkedin')}
             variant='secondary'
             size='sm'

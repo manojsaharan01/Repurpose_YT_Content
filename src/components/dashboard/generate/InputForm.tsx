@@ -6,16 +6,16 @@ import UpgradePlan from '../UpgradePlan';
 import { FaArrowRight } from 'react-icons/fa6';
 import { SubmitButton } from '@/components/SubmitButton';
 import { errorToast } from '@/utils/utils';
-import axios from 'axios';
 import GeneratedOutput from './GeneratedOutput';
 import { TypeYoutubeContent } from '@/types/types';
 import { useRouter } from 'next/navigation';
 import Logo from '@/components/Logo';
+import { getYoutubeVideoDetails } from '@/app/(dashboard)/home/action';
 
 type InputFormProps = {};
 
 const InputForm: FC<InputFormProps> = () => {
-  const [data, setData] = useState<TypeYoutubeContent | undefined>(undefined);
+  const [data, setData] = useState<TypeYoutubeContent | null>(null);
   const router = useRouter();
 
   const handleGeneration = async (formData: FormData) => {
@@ -31,11 +31,11 @@ const InputForm: FC<InputFormProps> = () => {
     }
 
     try {
-      const response = await axios.post('/api/summary', { url });
-      router.replace(`/home/${response.data.data.id}`);
-      setData(response.data.data);
+      const data = await getYoutubeVideoDetails(url);
+      setData(data);
+      router.replace(`/home/${data?.id}`);
     } catch (error: any) {
-      errorToast("YouTube video couldn't be processed");
+      errorToast(error.message || 'An unexpected error occurred.');
     }
   };
 
