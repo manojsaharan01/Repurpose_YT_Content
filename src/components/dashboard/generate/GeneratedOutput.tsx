@@ -34,6 +34,7 @@ const GeneratedOutput: FC<GeneratedOutputProps> = ({ data }) => {
         setSummary(summary);
         if (summary) {
           await saveSummary(summary, data.id);
+          router.refresh();
         }
       } catch (error) {
         errorToast('Failed to get transcription summary. Please try again later.');
