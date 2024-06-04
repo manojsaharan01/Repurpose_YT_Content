@@ -29,23 +29,21 @@ const Summary: FC<SummaryProps> = ({ data }) => {
   useEffect(() => {
     if (data.summary) return;
 
-    const fetchSummary = async () => {
+    (async () => {
       setLoading(true);
       try {
         const subTitle = await getYouTubeVideoSubTitle(data.url);
         const summary = await generateSummary(subTitle);
-        setSummary(summary);
         if (summary) {
           await saveSummary(summary, data.id);
-          router.refresh();
         }
+        router.refresh();
       } catch (error) {
         errorToast('Failed to get transcription summary. Please try again later.');
       } finally {
         setLoading(false);
       }
-    };
-    fetchSummary();
+    })();
   }, []);
 
   const handleStream = async (data: ReadableStream) => {
