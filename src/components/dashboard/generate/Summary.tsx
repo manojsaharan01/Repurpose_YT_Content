@@ -46,7 +46,7 @@ const Summary: FC<SummaryProps> = ({ data }) => {
       }
     };
     fetchSummary();
-  }, [data.url]);
+  }, []);
 
   const handleStream = async (data: ReadableStream) => {
     setLoading(false);

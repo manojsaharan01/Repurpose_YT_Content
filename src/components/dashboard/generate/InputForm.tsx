@@ -1,7 +1,7 @@
 'use client';
 
 import { Input } from '@/components/ui/input';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import UpgradePlan from '../UpgradePlan';
 import { FaArrowRight } from 'react-icons/fa6';
 import { SubmitButton } from '@/components/SubmitButton';
@@ -11,9 +11,15 @@ import { TypeYoutubeContent } from '@/types/types';
 import { useRouter } from 'next/navigation';
 import Logo from '@/components/Logo';
 import { getYoutubeVideoDetails } from '@/app/(dashboard)/home/action';
+import { supabaseBrowserClient } from '@/utils/supabase/client';
+import ModalLimitExceeded from './ModalLimitExceeded';
 
 const InputForm = () => {
   const [data, setData] = useState<TypeYoutubeContent | null>(null);
+  // State to check if the user has reached the limit of content creations
+  const [hasLimitExceeded, setHasLimitExceeded] = useState(false);
+
+  const supabase = supabaseBrowserClient();
   const router = useRouter();
 
   const handleGeneration = async (formData: FormData) => {
@@ -37,8 +43,28 @@ const InputForm = () => {
     }
   };
 
+  //function to check the limit of content creations and set the state accordingly
+  const limitUser = useCallback(async () => {
+    const { error, count } = await supabase
+      .from('youtube_content_generator')
+      .select('*', { count: 'exact', head: true });
+
+    if (error) {
+      return errorToast(error.message);
+    }
+    if (count && count >= 5) {
+      setHasLimitExceeded(true);
+    }
+  }, [supabase]);
+
+  //checking on load if the user has reached the limit of content creations
+  useEffect(() => {
+    limitUser();
+  }, [limitUser]);
+
   return (
     <div className='flex flex-col justify-between items-center h-[calc(100vh-86px)]'>
+      {hasLimitExceeded && <ModalLimitExceeded isModalOpen={hasLimitExceeded} />}
       {data ? (
         <Summary data={data} />
       ) : (
@@ -59,6 +85,7 @@ const InputForm = () => {
                 size='icon'
                 variant='secondary'
                 className='rounded-r-md absolute right-0 top-0 h-full rounded-l-none border'
+                disabled={hasLimitExceeded}
                 formAction={handleGeneration}>
                 <FaArrowRight />
               </SubmitButton>
