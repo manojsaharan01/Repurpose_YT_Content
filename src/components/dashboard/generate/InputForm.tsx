@@ -33,10 +33,14 @@ const InputForm = () => {
 
     try {
       const data = await getYoutubeVideoDetails(url);
-      // setData(data);
+
+      if (typeof data === 'string') {
+        throw new Error('Failed to get transcription from the video');
+      }
+
       router.replace(`/home/${data?.id}`);
-    } catch (error: any) {
-      errorToast(error.message || 'An unexpected error occurred.');
+    } catch (error) {
+      errorToast('Transcription for this video is not available. Please try another video.');
     }
   };
 
@@ -50,7 +54,7 @@ const InputForm = () => {
       return errorToast(error.message);
     }
     if (count && count >= 5) {
-      // setHasLimitExceeded(true);
+      setHasLimitExceeded(true);
     }
   }, [supabase]);
 
@@ -74,6 +78,7 @@ const InputForm = () => {
             className='rounded-md pl-4 pr-10 py-2 border w-full'
             type='url'
             name='url'
+            autoFocus
           />
           <SubmitButton
             size='icon'

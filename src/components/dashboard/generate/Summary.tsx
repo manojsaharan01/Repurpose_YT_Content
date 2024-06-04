@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { BiCopy } from 'react-icons/bi';
 import GenerateContent from './GenerateContent';
 import { TypeYoutubeContent } from '@/types/types';
@@ -26,6 +26,63 @@ const Summary: FC<SummaryProps> = ({ data }) => {
   const router = useRouter();
   const embedUrl = convertToEmbedUrl(data.url);
 
+  const handleStream = async (data: ReadableStream) => {
+    setLoading(false);
+    const reader = data.getReader();
+    const decoder = new TextDecoder();
+    let done = false;
+    let streamData = '';
+
+    while (!done) {
+      const { value, done: doneReading } = await reader.read();
+      done = doneReading;
+      const chunkValue = decoder.decode(value);
+      streamData += chunkValue;
+      setSummary((prev) => prev + chunkValue);
+    }
+
+    return streamData;
+  };
+
+  // Function to generate the summary of the transcription by making api call to '/api/summary'
+  const generateSummary = useCallback(async (subTitle: string) => {
+    try {
+      const response = await fetch('/api/summary', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ subTitle }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to get response from the server');
+      }
+
+      const responseBody = response.body;
+
+      if (!responseBody) {
+        throw new Error('Something went wrong, please try again');
+      }
+
+      return await handleStream(responseBody);
+    } catch (error: any) {
+      errorToast(error.message || 'Failed to get transcription summary. Please try again later.');
+      return null;
+    }
+  }, []);
+
+  const handleCopy = () => {
+    const textContent = document.querySelector('.markdown-container')?.textContent || '';
+
+    navigator.clipboard
+      .writeText(textContent!)
+      .then(() => {
+        toast({ description: 'Text copied to clipboard' });
+      })
+      .catch(() => {
+        toast({ description: 'Failed to copy text to clipboard', variant: 'destructive' });
+      });
+  };
+
   useEffect(() => {
     if (data.summary) return;
 
@@ -45,52 +102,6 @@ const Summary: FC<SummaryProps> = ({ data }) => {
       }
     })();
   }, []);
-
-  const handleStream = async (data: ReadableStream) => {
-    setLoading(false);
-    const reader = data.getReader();
-    const decoder = new TextDecoder();
-    let done = false;
-    let streamData = '';
-
-    while (!done) {
-      const { value, done: doneReading } = await reader.read();
-      done = doneReading;
-      const chunkValue = decoder.decode(value);
-      streamData += chunkValue;
-      setSummary((prev) => prev + chunkValue);
-    }
-
-    return streamData;
-  };
-
-  const generateSummary = async (subTitle: string) => {
-    const response = await fetch('/api/summary', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ subTitle }),
-    });
-
-    const streamResponse = response.body;
-    if (!streamResponse) {
-      errorToast('Failed to get transcription summary. Please try again later.');
-      return '';
-    }
-    return await handleStream(streamResponse);
-  };
-
-  const handleCopy = () => {
-    const textContent = document.querySelector('.markdown-container')?.textContent || '';
-
-    navigator.clipboard
-      .writeText(textContent!)
-      .then(() => {
-        toast({ description: 'Text copied to clipboard' });
-      })
-      .catch(() => {
-        toast({ description: 'Failed to copy text to clipboard', variant: 'destructive' });
-      });
-  };
 
   return (
     <div className='block lg:flex justify-between gap-1 h-[calc(100vh-86px)] space-y-10 lg:space-y-0'>

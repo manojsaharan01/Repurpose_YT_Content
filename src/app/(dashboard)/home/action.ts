@@ -6,61 +6,55 @@ import { parseStringPromise } from 'xml2js';
 import ytdl from 'ytdl-core';
 
 export async function getYoutubeVideoDetails(url: string) {
-  try {
-    const info = await ytdl.getInfo(url);
+  const info = await ytdl.getInfo(url);
 
-    const title = info.videoDetails.title;
-    const chapters = info.videoDetails.chapters;
-    const subTitles = info.player_response.captions?.playerCaptionsTracklistRenderer?.captionTracks || [];
+  const title = info.videoDetails.title;
+  const chapters = info.videoDetails.chapters;
+  const subTitles = info.player_response.captions?.playerCaptionsTracklistRenderer?.captionTracks || [];
 
-    // Filter out only the English subtitles
-    const englishSubtitles = subTitles.filter((track) => track.languageCode === 'en');
+  // Filter out only the English subtitles
+  const englishSubtitles = subTitles.filter((track) => track.languageCode === 'en');
 
-    if (englishSubtitles.length === 0) {
-      throw new Error('No subtitles found.');
-    }
-
-    const supabase = supabaseServerClient();
-    const user = await getUserDetails();
-    const userId = user?.id;
-
-    const { data, error } = await supabase
-      .from('youtube_content_generator')
-      .insert({
-        user_id: userId!,
-        youtube_title: title,
-        url: url,
-        chapters: (chapters as unknown as Json) ?? undefined,
-      })
-      .select('*')
-      .single();
-
-    if (error) {
-      throw new Error('Error inserting data into database.');
-    }
-
-    if (!data) {
-      throw new Error('Error fetching YouTube video details.');
-    }
-
-    return data;
-  } catch (error) {
-    console.error('Error fetching YouTube video details:', error);
-    throw new Error('This YouTube video is not supported! Please try another video.');
+  if (englishSubtitles.length === 0) {
+    throw new Error('No subtitles found.');
   }
+
+  const supabase = supabaseServerClient();
+  const user = await getUserDetails();
+  const userId = user?.id;
+
+  const { data, error } = await supabase
+    .from('youtube_content_generator')
+    .insert({
+      user_id: userId!,
+      youtube_title: title,
+      url: url,
+      chapters: (chapters as unknown as Json) ?? undefined,
+    })
+    .select('*')
+    .single();
+
+  if (error) {
+    return 'Error inserting data into database.';
+  }
+
+  if (!data) {
+    return 'Error fetching YouTube video details.';
+  }
+
+  return data;
 }
 
 export const getYouTubeVideoSubTitle = async (url: string) => {
   try {
     const info = await ytdl.getInfo(url);
 
+    // Get the subtitles from the video
     const subTitles = info.player_response.captions?.playerCaptionsTracklistRenderer?.captionTracks || [];
 
-    // Filter out only the English subtitles
-    const englishSubtitles = subTitles.filter((track) => track.languageCode === 'en');
-
+    // Get the subtitle text from the first English subtitle
     const subtitleTexts = await Promise.all(
-      englishSubtitles.map(async (subtitle) => {
+      subTitles.map(async (subtitle) => {
         const response = await fetch(subtitle.baseUrl);
         const xml = await response.text();
         const parsed = await parseStringPromise(xml);
@@ -77,7 +71,7 @@ export const getYouTubeVideoSubTitle = async (url: string) => {
     return subTitle;
   } catch (error) {
     console.error('Error fetching YouTube video details:', error);
-    throw new Error('This YouTube video is not supported! Please try another video.');
+    return `${error}`;
   }
 };
 

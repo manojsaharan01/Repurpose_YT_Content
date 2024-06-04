@@ -5,7 +5,7 @@ import Link from 'next/link';
 import React from 'react';
 import { FaPlus } from 'react-icons/fa';
 
-const ButtonNewContent = () => {
+const ButtonNewVideo = () => {
   return (
     <Link href='/home'>
       <Button size='lg' className='w-full mb-3'>
@@ -15,4 +15,4 @@ const ButtonNewContent = () => {
   );
 };
 
-export default ButtonNewContent;
+export default ButtonNewVideo;

@@ -101,19 +101,19 @@ const GenerateContent: FC<GenerateContentProps> = ({ data }) => {
       });
 
       if (!res.ok) {
-        throw new Error('Something went wrong');
+        throw new Error('Failed to get response from the server');
       }
 
       const responseBody = res.body;
 
       if (!responseBody) {
-        throw new Error('No data received');
+        throw new Error('Something went wrong, please try again');
       }
 
       // Handle the stream data
       await handleStream(responseBody);
-    } catch (error) {
-      errorToast('Something went wrong, please try again');
+    } catch (error: any) {
+      errorToast(error?.message ?? `${error}`);
     } finally {
       setIsLoading(false);
     }

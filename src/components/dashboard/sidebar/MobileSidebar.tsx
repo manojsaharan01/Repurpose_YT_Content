@@ -5,7 +5,7 @@ import DropdownAccount from './DropdownAccount';
 import SidebarUpgradePlan from './SidebarUpgradePlan';
 import { SidebarRoutes } from './content';
 import MobileSidebarItem from './MobileSidebarItem';
-import ButtonNewContent from './ButtonNewContent';
+import ButtonNewVideo from './ButtonNewVideo';
 
 const MobileSidebar = () => {
   return (
@@ -20,7 +20,7 @@ const MobileSidebar = () => {
               <Logo />
             </div>
 
-            <ButtonNewContent />
+            <ButtonNewVideo />
 
             <div className='space-y-1'>
               {SidebarRoutes.map((route, index) => (
