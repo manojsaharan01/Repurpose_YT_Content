@@ -1,4 +1,5 @@
-'use client';;
+'use client';
+
 import { Input } from '@/components/ui/input';
 import { useCallback, useEffect, useState } from 'react';
 import UpgradePlan from '../UpgradePlan';
