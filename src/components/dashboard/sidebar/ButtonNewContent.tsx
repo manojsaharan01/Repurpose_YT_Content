@@ -9,7 +9,7 @@ const ButtonNewContent = () => {
   return (
     <Link href='/home'>
       <Button size='lg' className='w-full mb-3'>
-        <FaPlus className='mr-2' /> New Content
+        <FaPlus className='mr-2' /> New Video
       </Button>
     </Link>
   );
