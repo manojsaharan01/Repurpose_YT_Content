@@ -1,12 +1,12 @@
 'use client';
 
-import { TypeContent } from '@/types/types';
+import { TypeYoutubeContent } from '@/types/types';
 import { ColumnDef } from '@tanstack/react-table';
 import { format } from 'date-fns';
 import ModalDeleteContent from './ModalDeleteContent';
-import TopicCell from './ContentRow';
+import Link from 'next/link';
 
-export const columns: ColumnDef<TypeContent>[] = [
+export const columns: ColumnDef<TypeYoutubeContent>[] = [
   {
     accessorKey: 'id',
     header: 'ID',
@@ -15,9 +15,13 @@ export const columns: ColumnDef<TypeContent>[] = [
     },
   },
   {
-    accessorKey: 'topic',
-    header: 'Topic',
-    cell: ({ row }) => <TopicCell row={row} />,
+    accessorKey: 'youtube_title',
+    header: 'Title',
+    cell: ({ row }) => (
+      <Link href={`/home/${row.original.id}`} className='w-60 truncate'>
+        {row.original.youtube_title}
+      </Link>
+    ),
   },
 
   {

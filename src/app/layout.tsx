@@ -13,18 +13,18 @@ const font = Inter({ subsets: ['latin'] });
 // It handles the integration of SEO metadata.
 export const metadata: Metadata = {
   metadataBase: new URL('https://builderkit.ai'),
-  title: 'AI Content Writer Tool by BuilderKit.ai',
+  title: 'AI Youtube Content Generation by BuilderKit.ai',
   description: 'Boilerplate for Blog Writer App',
   openGraph: {
     type: 'website',
-    title: 'AI Content Writer Tool by BuilderKit.ai',
+    title: 'AI Youtube Content Generation by BuilderKit.ai',
     description: 'Boilerplate for Blog Writer App',
     images: '/og-image.png',
     url: 'https://builderkit.ai',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AI Content Writer Tool by BuilderKit.ai',
+    title: 'AI Youtube Content Generation by BuilderKit.ai',
     description: 'Boilerplate for Blog Writer App',
     images: '/og-image.png',
   },
@@ -49,9 +49,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       `}
       </Script>
 
-      <html lang='en'>
+      <html lang='en' className='overflow-hidden'>
         <body className={font.className}>
-          <main>{children}</main>
+          {children}
           <Toaster />
         </body>
       </html>

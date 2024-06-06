@@ -6,6 +6,7 @@ import { useFormStatus } from 'react-dom';
 import { type ComponentProps } from 'react';
 import { Button, ButtonProps } from './ui/button';
 import { BarLoader } from 'react-spinners';
+import { useTheme } from 'next-themes';
 
 type Props = ComponentProps<'button'> &
   ButtonProps & {
@@ -14,13 +15,18 @@ type Props = ComponentProps<'button'> &
 
 export function SubmitButton({ loaderColor, children, ...props }: Props) {
   const { pending, action } = useFormStatus();
+  const { theme } = useTheme();
 
   // Checks if the form is pending and the action matches the form action
   const isPending = pending && action === props.formAction;
 
   return (
-    <Button {...props} type='submit' aria-disabled={pending}>
-      {isPending ? <BarLoader height={1} color={loaderColor ?? 'white'} /> : children}
+    <Button {...props} type='submit' aria-disabled={pending} disabled={pending || props.disabled}>
+      {isPending ? (
+        <BarLoader height={1} color={loaderColor ?? theme === 'dark' ? 'white' : 'black'} />
+      ) : (
+        children
+      )}
     </Button>
   );
 }

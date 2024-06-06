@@ -19,10 +19,7 @@ interface DataTableProps<TData, TValue> {
 }
 
 export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
-  const [pagination, setPagination] = useState({
-    pageIndex: 0,
-    pageSize: 5,
-  });
+  const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 5 });
 
   const table = useReactTable({
     data,
@@ -30,9 +27,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onPaginationChange: setPagination,
-    state: {
-      pagination,
-    },
+    state: { pagination },
   });
 
   return (

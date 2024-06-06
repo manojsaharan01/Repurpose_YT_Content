@@ -3,7 +3,7 @@ import SidebarItem from './SidebarItem';
 import DropdownAccount from './DropdownAccount';
 import SidebarUpgradePlan from './SidebarUpgradePlan';
 import { SidebarRoutes } from './content';
-import ButtonNewContent from './ButtonNewContent';
+import ButtonNewVideo from './ButtonNewVideo';
 
 const Sidebar = () => {
   return (
@@ -13,7 +13,7 @@ const Sidebar = () => {
           <Logo />
         </div>
 
-        <ButtonNewContent />
+        <ButtonNewVideo />
 
         <div className='space-y-1'>
           {SidebarRoutes?.map((item) => <SidebarItem key={item.label} route={item} />)}
