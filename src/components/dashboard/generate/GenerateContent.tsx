@@ -27,15 +27,29 @@ interface ContentItem {
   description: string;
 }
 
-const languages = [
-  { value: 'English', label: 'English' },
-  { value: 'French', label: 'French' },
-  { value: 'Hindi', label: 'Hindi' },
-  { value: 'Spanish', label: 'Spanish' },
-  { value: 'German', label: 'German' },
-  { value: 'Japanese', label: 'Japanese' },
-  { value: 'Chinese', label: 'Chinese' },
-  { value: 'Russian', label: 'Russian' },
+const languages = ['English', 'French', 'Hindi', 'Spanish', 'German', 'Japanese', 'Chinese', 'Russian'];
+
+const plantforms = [
+  {
+    value: 'blog',
+    label: 'Generate Blog',
+    style: 'bg-[#FFEFE8] dark:bg-[#FFEFE8]/5 text-[#FF740F]',
+  },
+  {
+    value: 'twitter',
+    label: 'Generate Twitter ‘X’ Post',
+    style: 'bg-[#E8F4FF] dark:bg-[#E8F4FF]/5 text-[#0F6FFF]',
+  },
+  {
+    value: 'reddit',
+    label: 'Generate Reddit Post',
+    style: 'bg-[#FFE8E8] dark:bg-[#FFE8E8]/5 text-[#FF4500]',
+  },
+  {
+    value: 'linkedin',
+    label: 'Generate Linkedin Post',
+    style: 'bg-[#E8EEFF] dark:bg-[#E8EEFF]/5 text-[#0836BB]',
+  },
 ];
 
 const GenerateContent: FC<GenerateContentProps> = ({ data }) => {
@@ -44,7 +58,7 @@ const GenerateContent: FC<GenerateContentProps> = ({ data }) => {
     (data?.generated_content as unknown as ContentItem[]) || []
   );
   const [isLoading, setIsLoading] = useState(false);
-  const [language, setLanguage] = useState<string | undefined>(data.language || 'English');
+  const [language, setLanguage] = useState(data.language || languages[0]);
 
   const summary = data.summary;
 
@@ -67,15 +81,15 @@ const GenerateContent: FC<GenerateContentProps> = ({ data }) => {
       const parsedData = JSON.parse(streamData);
       // Explicitly provide type annotation for prevContentData
       setContentData((prevContentData: any[]) => [...parsedData.content_ideas, ...prevContentData]);
+
       // Save the generated content once the stream is complete
       const { error } = await supabase
         .from('youtube_content_generator')
         .update({ generated_content: [...parsedData.content_ideas, ...contentData], language })
-        .eq('id', data.id)
-        .select();
+        .eq('id', data.id);
 
       if (error) {
-        errorToast('Error saving generated content');
+        errorToast(error.message);
       }
     }
 
@@ -86,17 +100,13 @@ const GenerateContent: FC<GenerateContentProps> = ({ data }) => {
     setIsLoading(true);
 
     if (!summary || !language || !type) {
-      errorToast('Please provide all the required fields');
-      setIsLoading(false);
-      return;
+      throw new Error('Please provide all the required fields');
     }
 
     try {
       const res = await fetch('/api/generate', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ type, summary, language }),
       });
 
@@ -105,7 +115,6 @@ const GenerateContent: FC<GenerateContentProps> = ({ data }) => {
       }
 
       const responseBody = res.body;
-
       if (!responseBody) {
         throw new Error('Something went wrong, please try again');
       }
@@ -134,62 +143,49 @@ const GenerateContent: FC<GenerateContentProps> = ({ data }) => {
   };
 
   return (
-    <div className='w-full lg:w-1/2 border rounded-xl overflow-auto'>
-      <form className='space-y-6 p-4 lg:px-6 lg:py-8'>
-        <p>What are the benefits of labeling ai-generated videos on youtube</p>
+    <div className='w-full lg:w-1/2 border rounded-lg overflow-auto'>
+      <form className='space-y-6 p-4'>
+        <p className='font-semibold'>
+          Generate content for different platforms from the provided youtube video
+        </p>
+
         <Separator />
+
         <div className='space-y-2'>
           <div className='text-default font-semibold text-sm'>Content output language</div>
           <Select onValueChange={(value) => setLanguage(value)} value={language}>
             <SelectTrigger className='w-full'>
-              <SelectValue placeholder='Select Language' />
+              <SelectValue />
             </SelectTrigger>
             <SelectContent>
               {languages.map((language) => (
-                <SelectItem key={language.value} value={language.value}>
-                  {language.label}
+                <SelectItem key={language} value={language}>
+                  {language}
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
         </div>
+
         <div className='mt-3 grid grid-cols-2 gap-2'>
-          <Button
-            disabled={isLoading || !summary}
-            onClick={() => handleGenerate('blog')}
-            variant='secondary'
-            size='sm'
-            className='bg-[#FFEFE8] dark:bg-[#FFEFE8]/5 text-[#FF740F] w-full'>
-            Generate Blog
-          </Button>
-          <Button
-            disabled={isLoading || !summary}
-            onClick={() => handleGenerate('twitter')}
-            variant='secondary'
-            size='sm'
-            className='bg-[#E8F4FF] dark:bg-[#E8F4FF]/5 text-[#0F6FFF] w-full'>
-            Generate Twitter ‘X’ Post
-          </Button>
-          <Button
-            disabled={isLoading || !summary}
-            onClick={() => handleGenerate('reddit')}
-            variant='secondary'
-            size='sm'
-            className='bg-[#FFE8E8] dark:bg-[#FFE8E8]/5 text-[#FF4500] w-full'>
-            Generate Reddit Post
-          </Button>
-          <Button
-            disabled={isLoading || !summary}
-            onClick={() => handleGenerate('linkedin')}
-            variant='secondary'
-            size='sm'
-            className='bg-[#E8EEFF] dark:bg-[#E8EEFF]/5 text-[#0836BB] w-full'>
-            Generate Linkedin Post
-          </Button>
+          {plantforms.map((plantform, index) => (
+            <Button
+              key={index}
+              disabled={isLoading || !summary}
+              onClick={() => handleGenerate(plantform.value)}
+              variant='secondary'
+              size='sm'
+              className={cn('w-full', plantform.style)}>
+              {plantform.label}
+            </Button>
+          ))}
         </div>
+
         <Separator />
+
         <div>
-          <p className='text-default font-semibold font-sm leading-6 mb-4'>Generated content</p>
+          <p className='text-default font-semibold font-sm leading-6'>Generated content</p>
+
           {contentData.length > 0 ? (
             <div className='space-y-5'>
               <div className='flex items-center justify-center'>
@@ -220,7 +216,7 @@ const GenerateContent: FC<GenerateContentProps> = ({ data }) => {
           ) : (
             <div className='flex items-center justify-center'>
               {isLoading ? (
-                <AiOutlineLoading className='animate-spin size-8' />
+                <AiOutlineLoading className='animate-spin size-6' />
               ) : (
                 <div className='flex flex-col justify-center items-center'>
                   <Image src={ZeroState} height={150} width={150} alt='zero-state' />

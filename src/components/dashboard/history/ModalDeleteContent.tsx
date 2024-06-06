@@ -39,10 +39,8 @@ const ModalDeleteContent = ({ row }: { row: any }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className='flex justify-end'>
-          <div className='rounded p-1 border cursor-pointer'>
-            <LuTrash2 className='size-4' />
-          </div>
+        <div className='w-fit rounded p-1 border cursor-pointer'>
+          <LuTrash2 className='size-4' />
         </div>
       </DialogTrigger>
       <DialogContent>

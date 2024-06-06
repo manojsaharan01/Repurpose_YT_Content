@@ -6,22 +6,24 @@ import GenerateContent from './GenerateContent';
 import { TypeYoutubeContent } from '@/types/types';
 import { convertToEmbedUrl, errorToast } from '@/utils/utils';
 import { toast } from '@/components/ui/use-toast';
-import { FaArrowRight, FaPlus } from 'react-icons/fa6';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useRouter } from 'next/navigation';
-import { getYouTubeVideoSubTitle, saveSummary } from '@/app/(dashboard)/home/action';
 import { AiOutlineLoading } from 'react-icons/ai';
 import ReactMarkdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight';
 import remarkGfm from 'remark-gfm';
+import { supabaseBrowserClient } from '@/utils/supabase/client';
+import { Button } from '@/components/ui/button';
 
 type SummaryProps = {
   data: TypeYoutubeContent;
 };
 
 const Summary: FC<SummaryProps> = ({ data }) => {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const supabase = supabaseBrowserClient();
   const [summary, setSummary] = useState<string>(data.summary || '');
   const [loading, setLoading] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<string>('summary');
 
   const router = useRouter();
   const embedUrl = convertToEmbedUrl(data.url);
@@ -71,15 +73,15 @@ const Summary: FC<SummaryProps> = ({ data }) => {
   }, []);
 
   const handleCopy = () => {
-    const textContent = document.querySelector('.markdown-container')?.textContent || '';
+    const content = activeTab === 'summary' ? summary : data.transcription;
 
     navigator.clipboard
-      .writeText(textContent!)
+      .writeText(content)
       .then(() => {
         toast({ description: 'Text copied to clipboard' });
       })
       .catch(() => {
-        toast({ description: 'Failed to copy text to clipboard', variant: 'destructive' });
+        errorToast('Failed to copy text to clipboard');
       });
   };
 
@@ -89,10 +91,9 @@ const Summary: FC<SummaryProps> = ({ data }) => {
     (async () => {
       setLoading(true);
       try {
-        const subTitle = await getYouTubeVideoSubTitle(data.url);
-        const summary = await generateSummary(subTitle);
+        const summary = await generateSummary(data.transcription);
         if (summary) {
-          await saveSummary(summary, data.id);
+          await supabase.from('youtube_content_generator').update({ summary }).eq('id', data.id);
         }
         router.refresh();
       } catch (error) {
@@ -101,13 +102,13 @@ const Summary: FC<SummaryProps> = ({ data }) => {
         setLoading(false);
       }
     })();
-  }, []);
+  }, [data, router, generateSummary, supabase]);
 
   return (
-    <div className='block lg:flex justify-between gap-1 h-[calc(100vh-86px)] space-y-10 lg:space-y-0'>
-      <div className='w-full lg:w-1/2 border rounded-xl overflow-auto'>
-        <div className='space-y-6 p-4 lg:px-10 lg:py-8'>
-          <p className='text-default font-semibold text-xl leading-8'>{data.youtube_title}</p>
+    <div className='block lg:flex justify-between gap-4 h-[calc(100vh-86px)] space-y-10 lg:space-y-0'>
+      <div className='w-full lg:w-1/2 border rounded-lg overflow-auto'>
+        <div className='space-y-4 p-4'>
+          <p className='font-semibold text-xl leading-8'>{data.youtube_title}</p>
           <iframe
             className='h-48 sm:h-72 w-full rounded-lg'
             src={embedUrl}
@@ -115,52 +116,50 @@ const Summary: FC<SummaryProps> = ({ data }) => {
             allowFullScreen
             allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
           />
+
           <div className='space-y-2.5'>
-            <div className='flex justify-between items-center'>
-              <p className='text-default font-semibold leading-6'>Summary</p>
-              <BiCopy
-                className='size-8 p-1.5 rounded border text-default cursor-pointer'
-                onClick={handleCopy}
-              />
-            </div>
             {loading ? (
               <div className='flex flex-col items-center justify-center'>
-                <AiOutlineLoading className='animate-spin size-8 mb-2' />
-                <p className='text-default text-sm font-medium leading-6 text-justify'>Loading summary...</p>
+                <AiOutlineLoading className='animate-spin size-6 mb-2' />
+                <p className='text-sm font-medium leading-6 text-justify'>Loading summary...</p>
               </div>
             ) : (
-              <ReactMarkdown
-                remarkPlugins={[remarkGfm]}
-                rehypePlugins={[rehypeHighlight]}
-                className='text-default text-sm font-medium leading-6 text-justify space-y-2 markdown-container'>
-                {summary}
-              </ReactMarkdown>
-            )}
-          </div>
-          {Array.isArray(data.chapters) && data.chapters.length > 0 && (
-            <div className='space-y-2.5'>
-              <p className='text-default font-semibold leading-6'>Chapters</p>
-              {(data.chapters as { title?: string | undefined }[]).map((chapter, index) => (
-                <div key={index} className='space-y-1.5'>
-                  <div
-                    className='flex justify-between items-center hover:bg-[#ECF6FF] dark:hover:bg-[#ECF6FF]/20 gap-2 rounded-lg px-2 py-1'
-                    onMouseEnter={() => setHoveredIndex(index)}
-                    onMouseLeave={() => setHoveredIndex(null)}>
-                    <p className='text-default text-sm font-medium leading-6'>{chapter?.title}</p>
-                    <div className=''>
-                      {hoveredIndex === index ? (
-                        <FaPlus className='size-3.5 text-default' />
-                      ) : (
-                        <FaArrowRight className='size-3.5 text-default' />
-                      )}
-                    </div>
+              // Tab component to switch between summary and transcription
+              <Tabs defaultValue='summary' onValueChange={setActiveTab}>
+                <div className='flex justify-between mb-4'>
+                  <TabsList>
+                    <TabsTrigger value='summary'>Summary</TabsTrigger>
+                    <TabsTrigger value='transcription'>Transcription</TabsTrigger>
+                  </TabsList>
+                  <div className='flex justify-between items-center'>
+                    <Button variant='outline' size='icon' onClick={handleCopy} className='size-7'>
+                      <BiCopy className='size-4' />
+                    </Button>
                   </div>
                 </div>
-              ))}
-            </div>
-          )}
+
+                <TabsContent value='summary'>
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    rehypePlugins={[rehypeHighlight]}
+                    className='text-sm font-medium leading-6 text-justify space-y-2'>
+                    {summary}
+                  </ReactMarkdown>
+                </TabsContent>
+                <TabsContent value='transcription'>
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    rehypePlugins={[rehypeHighlight]}
+                    className='text-sm font-medium leading-6 text-justify space-y-2'>
+                    {data.transcription}
+                  </ReactMarkdown>
+                </TabsContent>
+              </Tabs>
+            )}
+          </div>
         </div>
       </div>
+
       <GenerateContent data={data} />
     </div>
   );

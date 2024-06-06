@@ -5,12 +5,15 @@ import { redirect } from 'next/navigation';
 export default async function Generate({ params }: { params: { id: string } }) {
   const supabase = supabaseServerClient();
 
-  const id = params.id;
+  const { data, error } = await supabase
+    .from('youtube_content_generator')
+    .select('*')
+    .eq('id', params.id)
+    .single();
 
-  const { data } = await supabase.from('youtube_content_generator').select('*').eq('id', id).single();
-
-  if (!data) {
+  if (error) {
     redirect('/home');
   }
+
   return <Summary data={data} />;
 }
