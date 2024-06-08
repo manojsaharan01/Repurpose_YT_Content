@@ -27,7 +27,7 @@ export async function POST(request: Request) {
       presence_penalty: 0,
       n: 1,
       model: 'gpt-4-turbo',
-      max_tokens: 500,
+      max_tokens: 2000,
       temperature: 0.9,
       stream: true,
     });
