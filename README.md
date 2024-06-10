@@ -51,10 +51,14 @@ Ensure you have the following installed:
    ```sh
    cd [YOUR_APP_NAME]
 
-   git remote remove origin
-
    git checkout youtube-summary-tool
+
+   git remote remove origin
    ```
+
+   Removing the `origin remote` ensures you can work locally without pushing changes back to the original repository.
+
+   > - **However, note that after removing the remote, you won't be able to switch branches, so you'll need to clone the repository again if you want to work on another branch.**
 
 2. **Install dependencies:**
 
@@ -83,6 +87,44 @@ Ensure you have the following installed:
 
    _Email, full name and avatar url is auto synced with the auth table managed by supabase. Once user sign in through google or email, password. The User table gets synced with the new user data._
 
+   ```sql
+   -- Create a table for public users
+   create table users (
+      id uuid references auth.users on delete cascade not null primary key,
+      created_at timestamp with time zone not null default now(),
+      email text not null,
+      full_name text null,
+      avatar_url text null,
+      constraint users_email_key unique (email)
+   );
+
+   -- Set up Row Level Security (RLS)
+   alter table users
+   enable row level security;
+
+   create policy "Users can insert their own row." on users
+   for insert with check (auth.uid() = id);
+
+   create policy "Users can update own row" on users
+   for update using (auth.uid() = id);
+
+   create policy "Users can read own row" on users
+   for select using (auth.uid() = id);
+
+   -- This trigger automatically creates a profile entry when a new user signs up via Supabase Auth.
+   create function public.handle_new_user()
+   returns trigger as $$
+   begin
+   insert into public.users (id, email, full_name, avatar_url)
+   values (new.id, new.email, new.raw_user_meta_data->>'full_name', new.raw_user_meta_data->>'avatar_url');
+   return new;
+   end;
+   $$ language plpgsql security definer;
+   create trigger on_auth_user_created_trigger
+   after insert on auth.users
+   for each row execute procedure public.handle_new_user();
+   ```
+
    **Now, create the YouTube Summary table required for this tool.**
 
    ```sql
@@ -100,7 +142,7 @@ Ensure you have the following installed:
     constraint youtube_content_generator_pkey primary key (id),
     constraint youtube_content_generator_user_id_fkey foreign key (user_id) references users (id)
    );
-   ```
+
 
    -- Set up Row Level Security (RLS) alter table youtube_content_generator enable row level security;
 
@@ -111,12 +153,15 @@ Ensure you have the following installed:
    create policy "Users can read own row" on youtube_content_generator for select using (auth.uid() = user_id);
 
    create policy "Users can delete own row" on youtube_content_generator for delete using (auth.uid() = user_id);
-
-   ````
+   ```
 
    > For all the tables, we enable the RLS policy by default with necessary permissions as mentioned in the script.
 
-   5. **Sync Supabase Types:**
+5. **Enable the Google Auth Provider:**
+
+   Follow this [documentation](https://supabase.com/docs/guides/auth/social-login/auth-google#application-code-configuration) for detailed steps to configure OAuth Credentials in the [Google Cloud Console](https://console.cloud.google.com/) & enabling the Auth Provider in the [Supabase Dashboard](https://supabase.com/dashboard/project/_/auth/providers).
+
+6. **Sync Supabase Types:**
 
    This will sync the table schema locally from Supabase. Run the below commands to login to supabase and sync the schema type.
 
@@ -126,11 +171,11 @@ Ensure you have the following installed:
 
    ```sh
    npm run dev
-   ````
+   ```
 
    This will start the development server on `http://localhost:3000`.
 
-2. **Build for production:**
+7. **Build for production:**
 
    ```sh
    npm run build
@@ -138,7 +183,7 @@ Ensure you have the following installed:
 
    This command compiles the application for production usage.
 
-3. **Start the production server:**
+8. **Start the production server:**
 
    ```sh
    npm start
