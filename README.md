@@ -173,7 +173,7 @@ Ensure you have the following installed:
 
    > Note: To enable Google Authentication for your application, please refer to the [Supabase Setup Guide](https://docs.builderkit.ai/setup/supabase).
 
-7. **Build for production:**
+   2. **Build for production:**
 
    ```sh
    npm run build
@@ -181,7 +181,7 @@ Ensure you have the following installed:
 
    This command compiles the application for production usage.
 
-8. **Start the production server:**
+  3. **Start the production server:**
 
    ```sh
    npm start
