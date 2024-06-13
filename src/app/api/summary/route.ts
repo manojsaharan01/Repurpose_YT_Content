@@ -23,7 +23,7 @@ export async function POST(request: Request) {
     const stream = await openai.chat.completions.create({
       messages: [{ role: 'user', content: prompt }],
       model: 'gpt-4-turbo',
-      max_tokens: 500,
+      max_tokens: 2000,
       temperature: 0.9,
       stream: true,
     });
