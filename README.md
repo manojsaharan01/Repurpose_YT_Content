@@ -51,8 +51,14 @@ Ensure you have the following installed:
    ```sh
    cd [YOUR_APP_NAME]
 
-   git checkout youtube-content-generator
+   git checkout youtube-summary-tool
+
+   git remote remove origin
    ```
+
+   Removing the `origin remote` ensures you can work locally without pushing changes back to the original repository.
+
+   > - **However, note that after removing the remote, you won't be able to switch branches, so you'll need to clone the repository again if you want to work on another branch.**
 
 2. **Install dependencies:**
 
@@ -162,13 +168,15 @@ Ensure you have the following installed:
 
 1.  **Run the development server:**
 
-```sh
-npm run dev
-```
+    ```sh
+    npm run dev
+    ```
 
-This will start the development server on `http://localhost:3000`.
+    This will start the development server on `http://localhost:3000`.
 
-5. **Build for production:**
+   > Note: To enable Google Authentication for your application, please refer to the [Supabase Setup Guide](https://docs.builderkit.ai/setup/supabase).
+
+2. **Build for production:**
 
    ```sh
    npm run build
@@ -176,7 +184,7 @@ This will start the development server on `http://localhost:3000`.
 
    This command compiles the application for production usage.
 
-6. **Start the production server:**
+3. **Start the production server:**
 
    ```sh
    npm start
