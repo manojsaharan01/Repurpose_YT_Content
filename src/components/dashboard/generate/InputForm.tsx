@@ -2,13 +2,11 @@
 
 import { Input } from '@/components/ui/input';
 import { useCallback, useEffect, useState } from 'react';
-import UpgradePlan from '../UpgradePlan';
 import { FaArrowRight } from 'react-icons/fa6';
 import { SubmitButton } from '@/components/SubmitButton';
 import { errorToast } from '@/utils/utils';
 import { useRouter } from 'next/navigation';
-import Logo from '@/components/Logo';
-import { getYoutubeVideoDetails } from '@/app/(dashboard)/home/action';
+import { getYoutubeVideoDetails } from '@/app/(dashboard)/home/actions';
 import { supabaseBrowserClient } from '@/utils/supabase/client';
 import ModalLimitExceeded from './ModalLimitExceeded';
 
@@ -26,21 +24,18 @@ const InputForm = () => {
     }
 
     const isYouTubeUrl = url.includes('youtube.com');
-
     if (!isYouTubeUrl) {
       return errorToast('Please provide a valid YouTube video URL.');
     }
 
     try {
-      const data = await getYoutubeVideoDetails(url);
-
-      if (typeof data === 'string') {
-        throw new Error('Failed to get transcription from the video');
+      const response = await getYoutubeVideoDetails(url);
+      if (typeof response === 'string') {
+        throw new Error(response);
       }
-
-      router.replace(`/home/${data?.id}`);
+      router.replace(`/home/${response.id}`);
     } catch (error) {
-      errorToast('Transcription for this video is not available. Please try another video.');
+      errorToast(`${error}`);
     }
   };
 
@@ -64,34 +59,27 @@ const InputForm = () => {
   }, [limitUser]);
 
   return (
-    <div className='flex flex-col justify-between items-center h-[calc(100vh-86px)]'>
-      {hasLimitExceeded && <ModalLimitExceeded isModalOpen={hasLimitExceeded} />}
+    <>
+      <ModalLimitExceeded isModalOpen={hasLimitExceeded} />
 
-      <div className='w-full flex flex-col items-center justify-center mt-12'>
-        <Logo />
-        <p className='text-default font-medium leading-6 max-w-96 mt-5'>
-          Generate content from your favourite YouTube videos. Paste the URL below and create content
-        </p>
-        <form className='mt-11 w-full flex items-center mx-auto max-w-2xl relative'>
-          <Input
-            placeholder='https://youtube.com/'
-            className='rounded-md pl-4 pr-10 py-2 border w-full'
-            type='url'
-            name='url'
-            autoFocus
-          />
-          <SubmitButton
-            size='icon'
-            variant='secondary'
-            className='rounded-r-md absolute right-0 top-0 h-full rounded-l-none border'
-            disabled={hasLimitExceeded}
-            formAction={handleGeneration}>
-            <FaArrowRight />
-          </SubmitButton>
-        </form>
-      </div>
-      <UpgradePlan />
-    </div>
+      <form className='mt-11 w-full flex items-center mx-auto max-w-2xl relative'>
+        <Input
+          placeholder='https://youtube.com/'
+          className='rounded-md pl-4 pr-10 py-2 border w-full'
+          type='url'
+          name='url'
+          autoFocus
+        />
+        <SubmitButton
+          size='icon'
+          variant='secondary'
+          className='rounded-r-md absolute right-0 top-0 h-full rounded-l-none border'
+          disabled={hasLimitExceeded}
+          formAction={handleGeneration}>
+          <FaArrowRight />
+        </SubmitButton>
+      </form>
+    </>
   );
 };
 

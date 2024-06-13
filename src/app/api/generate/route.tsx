@@ -7,7 +7,6 @@ const openai = new OpenAI();
 export const POST = async (req: Request) => {
   try {
     const user = await getUserDetails();
-
     // Check if user is logged in
     if (user == null) {
       throw new Error('Please login to create contents.');
@@ -28,11 +27,7 @@ export const POST = async (req: Request) => {
     // Configuration for the OpenAI API call
     const stream = await openai.chat.completions.create({
       messages: [{ role: 'user', content: `type JSON ${prompt}` }],
-      top_p: 1,
-      frequency_penalty: 0,
-      presence_penalty: 0,
       stream: true,
-      n: 1,
       model: 'gpt-4-turbo',
       max_tokens: 2000,
       temperature: 0.9,

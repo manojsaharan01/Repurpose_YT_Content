@@ -4,7 +4,7 @@ import { TypeYoutubeContent } from '@/types/types';
 import { ColumnDef } from '@tanstack/react-table';
 import { format } from 'date-fns';
 import ModalDeleteContent from './ModalDeleteContent';
-import TopicCell from './ContentRow';
+import Link from 'next/link';
 
 export const columns: ColumnDef<TypeYoutubeContent>[] = [
   {
@@ -17,7 +17,11 @@ export const columns: ColumnDef<TypeYoutubeContent>[] = [
   {
     accessorKey: 'youtube_title',
     header: 'Title',
-    cell: ({ row }) => <TopicCell row={row} />,
+    cell: ({ row }) => (
+      <Link href={`/home/${row.original.id}`} className='w-60 truncate'>
+        {row.original.youtube_title}
+      </Link>
+    ),
   },
 
   {

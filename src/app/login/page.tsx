@@ -12,7 +12,7 @@ export default function Login() {
     <div className='h-screen flex'>
       <div className='w-full flex flex-col items-center justify-center px-6'>
         <div className='text-2xl md:text-4xl font-medium mb-6 text-center space-y-2'>
-          <p>AI YouTube Summary Tool </p>
+          <p>AI YouTube Content Generator Tool</p>
           <p className='text-lg'>by Builderkit.ai</p>
         </div>
         <h2 className='text-default text-sm mt-3 mb-9 font-medium'>Login or register with your email</h2>

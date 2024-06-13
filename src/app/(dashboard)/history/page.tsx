@@ -9,10 +9,10 @@ const page = async () => {
 
   // Retrieves all content entries from 'youtube_content_generator' table
   // Ordered by creation date, newest first
-
   const { data, error } = await supabase
     .from('youtube_content_generator')
     .select('*')
+    .not('summary', 'eq', null)
     .order('created_at', { ascending: false });
 
   if (error) {
