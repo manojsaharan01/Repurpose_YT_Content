@@ -10,7 +10,7 @@ import ButtonNewVideo from './ButtonNewVideo';
 const MobileSidebar = () => {
   return (
     <Sheet>
-      <SheetTrigger className=' pr-4 hover:opacity-75 transition'>
+      <SheetTrigger className='flex items-center pr-4 hover:opacity-75 transition'>
         <FaBars />
       </SheetTrigger>
       <SheetContent side='left' className='p-5 pt-8'>
