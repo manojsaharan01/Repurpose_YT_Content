@@ -8,9 +8,6 @@ export async function getYoutubeVideoDetails(url: string) {
   const supabase = supabaseServerClient();
 
   const user = await getUserDetails();
-  if (user == null) {
-    return 'Error fetching user details.';
-  }
 
   const info = await ytdl.getInfo(url);
   const title = info.videoDetails.title;
@@ -40,7 +37,7 @@ export async function getYoutubeVideoDetails(url: string) {
   const { data, error } = await supabase
     .from('youtube_content_generator')
     .insert({
-      user_id: user.id,
+      user_id: user?.id,
       youtube_title: title,
       url: url,
       transcription: subtitleTexts[0].text,

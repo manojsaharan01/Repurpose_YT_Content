@@ -11,7 +11,7 @@ export type Database = {
           filename: string;
           history_metadata: string | null;
           id: string;
-          user_id: string;
+          user_id: string | null;
         };
         Insert: {
           chat_history?: Json | null;
@@ -20,7 +20,7 @@ export type Database = {
           filename: string;
           history_metadata?: string | null;
           id?: string;
-          user_id: string;
+          user_id?: string | null;
         };
         Update: {
           chat_history?: Json | null;
@@ -29,7 +29,7 @@ export type Database = {
           filename?: string;
           history_metadata?: string | null;
           id?: string;
-          user_id?: string;
+          user_id?: string | null;
         };
         Relationships: [
           {
@@ -47,12 +47,13 @@ export type Database = {
           created_at: string;
           history_metadata: string | null;
           id: string;
+          ingestion_done: boolean | null;
           style: string;
           summary: string | null;
           tone: string;
-          transcription_id: string | null;
+          transcription: string;
           url: string;
-          user_id: string;
+          user_id: string | null;
           video_title: string;
         };
         Insert: {
@@ -60,12 +61,13 @@ export type Database = {
           created_at?: string;
           history_metadata?: string | null;
           id?: string;
+          ingestion_done?: boolean | null;
           style: string;
           summary?: string | null;
           tone: string;
-          transcription_id?: string | null;
+          transcription: string;
           url: string;
-          user_id: string;
+          user_id?: string | null;
           video_title: string;
         };
         Update: {
@@ -73,12 +75,13 @@ export type Database = {
           created_at?: string;
           history_metadata?: string | null;
           id?: string;
+          ingestion_done?: boolean | null;
           style?: string;
           summary?: string | null;
           tone?: string;
-          transcription_id?: string | null;
+          transcription?: string;
           url?: string;
-          user_id?: string;
+          user_id?: string | null;
           video_title?: string;
         };
         Relationships: [
@@ -98,7 +101,7 @@ export type Database = {
           results: string | null;
           style: string;
           topic: string;
-          user_id: string;
+          user_id: string | null;
           voice: string | null;
           word_limit: string | null;
         };
@@ -108,7 +111,7 @@ export type Database = {
           results?: string | null;
           style: string;
           topic: string;
-          user_id: string;
+          user_id?: string | null;
           voice?: string | null;
           word_limit?: string | null;
         };
@@ -118,7 +121,7 @@ export type Database = {
           results?: string | null;
           style?: string;
           topic?: string;
-          user_id?: string;
+          user_id?: string | null;
           voice?: string | null;
           word_limit?: string | null;
         };
@@ -378,7 +381,7 @@ export type Database = {
           id: string;
           model: string | null;
           title: string | null;
-          user_id: string;
+          user_id: string | null;
         };
         Insert: {
           chat_history?: Json | null;
@@ -386,7 +389,7 @@ export type Database = {
           id?: string;
           model?: string | null;
           title?: string | null;
-          user_id: string;
+          user_id?: string | null;
         };
         Update: {
           chat_history?: Json | null;
@@ -394,7 +397,7 @@ export type Database = {
           id?: string;
           model?: string | null;
           title?: string | null;
-          user_id?: string;
+          user_id?: string | null;
         };
         Relationships: [
           {
@@ -414,7 +417,7 @@ export type Database = {
           image_url: string | null;
           prompt: string;
           url: string;
-          user_id: string;
+          user_id: string | null;
         };
         Insert: {
           created_at?: string;
@@ -423,7 +426,7 @@ export type Database = {
           image_url?: string | null;
           prompt: string;
           url: string;
-          user_id: string;
+          user_id?: string | null;
         };
         Update: {
           created_at?: string;
@@ -432,7 +435,7 @@ export type Database = {
           image_url?: string | null;
           prompt?: string;
           url?: string;
-          user_id?: string;
+          user_id?: string | null;
         };
         Relationships: [
           {
@@ -580,7 +583,7 @@ export type Database = {
           summary: string | null;
           transcription: string;
           url: string;
-          user_id: string;
+          user_id: string | null;
           youtube_title: string;
         };
         Insert: {
@@ -591,7 +594,7 @@ export type Database = {
           summary?: string | null;
           transcription: string;
           url: string;
-          user_id: string;
+          user_id?: string | null;
           youtube_title: string;
         };
         Update: {
@@ -602,7 +605,7 @@ export type Database = {
           summary?: string | null;
           transcription?: string;
           url?: string;
-          user_id?: string;
+          user_id?: string | null;
           youtube_title?: string;
         };
         Relationships: [
