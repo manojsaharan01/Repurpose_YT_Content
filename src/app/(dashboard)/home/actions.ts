@@ -9,8 +9,11 @@ export async function getYoutubeVideoDetails(url: string) {
 
   try {
     const user = await getUserDetails();
+    console.log(user);
 
     const info = await ytdl.getInfo(url);
+    console.log('------info------');
+
     const title = info.videoDetails.title;
     const subTitles = info.player_response.captions?.playerCaptionsTracklistRenderer?.captionTracks || [];
 
@@ -19,6 +22,8 @@ export async function getYoutubeVideoDetails(url: string) {
     if (englishSubtitles.length === 0) {
       throw 'No subtitles found.';
     }
+
+    console.log('-------subtitle text-------');
 
     // Get the subtitle text from the first English subtitle
     const subtitleTexts = await Promise.all(
@@ -35,6 +40,8 @@ export async function getYoutubeVideoDetails(url: string) {
       })
     );
 
+    console.log('----store-----');
+
     const { data, error } = await supabase
       .from('youtube_content_generator')
       .insert({
@@ -47,10 +54,7 @@ export async function getYoutubeVideoDetails(url: string) {
       .single();
 
     if (error) {
-      throw 'Error inserting data into database.';
-    }
-    if (!data) {
-      throw 'Error fetching YouTube video details.';
+      throw error.message;
     }
 
     return { id: data.id };
