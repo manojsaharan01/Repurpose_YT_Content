@@ -11,16 +11,8 @@ export async function getYoutubeVideoDetails(url: string) {
     const user = await getUserDetails();
     console.log(user);
 
-    const options = {
-      requestOptions: {
-        headers: {
-          'User-Agent':
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-        },
-      },
-    };
-
-    const info = await ytdl.getInfo(url, options);
+    const videoId = await ytdl.getURLVideoID(url);
+    const info = await ytdl.getInfo(videoId);
     console.log(info, '-------===------');
 
     const title = info.videoDetails.title;
@@ -64,8 +56,7 @@ export async function getYoutubeVideoDetails(url: string) {
 
     return { id: data.id };
   } catch (error) {
-    console.log(error);
-
+    console.error(error);
     return { error: `${error}` };
   }
 }
