@@ -12,7 +12,7 @@ export async function getYoutubeVideoDetails(url: string) {
     console.log(user);
 
     const info = await ytdl.getInfo(url);
-    console.log('------info------');
+    console.log(info, '-------===------');
 
     const title = info.videoDetails.title;
     const subTitles = info.player_response.captions?.playerCaptionsTracklistRenderer?.captionTracks || [];
@@ -59,6 +59,8 @@ export async function getYoutubeVideoDetails(url: string) {
 
     return { id: data.id };
   } catch (error) {
+    console.log(error);
+
     return { error: `${error}` };
   }
 }
