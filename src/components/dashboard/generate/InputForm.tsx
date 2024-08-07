@@ -29,17 +29,10 @@ const InputForm = () => {
         throw 'Please provide a valid YouTube video URL.';
       }
 
-      console.log('Getting video details...');
-
       const response = await getYoutubeVideoDetails(url);
-
-      console.log(response, '----response');
-
       if (response.error) {
         throw response.error;
       }
-
-      console.log(response.id, '----id');
 
       router.replace(`/home/${response.id}`);
     } catch (error) {
