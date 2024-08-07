@@ -18,21 +18,29 @@ const InputForm = () => {
   const router = useRouter();
 
   const handleGeneration = async (formData: FormData) => {
-    const url = formData.get('url') as string;
-    if (!url) {
-      return errorToast('Please provide YouTube video URL.');
-    }
-
-    const isYouTubeUrl = url.includes('youtube.com');
-    if (!isYouTubeUrl) {
-      return errorToast('Please provide a valid YouTube video URL.');
-    }
-
     try {
-      const response = await getYoutubeVideoDetails(url);
-      if (typeof response === 'string') {
-        throw new Error(response);
+      const url = formData.get('url') as string;
+      if (!url) {
+        throw 'Please provide YouTube video URL.';
       }
+
+      const isYouTubeUrl = url.includes('youtube.com');
+      if (!isYouTubeUrl) {
+        throw 'Please provide a valid YouTube video URL.';
+      }
+
+      console.log('Getting video details...');
+
+      const response = await getYoutubeVideoDetails(url);
+
+      console.log(response, '----response');
+
+      if (response.error) {
+        throw response.error;
+      }
+
+      console.log(response.id, '----id');
+
       router.replace(`/home/${response.id}`);
     } catch (error) {
       errorToast(`${error}`);
