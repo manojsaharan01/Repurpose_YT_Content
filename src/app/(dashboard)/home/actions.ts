@@ -11,7 +11,16 @@ export async function getYoutubeVideoDetails(url: string) {
     const user = await getUserDetails();
     console.log(user);
 
-    const info = await ytdl.getInfo(url);
+    const options = {
+      requestOptions: {
+        headers: {
+          'User-Agent':
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+        },
+      },
+    };
+
+    const info = await ytdl.getInfo(url, options);
     console.log(info, '-------===------');
 
     const title = info.videoDetails.title;
@@ -22,8 +31,6 @@ export async function getYoutubeVideoDetails(url: string) {
     if (englishSubtitles.length === 0) {
       throw 'No subtitles found.';
     }
-
-    console.log('-------subtitle text-------');
 
     // Get the subtitle text from the first English subtitle
     const subtitleTexts = await Promise.all(
@@ -39,8 +46,6 @@ export async function getYoutubeVideoDetails(url: string) {
         };
       })
     );
-
-    console.log('----store-----');
 
     const { data, error } = await supabase
       .from('youtube_content_generator')
