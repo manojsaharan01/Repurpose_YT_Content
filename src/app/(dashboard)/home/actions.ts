@@ -2,17 +2,21 @@
 
 import { getUserDetails, supabaseServerClient } from '@/utils/supabase/server';
 import { parseStringPromise } from 'xml2js';
-import ytdl from 'ytdl-core';
+import { HttpsProxyAgent } from 'https-proxy-agent';
+import ytdl from '@distube/ytdl-core';
 
 export async function getYoutubeVideoDetails(url: string) {
   const supabase = supabaseServerClient();
 
   try {
     const user = await getUserDetails();
-    console.log(user);
 
-    const videoId = await ytdl.getURLVideoID(url);
-    const info = await ytdl.getInfo(videoId);
+    console.log(url);
+
+    const proxyAgent = new HttpsProxyAgent('http://fixie:XpmfoBVu8iczd45@criterium.usefixie.com:80');
+
+    // Get video info
+    const info = await ytdl.getBasicInfo(url);
     console.log(info, '-------===------');
 
     const title = info.videoDetails.title;
