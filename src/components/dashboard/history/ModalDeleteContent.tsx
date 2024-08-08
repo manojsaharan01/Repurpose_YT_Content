@@ -21,19 +21,14 @@ const ModalDeleteContent = ({ row }: { row: any }) => {
   const handleDelete = async () => {
     const supabase = supabaseBrowserClient();
 
-    try {
-      const { error } = await supabase.from('youtube_content_generator').delete().eq('id', row.original.id);
-
-      if (!error) {
-        toast({ title: 'Content deleted successfully', variant: 'destructive' });
-        router.refresh();
-      } else {
-        errorToast('Something went wrong, please try again');
-      }
-    } catch (error) {
-      console.error('Error deleting content:', error);
-      errorToast('Something went wrong, please try again');
+    const { error } = await supabase.from('youtube_content_generator').delete().eq('id', row.original.id);
+    if (error) {
+      errorToast(error.message);
+      return;
     }
+
+    toast({ description: 'Content deleted successfully' });
+    router.refresh();
   };
 
   return (
