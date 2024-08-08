@@ -44,7 +44,7 @@ export async function getYoutubeVideoDetails(url: string) {
       },
       {
         domain: '.youtube.com',
-        expirationDate: 1754663038.637558,
+        expirationDate: 1754665648.594162,
         hostOnly: false,
         httpOnly: true,
         name: '__Secure-1PSIDCC',
@@ -53,12 +53,12 @@ export async function getYoutubeVideoDetails(url: string) {
         secure: true,
         session: false,
         storeId: '0',
-        value: 'AKEyXzXzgoI8eOhmf5N0NkDmxGRT_fPtJkRuzGZlo1_XNMrLvbbHdsZEmVAxk5dMt6vMSgmc',
+        value: 'AKEyXzXgQBoKO5b9wFKzAUZIoE8tsWK__zjEzyfJVbESX62wjCq9TefTiSB1fx93qpsypoYoUQ',
         id: 3,
       },
       {
         domain: '.youtube.com',
-        expirationDate: 1754662991.289394,
+        expirationDate: 1754665398.967425,
         hostOnly: false,
         httpOnly: true,
         name: '__Secure-1PSIDTS',
@@ -67,7 +67,7 @@ export async function getYoutubeVideoDetails(url: string) {
         secure: true,
         session: false,
         storeId: '0',
-        value: 'sidts-CjIB4E2dkTYGlQnKOdpkFSFzfG8YxidNL6TA8D0Qx65yIG-z4pQHFEPC3GzdGAUPh8hYIxAA',
+        value: 'sidts-CjIB4E2dkWJqd3NEPzAHVGr-yapMY3n-MBgMbiSvwKhd-B4XUZg7iEddU7sQ6RSZ5TTFphAA',
         id: 4,
       },
       {
@@ -101,7 +101,7 @@ export async function getYoutubeVideoDetails(url: string) {
       },
       {
         domain: '.youtube.com',
-        expirationDate: 1754663038.637588,
+        expirationDate: 1754665648.594187,
         hostOnly: false,
         httpOnly: true,
         name: '__Secure-3PSIDCC',
@@ -110,12 +110,12 @@ export async function getYoutubeVideoDetails(url: string) {
         secure: true,
         session: false,
         storeId: '0',
-        value: 'AKEyXzW3x91zI8Nj80PxVDvzbt0rfpTasDCpXID_o7EZsnUmh2ACvDjhSkbz1JKOvaoF8ZiTvmM',
+        value: 'AKEyXzWatqo7ASALpTuyXnXdpPBp6y29Q99Ej_EH2C4pw2temvPn0aqyVC9J0H5K6SumqfFNpmQ',
         id: 7,
       },
       {
         domain: '.youtube.com',
-        expirationDate: 1754662991.289595,
+        expirationDate: 1754665398.96814,
         hostOnly: false,
         httpOnly: true,
         name: '__Secure-3PSIDTS',
@@ -124,7 +124,7 @@ export async function getYoutubeVideoDetails(url: string) {
         secure: true,
         session: false,
         storeId: '0',
-        value: 'sidts-CjIB4E2dkTYGlQnKOdpkFSFzfG8YxidNL6TA8D0Qx65yIG-z4pQHFEPC3GzdGAUPh8hYIxAA',
+        value: 'sidts-CjIB4E2dkWJqd3NEPzAHVGr-yapMY3n-MBgMbiSvwKhd-B4XUZg7iEddU7sQ6RSZ5TTFphAA',
         id: 8,
       },
       {
@@ -172,7 +172,7 @@ export async function getYoutubeVideoDetails(url: string) {
       },
       {
         domain: '.youtube.com',
-        expirationDate: 1757687036.048806,
+        expirationDate: 1757689647.544417,
         hostOnly: false,
         httpOnly: false,
         name: 'PREF',
@@ -215,7 +215,7 @@ export async function getYoutubeVideoDetails(url: string) {
       },
       {
         domain: '.youtube.com',
-        expirationDate: 1754663038.637501,
+        expirationDate: 1754665648.59412,
         hostOnly: false,
         httpOnly: false,
         name: 'SIDCC',
@@ -224,7 +224,7 @@ export async function getYoutubeVideoDetails(url: string) {
         secure: false,
         session: false,
         storeId: '0',
-        value: 'AKEyXzXFo3rNuvxI0R2-w386RHyY-AKokB18G_74J9NHaLHjPBZgsR4CLHze0freem6htiC-uQ',
+        value: 'AKEyXzWjh8EaOxyWoo77pjC2HZ0uVJ6cYkfxdHemO4HHLJXMQe-9A0T9coqNlvJ3f97LtSxBKXQ',
         id: 15,
       },
       {
@@ -243,10 +243,10 @@ export async function getYoutubeVideoDetails(url: string) {
       },
       {
         domain: '.youtube.com',
-        expirationDate: 1723127041,
+        expirationDate: 1723129652,
         hostOnly: false,
         httpOnly: false,
-        name: 'ST-3opvp5',
+        name: 'ST-tladcw',
         path: '/',
         sameSite: 'unspecified',
         secure: false,
@@ -258,22 +258,7 @@ export async function getYoutubeVideoDetails(url: string) {
       },
       {
         domain: '.youtube.com',
-        expirationDate: 1723127041,
-        hostOnly: false,
-        httpOnly: false,
-        name: 'ST-tladcw',
-        path: '/',
-        sameSite: 'unspecified',
-        secure: false,
-        session: false,
-        storeId: '0',
-        value:
-          'session_logininfo=AFmmF2swRgIhAOM3QRVNh180NUxDl0liMGSa3PxV1ilPCRu4HhjO7j6CAiEA9Z8PRZKDrL29Ab0lFTWR8-oW7O4sFRBKDTh-ZLOGTJs%3AQUQ3MjNmeXkxeWRaanVjS250WkpwTWZyd3RfeFc4Q3JZZ2x2RllkNW10bGNBYU9Palhlckd2dnNlLXdoMG9QdzBhUVZjZFlhaVhJODlJUHY1Tk5wOTczdEdOai13TzFnUXBkSFhFS1o3Q0pjOFlseU1qeUxCZkZUdGdmaVQ2ZFB2YkVrc2xmWWJEcjhOU1ZOYVlOZll4NHQ4Z2ZpX0FrMlBR',
-        id: 18,
-      },
-      {
-        domain: '.youtube.com',
-        expirationDate: 1723127042,
+        expirationDate: 1723129653,
         hostOnly: false,
         httpOnly: false,
         name: 'ST-xuwub9',
@@ -284,7 +269,7 @@ export async function getYoutubeVideoDetails(url: string) {
         storeId: '0',
         value:
           'session_logininfo=AFmmF2swRgIhAOM3QRVNh180NUxDl0liMGSa3PxV1ilPCRu4HhjO7j6CAiEA9Z8PRZKDrL29Ab0lFTWR8-oW7O4sFRBKDTh-ZLOGTJs%3AQUQ3MjNmeXkxeWRaanVjS250WkpwTWZyd3RfeFc4Q3JZZ2x2RllkNW10bGNBYU9Palhlckd2dnNlLXdoMG9QdzBhUVZjZFlhaVhJODlJUHY1Tk5wOTczdEdOai13TzFnUXBkSFhFS1o3Q0pjOFlseU1qeUxCZkZUdGdmaVQ2ZFB2YkVrc2xmWWJEcjhOU1ZOYVlOZll4NHQ4Z2ZpX0FrMlBR',
-        id: 19,
+        id: 18,
       },
     ]);
 
