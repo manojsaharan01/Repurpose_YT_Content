@@ -2,6 +2,8 @@ import { getUserDetails } from '@/utils/supabase/server';
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 
+export const runtime = 'edge';
+
 const openai = new OpenAI();
 
 export const POST = async (req: Request) => {
