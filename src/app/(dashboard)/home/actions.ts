@@ -2,18 +2,19 @@
 
 import { getUserDetails, supabaseServerClient } from '@/utils/supabase/server';
 import { parseStringPromise } from 'xml2js';
-import ytdl from 'ytdl-core';
+import ytdl from '@distube/ytdl-core';
+import ytCookies from '@/utils/youtube-cookies';
 
 export async function getYoutubeVideoDetails(url: string) {
   const supabase = supabaseServerClient();
 
   try {
     const user = await getUserDetails();
-    console.log(user);
 
-    const videoId = await ytdl.getURLVideoID(url);
-    const info = await ytdl.getInfo(videoId);
-    console.log(info, '-------===------');
+    const agent = ytdl.createAgent(ytCookies);
+
+    // Get video info
+    const info = await ytdl.getBasicInfo(url, { agent });
 
     const title = info.videoDetails.title;
     const subTitles = info.player_response.captions?.playerCaptionsTracklistRenderer?.captionTracks || [];
